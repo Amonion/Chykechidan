@@ -150,16 +150,18 @@ export default {
         return;
       }
 
-      const productData = new FormData();
-      productData.append("products", JSON.stringify(this.cartPurchases));
-      productData.append("ordered_time", new Date().getTime());
-      productData.append("quantity", this.purchaseProperties.totalQuantity);
-      productData.append("amount", this.purchaseProperties.totalAmount);
-      productData.append("transactionType", "Purchase");
-      productData.append("payment", this.payment);
-      productData.append("status", false);
-      productData.append("description", this.description);
-      productData.append("username", this.company.companyName);
+      const productData = {
+        products: JSON.stringify(this.cartPurchases),
+        ordered_time: new Date().getTime(),
+        quantity: this.purchaseProperties.totalQuantity,
+        amount: this.purchaseProperties.totalAmount,
+        transactionType: "Purchase",
+        payment: this.payment,
+        status: false,
+        seller: this.user.username,
+        description: this.description,
+        username: this.company.companyName,
+      };
 
       //   this.$store.commit("TOGGLE_PROCESSING");
       this.$store.commit("productStore/CLEAR_PURCHASE");

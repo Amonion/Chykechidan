@@ -2,81 +2,14 @@
   <div class="das-main-body">
     <div class="das-body-eader">
       <div>Notifications</div>
-      <div>Sep 20th, 2024</div>
+      <div>{{ formattedDate() }}</div>
     </div>
-    <div class="eac-notification-wrap">
-      <img
-        src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6625e255b4177e1ab26257de_Iron.png"
-        loading="lazy"
-        alt=""
-        class="note-loo"
-      />
+    <div v-for="item in items" :key="item.id" class="eac-notification-wrap">
+      <img src="/Icon.png" loading="lazy" alt="" class="note-loo" />
       <div class="note-content">
-        <div class="note-title">Welcome to Iron Heights Engineering</div>
-        <div>
-          Explore our meticulously crafted Educational Dashboard design for a
-          holistic learning experience. Monitor your engagement, achievements,
-          statistics, daily schedule
-        </div>
-        <div class="note-date">Sep 20, 2024</div>
-      </div>
-    </div>
-    <div class="eac-notification-wrap">
-      <img
-        src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6625e255b4177e1ab26257de_Iron.png"
-        loading="lazy"
-        alt=""
-        class="note-loo"
-      />
-      <div class="note-content">
-        <div class="note-title">Welcome to Iron Heights Engineering</div>
-        <div>
-          Explore our meticulously crafted Educational Dashboard design for a
-          holistic learning experience. Monitor your engagement, achievements,
-          statistics, daily schedule
-        </div>
-        <div class="note-date">Sep 20, 2024</div>
-      </div>
-    </div>
-    <div class="eac-notification-wrap">
-      <img
-        src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6625e255b4177e1ab26257de_Iron.png"
-        loading="lazy"
-        alt=""
-        class="note-loo"
-      />
-      <div class="note-content">
-        <div class="note-title">Welcome to Iron Heights Engineering</div>
-        <div>
-          Explore our meticulously crafted Educational Dashboard design for a
-          holistic learning experience. Monitor your engagement, achievements,
-          statistics, daily schedule
-        </div>
-        <div class="note-date">Sep 20, 2024</div>
-      </div>
-    </div>
-    <div class="das-tb-info">
-      <div>20 of 210</div>
-      <div class="das-paination">
-        <div class="das-pa-next">
-          <img
-            src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665b4f324c69c44d55719f02_chevron0.svg"
-            loading="lazy"
-            alt=""
-            class="das-paination-icon"
-          />
-        </div>
-        <div class="das-foot-pa active">1</div>
-        <div class="das-foot-pa">2</div>
-        <div class="das-foot-pa">3</div>
-        <div class="das-pa-next">
-          <img
-            src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665b500072be49a09b6c1d36_chevron10.svg"
-            loading="lazy"
-            alt=""
-            class="das-paination-icon"
-          />
-        </div>
+        <div class="note-title">{{ item.title }}</div>
+        <div v-html="item.content"></div>
+        <div class="note-date">{{ formattedDate(item.time) }}</div>
       </div>
     </div>
   </div>
@@ -88,9 +21,17 @@ export default {
 
   data() {
     return {
+      sort: "time",
       limit: 10,
       currentPage: 1,
-      sort: "-time",
+      pages: function () {
+        let array = [];
+        let x = Math.ceil(this.total / this.limit);
+        for (let i = 0; i < x; i++) {
+          array.push("i");
+        }
+        return array;
+      },
     };
   },
 
@@ -121,6 +62,44 @@ export default {
 
       const formattedDate = `${addOrdinalSuffix(day)} ${month}, ${year}`;
       return formattedDate;
+    },
+
+    formattedDate() {
+      const monthNames = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      const date = new Date();
+      const day = date.getDate();
+      const month = monthNames[date.getMonth()];
+      const year = date.getFullYear();
+
+      // Function to get the day suffix
+      function getDaySuffix(day) {
+        if (day > 3 && day < 21) return "th"; // catch 11th, 12th, 13th
+        switch (day % 10) {
+          case 1:
+            return "st";
+          case 2:
+            return "nd";
+          case 3:
+            return "rd";
+          default:
+            return "th";
+        }
+      }
+
+      return `${month} ${day}${getDaySuffix(day)}, ${year}`;
     },
 
     formatDateToTime(date) {
@@ -234,7 +213,7 @@ export default {
   },
 
   mounted() {
-    this.updateNotifications();
+    // this.updateNotifications();
   },
 
   computed: {
@@ -242,7 +221,7 @@ export default {
       return this.$store.getters.isAuthenticated;
     },
 
-    notifications() {
+    items() {
       return this.$store.state.admin.notifications;
     },
 
@@ -250,7 +229,7 @@ export default {
       return this.$store.state.admin.selectedNotifications;
     },
 
-    totalLength() {
+    total() {
       return this.$store.state.admin.notificationLength;
     },
 

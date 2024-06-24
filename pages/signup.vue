@@ -49,6 +49,15 @@
                 />
               </div>
               <div class="bill-input-wrap account">
+                <div>Phone Number</div>
+                <input
+                  class="bill-input w-input"
+                  placeholder="Enter Phone Number"
+                  type="tel"
+                  v-model="phone"
+                />
+              </div>
+              <div class="bill-input-wrap account">
                 <div>Password</div>
                 <input
                   class="bill-input w-input"
@@ -152,6 +161,7 @@ export default {
 
       username: "",
       email: "",
+      phone: "",
       password: "",
       confirmPassword: "",
       isChecked: false,
@@ -219,7 +229,7 @@ export default {
     clearInputs() {
       this.firstName = "";
       (this.lastName = ""), (this.username = "");
-      this.phoneNumber = "";
+      this.phone = "";
       this.email = "";
       this.password = "";
       this.confirmPassword = "";
@@ -267,20 +277,23 @@ export default {
         email: this.email.trim(),
         dateCreated: new Date().getTime(),
         password: this.password.trim(),
+        phone: this.phone,
         confirmPassword: this.confirmPassword.trim(),
       };
 
       this.onRequest = true;
 
       try {
-        const result = await this.$axios.post("/users/sign", form);
+        const result = await this.$axios.post("/users/signup", form);
         console.log(result);
         // const msg = result.data.message;
         // this.callResponse(msg, false);
         // this.clearInputs();
+        this.onRequest = false;
       } catch (err) {
         console.log(err.response);
         // this.callResponse(err.response.data.message, true);
+        this.onRequest = false;
       }
     },
   },

@@ -8,8 +8,9 @@
       <div class="das-tb">
         <div class="das-tb-ead">
           <div class="das-tb-cell">S/N</div>
-          <div class="das-tb-cell _30">Name</div>
           <div class="das-tb-cell _30">Title</div>
+
+          <div class="das-tb-cell _30">Name</div>
           <div class="das-tb-cell _30">Content</div>
         </div>
         <div

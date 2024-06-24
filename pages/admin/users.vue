@@ -52,7 +52,7 @@
           </div>
 
           <NuxtLink
-            :to="`/admin/user-detail/?id=${item.id}`"
+            :to="`/admin/user-detail/?id=${item.id}&username=${item.username}`"
             class="das-tb-cell _20 link"
             >{{ item.username }}</NuxtLink
           >

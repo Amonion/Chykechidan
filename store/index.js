@@ -215,14 +215,14 @@ export const actions = {
     }
 
     dispatch("GET_COMPANY", "/company");
-    dispatch(
-      "GET_PRODUCT_CATEGORIES",
-      "/products/?limit=20&page=1&isCategory=1"
-    );
-    dispatch("GET_TERMS", "/terms/?limit=20&page=1");
-    dispatch("GET_PROMOS", "/promotions/?limit=20&page=1&sort=-target");
+    // dispatch(
+    //   "GET_PRODUCT_CATEGORIES",
+    //   "/products/?limit=20&page=1&isCategory=1"
+    // );
+    // dispatch("GET_TERMS", "/terms/?limit=20&page=1");
+    // dispatch("GET_PROMOS", "/promotions/?limit=20&page=1&sort=-target");
 
-    dispatch("GET_BLOG", "/blog/?limit=20&page=1");
+    // dispatch("GET_BLOG", "/blog/?limit=20&page=1");
 
     // dispatch("GET_PRODUCTS", "/products/?limit=40&page=1");
   },

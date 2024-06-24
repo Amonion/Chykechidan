@@ -323,11 +323,6 @@ export const mutations = {
     state.company = checkArray(result.data);
   },
 
-  SET_NOTIFICATIONS(state, messages) {
-    state.notices = messages.results;
-    state.noticeLength = messages.length;
-  },
-
   CHECK_ALL_NOTIFICATIONS(state) {
     const newArray = [];
     state.isNotificationTempChecked = !state.isNotificationTempChecked;
@@ -543,6 +538,11 @@ export const mutations = {
     state.productStatus = true;
     state.selectedProducts = [];
   },
+
+  // SET_NOTIFICATIONS(state, result) {
+  //   state.notices = result.data;
+  //   state.noticeLength = result.totalLength;
+  // },
 
   SET_NOTIFICATIONS(state, data) {
     state.notificationLength = data.totalLength;
@@ -806,10 +806,10 @@ export const actions = {
     dispatch("GET_POSITIONS", "/staffs/positions/?limit=10&page=1");
     dispatch("GET_ABOUT", "/about/?limit=10&page=1");
     dispatch("GET_BANNERS", "/banners/?limit=10&page=1");
-    // dispatch(
-    //   "GET_TRANSACTIONS",
-    //   "/transactions/?limit=10&page=1&sort=-ordered_time&status=1"
-    // );
+    dispatch(
+      "GET_NOTIFICATIONS",
+      "/notifications/?limit=10&page=1&sort=time&username=Admin"
+    );
     dispatch("GET_COMPANY", "/company");
   },
 };

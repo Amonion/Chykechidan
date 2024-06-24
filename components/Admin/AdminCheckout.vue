@@ -150,20 +150,18 @@ export default {
         return;
       }
 
-      const productData = new FormData();
-      productData.append("products", JSON.stringify(this.cartItems));
-      productData.append("ordered_time", new Date().getTime());
-      productData.append("quantity", this.cartProperties.totalQuantity);
-      productData.append("amount", this.cartProperties.totalAmount);
-      productData.append("transactionType", "Order");
-      productData.append("payment", this.payment);
-      productData.append("status", false);
-      productData.append("seller", this.user.username);
-      productData.append("description", this.description);
-      productData.append(
-        "username",
-        this.buyingUser ? this.buyingUser.username : "Anonimous"
-      );
+      const productData = {
+        products: JSON.stringify(this.cartItems),
+        ordered_time: new Date().getTime(),
+        quantity: this.cartProperties.totalQuantity,
+        amount: this.cartProperties.totalAmount,
+        transactionType: "Order",
+        payment: this.payment,
+        status: false,
+        seller: this.user.username,
+        description: this.description,
+        username: this.buyingUser ? this.buyingUser.username : "Anonimous",
+      };
 
       //   this.$store.commit("TOGGLE_PROCESSING");
       this.$store.commit("productStore/HIDE_CART");
@@ -198,6 +196,8 @@ export default {
     },
 
     handleResponse(result) {
+      // console.log(result, result.response);
+
       if (!result.response) {
         this.$store.commit("admin/SET_TRANSACTIONS", result.data);
         // this.$store.dispatch(
