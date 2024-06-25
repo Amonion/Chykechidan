@@ -36,6 +36,9 @@ export const state = () => ({
   staffs: [],
   staffLength: 0,
 
+  notifications: [],
+  notificationLength: 0,
+
   earnings: [],
   earningLength: 0,
 
@@ -128,8 +131,9 @@ export const mutations = {
     state.plans = unCheckData(result.data);
   },
 
-  setCurrencies(state, result) {
-    state.currencies = result.data;
+  SET_NOTIFICATIONS(state, result) {
+    state.notifications = result.data;
+    state.notificationLength = result.totalLength;
   },
 };
 

@@ -55,7 +55,7 @@ export default {
       if (this.user.status == "Staff") {
         this.$router.push("/admin");
       } else {
-        this.$router.push("/dashboard");
+        this.$router.push("/customer");
       }
     },
 

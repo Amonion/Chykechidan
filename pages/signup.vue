@@ -285,14 +285,14 @@ export default {
 
       try {
         const result = await this.$axios.post("/users/signup", form);
-        console.log(result);
-        // const msg = result.data.message;
-        // this.callResponse(msg, false);
-        // this.clearInputs();
+        //console.log(result);
+        const msg = result.data.message;
+        this.callResponse(msg, false);
+        this.clearInputs();
         this.onRequest = false;
       } catch (err) {
-        console.log(err.response);
-        // this.callResponse(err.response.data.message, true);
+        //console.log(err.response);
+        this.callResponse(err.response.data.message, true);
         this.onRequest = false;
       }
     },

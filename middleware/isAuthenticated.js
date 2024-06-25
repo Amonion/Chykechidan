@@ -1,5 +1,5 @@
 export default function ({ store, redirect, route }) {
-  const protectedRoutes = "dashboard";
+  const protectedRoutes = "customer";
   const path = route.name;
 
   store.commit("hideNav");

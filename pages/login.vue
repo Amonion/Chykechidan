@@ -212,7 +212,7 @@ export default {
         if (user.status == "Staff") {
           this.$router.push("/admin");
         } else {
-          this.$router.push("/dashboard");
+          this.$router.push("/customer");
         }
         // await this.$store.dispatch("dashboard/initializeUserDetails", user);
       } catch (err) {
