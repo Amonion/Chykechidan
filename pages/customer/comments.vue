@@ -13,15 +13,25 @@
           <div class="das-tb-cell _40">Comment</div>
           <div class="das-tb-cell _20">Time</div>
         </div>
-        <div class="das-tb-body">
+        <div
+          v-for="(item, int) in items"
+          :key="item.id"
+          :class="{ even: int % 2 == 0 }"
+          class="das-tb-body"
+        >
           <div class="das-tb-cell">
-            <div>1</div>
-            <div class="das-tb-ceck active">
+            <div>{{ (currentPage - 1) * limit + int + 1 }}</div>
+            <div
+              :class="{ active: item.checked }"
+              class="das-tb-ceck"
+              @click="toggleComment(int)"
+            >
               <img
                 src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665805ea25eaee8db62cce44_check.svg"
                 loading="lazy"
                 alt=""
-                class="das-tb-icon active"
+                class="das-tb-icon"
+                :class="{ active: item.checked }"
               />
             </div>
           </div>
@@ -38,46 +48,6 @@
           <div class="das-tb-cell _30">3 * 300W Solar Panel = N400,500,</div>
           <div class="das-tb-cell _40">70,500</div>
           <div class="das-tb-cell _20">70,500</div>
-        </div>
-        <div class="das-tb-body even">
-          <div class="das-tb-cell">
-            <div>1</div>
-            <div class="das-tb-ceck active">
-              <img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665805ea25eaee8db62cce44_check.svg"
-                loading="lazy"
-                alt=""
-                class="das-tb-icon active"
-              />
-            </div>
-          </div>
-          <div class="das-tb-cell _40">3 * 300W Solar Panel = N400,500,</div>
-          <div class="das-tb-cell _20">70,500</div>
-          <div class="das-tb-cell _20 quant">
-            <div class="das-foot-pa quant">-</div>
-            <div class="tb-quant">100</div>
-            <div class="das-foot-pa quant">+</div>
-          </div>
-        </div>
-        <div class="das-tb-body">
-          <div class="das-tb-cell">
-            <div>1</div>
-            <div class="das-tb-ceck active">
-              <img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665805ea25eaee8db62cce44_check.svg"
-                loading="lazy"
-                alt=""
-                class="das-tb-icon active"
-              />
-            </div>
-          </div>
-          <div class="das-tb-cell _40">3 * 300W Solar Panel = N400,500,</div>
-          <div class="das-tb-cell _20">70,500</div>
-          <div class="das-tb-cell _20 quant">
-            <div class="das-foot-pa quant">-</div>
-            <div class="tb-quant">100</div>
-            <div class="das-foot-pa quant">+</div>
-          </div>
         </div>
       </div>
     </div>
@@ -129,6 +99,34 @@
         class="tb-action-icon"
       />
     </div>
+
+    <div class="das-form">
+      <div class="eac-form-input">
+        <div class="from-rid-label">Comment</div>
+        <textarea
+          placeholder="Enter Comment"
+          v-model="content"
+          class="from-rid-input w-input"
+        ></textarea>
+      </div>
+      <div v-if="showResponse" class="das-response" :class="{ error: isError }">
+        {{ response }}
+      </div>
+
+      <div class="form-btn-roups">
+        <div v-if="onRequest" class="overlay-btn pad">
+          <img
+            src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6656d0a87fa1d0b4305d0a2b_spinner.svg"
+            loading="lazy"
+            alt=""
+            class="form-btn-icon spinner"
+          />
+
+          <div class="tb-action-text">Processing...</div>
+        </div>
+        <div v-else @click="processData" class="overlay-btn pad">Submit</div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -141,6 +139,15 @@ export default {
       limit: 10,
       currentPage: 1,
       sort: "-time",
+      content: "",
+
+      response: "",
+      isError: false,
+      showResponse: false,
+      onRequest: false,
+
+      editingState: false,
+      editId: "",
     };
   },
   methods: {
@@ -250,17 +257,94 @@ export default {
       return formattedDate;
     },
 
-    async getActiveDeposits() {
-      this.$store.dispatch(
-        "admin/getActiveDeposits",
-        `/transactions/active-deposits/?limit=${this.limit}&page=${this.currentPage}&sort=${this.sort}`
-      );
+    toggleComment(int) {},
+
+    clearInputs() {
+      this.editId = "";
+      this.editingState = false;
+
+      this.content = "";
+    },
+
+    editComment() {
+      if (this.payment == "Payment") {
+        this.showOverlayResponse(
+          "Please select payment to proceed",
+          true,
+          false,
+          false,
+          true
+        );
+
+        return;
+      }
+    },
+
+    showOverlayResponse(msg, error, success, warning, show) {
+      const payload = {
+        msg,
+        error,
+        success,
+        warning,
+        show,
+      };
+
+      this.$store.commit("admin/SHOW_RESPONSE", payload);
+    },
+
+    async processData() {
+      if (this.content.trim().length < 30) {
+        this.showOverlayResponse(
+          "Sorry, comment must be at least 20 characters",
+          true,
+          false,
+          false,
+          true
+        );
+
+        return;
+      }
+
+      const commentData = {
+        content: this.content,
+        username: this.user.username,
+        image: this.user.image,
+        time: new Date().getTime(),
+      };
+
+      const payload = {
+        form: commentData,
+        url: this.editingState
+          ? `/comments/update/?id=${this.editId}&limit=${this.limit}&page=${this.currentPage}&sort=${this.sort}`
+          : `/comments/?limit=${this.limit}&page=${this.currentPage}&sort=${this.sort}`,
+      };
+
+      this.onRequest = true;
+
+      const result = await this.$store.dispatch("admin/MAKE_POST", payload);
+      this.handleResponse(result);
+    },
+
+    handleResponse(result) {
+      if (!result.response) {
+        this.$store.commit("SET_COMMENTS", result.data);
+        this.onRequest = false;
+        this.clearInputs();
+        this.showOverlayResponse(
+          "The comment operation was successful",
+          false,
+          true,
+          false,
+          true
+        );
+      } else {
+        console.log(result.response);
+        this.onRequest = false;
+      }
     },
   },
 
-  mounted() {
-    this.getActiveDeposits();
-  },
+  mounted() {},
 
   computed: {
     isAuthenticated() {
@@ -271,36 +355,12 @@ export default {
       return this.$store.getters.getUserInfo;
     },
 
-    isSuccess() {
-      return this.$store.state.admin.isModalSuccess;
-    },
-
-    isWarning() {
-      return this.$store.state.admin.isModalWarning;
-    },
-
-    isError() {
-      return this.$store.state.admin.isModalError;
-    },
-
     totalLength() {
-      return this.$store.state.admin.activeDepositLength;
+      return this.$store.state.commentLength;
     },
 
-    activeDeposits() {
-      return this.$store.state.admin.activeDeposits;
-    },
-
-    url() {
-      return this.$store.state.admin.modalURL;
-    },
-
-    responseMsg() {
-      return this.$store.state.admin.modalMsg;
-    },
-
-    showModal() {
-      return this.$store.state.admin.showModal;
+    items() {
+      return this.$store.state.comments;
     },
   },
 };

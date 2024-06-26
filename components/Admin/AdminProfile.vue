@@ -52,7 +52,7 @@
           <div class="from-rid-label">Email</div>
           <input
             class="from-rid-input w-input"
-            :placeholder="user.Email"
+            :placeholder="user.email"
             type="text"
           />
         </div>

@@ -17,21 +17,14 @@ export const state = () => ({
 
   faqs: [],
 
-  plans: [],
-
-  currencies: [],
-
-  reviews: [],
-  reviewLength: 0,
-
   banners: [],
   bannerLength: 0,
 
   reviews: [],
   reviewLength: 0,
 
-  managers: [],
-  managerLength: 0,
+  transactions: [],
+  transactionLength: 0,
 
   staffs: [],
   staffLength: 0,
@@ -39,12 +32,8 @@ export const state = () => ({
   notifications: [],
   notificationLength: 0,
 
-  earnings: [],
-  earningLength: 0,
-
-  currencies: [],
-  currencyLength: 0,
-  selectedCurrency: "",
+  comments: [],
+  commentLength: 0,
 
   company: "",
   about: "",
@@ -84,7 +73,7 @@ export const mutations = {
     state.isNavActive = false;
   },
 
-  SET_URL(state, URL) {
+  SET_FILE_URL(state, URL) {
     state.fileURL = URL;
   },
 
@@ -109,7 +98,7 @@ export const mutations = {
     state.terms = result.data;
   },
 
-  setFAQ(state, result) {
+  SET_FAQ(state, result) {
     state.faqs = result.data;
   },
 
@@ -118,17 +107,23 @@ export const mutations = {
     state.blogLength = result.totalLength;
   },
 
-  setBanners(state, result) {
+  SET_TRANSACTIONS(state, result) {
+    state.transactions = result.data;
+    state.transactionLength = result.totalLength;
+  },
+
+  SET_BANNERS(state, result) {
     state.banners = result.data;
     state.bannerLength = result.totalLength;
   },
 
-  setAbout(state, result) {
-    state.about = result.data[0];
+  SET_COMMENTS(state, result) {
+    state.comments = result.data;
+    state.commentLength = result.totalLength;
   },
 
-  setPlans(state, result) {
-    state.plans = unCheckData(result.data);
+  SET_ABOUT(state, result) {
+    state.about = result.data[0];
   },
 
   SET_NOTIFICATIONS(state, result) {
@@ -197,16 +192,16 @@ export const actions = {
     commit("SET_COMPANY", result.data);
   },
 
-  async GET_REFERRALS({ dispatch, commit }, url) {
+  async GET_COMMENTS({ dispatch, commit }, url) {
     const result = await dispatch("MAKE_GET", url);
-    commit("SET_REFERRALS", result.data);
+    commit("SET_COMMENTS", result.data);
   },
 
   INITIALIZE_APP({ commit, dispatch }, user) {
     if (user) {
       dispatch(
-        "GET_REFERRALS",
-        `/referrals/?username=${user.username}&limit=10&page=1`
+        "GET_COMMENTS",
+        `/comments/?username=${user.username}&limit=10&page=1`
       );
       dispatch(
         "GET_NOTIFICATIONS",
