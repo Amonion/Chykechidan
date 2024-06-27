@@ -2,7 +2,7 @@
   <div class="das-main-body">
     <div class="das-body-eader">
       <div>Comments</div>
-      <div>Sep 20th, 2024</div>
+      <div>{{ formattedDate() }}</div>
     </div>
     <div class="das-tb-flow">
       <div class="das-tb">
@@ -13,15 +13,27 @@
           <div class="das-tb-cell _40">Comment</div>
           <div class="das-tb-cell _20">Time</div>
         </div>
-        <div class="das-tb-body">
+        <div
+          v-for="(item, int) in items"
+          :key="item.id"
+          :class="{
+            even: int % 2 == 0,
+          }"
+          class="das-tb-body"
+        >
           <div class="das-tb-cell">
-            <div>1</div>
-            <div class="das-tb-ceck active">
+            <div>{{ (currentPage - 1) * limit + int + 1 }}</div>
+            <div
+              :class="{ active: item.checked }"
+              class="das-tb-ceck"
+              @click="toggleComment(int)"
+            >
               <img
                 src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665805ea25eaee8db62cce44_check.svg"
                 loading="lazy"
                 alt=""
-                class="das-tb-icon active"
+                class="das-tb-icon"
+                :class="{ active: item.checked }"
               />
             </div>
           </div>
@@ -35,52 +47,18 @@
               />
             </div>
           </div>
-          <div class="das-tb-cell _30">3 * 300W Solar Panel = N400,500,</div>
-          <div class="das-tb-cell _40">70,500</div>
-          <div class="das-tb-cell _20">70,500</div>
-        </div>
-        <div class="das-tb-body even">
-          <div class="das-tb-cell">
-            <div>1</div>
-            <div class="das-tb-ceck active">
-              <img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665805ea25eaee8db62cce44_check.svg"
-                loading="lazy"
-                alt=""
-                class="das-tb-icon active"
-              />
+          <div class="das-tb-cell _30">{{ item.username }}</div>
+          <div class="das-tb-cell _40">{{ item.content }}</div>
+          <div class="das-tb-cell _20">
+            <div>
+              {{ formatDateToTime(item.time) }} <br />
+              {{ formattedDate(item.time) }}
             </div>
-          </div>
-          <div class="das-tb-cell _40">3 * 300W Solar Panel = N400,500,</div>
-          <div class="das-tb-cell _20">70,500</div>
-          <div class="das-tb-cell _20 quant">
-            <div class="das-foot-pa quant">-</div>
-            <div class="tb-quant">100</div>
-            <div class="das-foot-pa quant">+</div>
-          </div>
-        </div>
-        <div class="das-tb-body">
-          <div class="das-tb-cell">
-            <div>1</div>
-            <div class="das-tb-ceck active">
-              <img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665805ea25eaee8db62cce44_check.svg"
-                loading="lazy"
-                alt=""
-                class="das-tb-icon active"
-              />
-            </div>
-          </div>
-          <div class="das-tb-cell _40">3 * 300W Solar Panel = N400,500,</div>
-          <div class="das-tb-cell _20">70,500</div>
-          <div class="das-tb-cell _20 quant">
-            <div class="das-foot-pa quant">-</div>
-            <div class="tb-quant">100</div>
-            <div class="das-foot-pa quant">+</div>
           </div>
         </div>
       </div>
     </div>
+
     <div class="das-tb-info">
       <div>20 of 210</div>
       <div class="das-paination">
@@ -105,6 +83,7 @@
         </div>
       </div>
     </div>
+
     <div class="das-tb-footer">
       <div class="das-tb-cell">
         <div>3</div>
@@ -169,6 +148,44 @@ export default {
       return formattedDate;
     },
 
+    formattedDate() {
+      const monthNames = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      const date = new Date();
+      const day = date.getDate();
+      const month = monthNames[date.getMonth()];
+      const year = date.getFullYear();
+
+      // Function to get the day suffix
+      function getDaySuffix(day) {
+        if (day > 3 && day < 21) return "th"; // catch 11th, 12th, 13th
+        switch (day % 10) {
+          case 1:
+            return "st";
+          case 2:
+            return "nd";
+          case 3:
+            return "rd";
+          default:
+            return "th";
+        }
+      }
+
+      return `${month} ${day}${getDaySuffix(day)}, ${year}`;
+    },
+
     paginate(int) {
       this.currentPage = int;
       this.getActiveDeposits();
@@ -212,16 +229,14 @@ export default {
       return formattedDate;
     },
 
+    toggleComment(int) {},
+
     async getActiveDeposits() {
       this.$store.dispatch(
         "admin/getActiveDeposits",
         `/transactions/active-deposits/?limit=${this.limit}&page=${this.currentPage}&sort=${this.sort}`
       );
     },
-  },
-
-  mounted() {
-    this.getActiveDeposits();
   },
 
   computed: {
@@ -233,36 +248,12 @@ export default {
       return this.$store.getters.getUserInfo;
     },
 
-    isSuccess() {
-      return this.$store.state.admin.isModalSuccess;
+    total() {
+      return this.$store.state.admin.commentLength;
     },
 
-    isWarning() {
-      return this.$store.state.admin.isModalWarning;
-    },
-
-    isError() {
-      return this.$store.state.admin.isModalError;
-    },
-
-    totalLength() {
-      return this.$store.state.admin.activeDepositLength;
-    },
-
-    activeDeposits() {
-      return this.$store.state.admin.activeDeposits;
-    },
-
-    url() {
-      return this.$store.state.admin.modalURL;
-    },
-
-    responseMsg() {
-      return this.$store.state.admin.modalMsg;
-    },
-
-    showModal() {
-      return this.$store.state.admin.showModal;
+    items() {
+      return this.$store.state.admin.comments;
     },
   },
 };

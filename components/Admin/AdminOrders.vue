@@ -79,6 +79,12 @@
         <div class="trans-approve no" @click="cancelOrder(order)">Cancel</div>
         <div class="trans-approve staff">{{ order.seller }}</div>
         <div class="trans-approve no">{{ order.payment }}</div>
+        <input
+          class="rane-date trx-note w-input"
+          v-model="discount"
+          placeholder="Discount"
+          type="number"
+        />
       </div>
       <input
         class="rane-date trx-note w-input"
@@ -104,6 +110,7 @@ export default {
       limit: 10,
       currentPage: 1,
       description: "",
+      discount: "",
     };
   },
   methods: {
@@ -162,11 +169,13 @@ export default {
     },
 
     approveOrder(order) {
+      const load = JSON.parse(JSON.stringify(order));
+      load.discount = this.discount;
       const payload = {
-        id: order.id,
+        id: load.id,
         type: "POST",
-        load: order,
-        query: `/transactions/?id=${order.id}&limit=${this.limit}&page=${this.currentPage}&sort=${this.sort}&status=0`,
+        load: load,
+        query: `/transactions/?id=${load.id}&limit=${this.limit}&page=${this.currentPage}&sort=${this.sort}&status=0`,
       };
 
       this.showOverlayResponse(

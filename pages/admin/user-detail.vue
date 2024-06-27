@@ -204,7 +204,14 @@ export default {
 
   async mounted() {
     const id = this.$route.query.id;
-    const exists = this.users.some((obj) => obj.id == id);
+    const username = this.$route.query.username;
+
+    let exists;
+    if (id) {
+      exists = this.users.some((obj) => obj.id == id);
+    } else {
+      exists = this.users.some((obj) => obj.username == username);
+    }
 
     if (exists) {
       for (let i = 0; i < this.users.length; i++) {

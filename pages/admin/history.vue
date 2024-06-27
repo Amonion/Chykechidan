@@ -61,8 +61,21 @@
           </div>
 
           <div class="das-tb-cell _20 link">
-            <a href="#" class="istory-name">{{ item.username }}</a
-            ><a href="#" class="istory-name staff">{{ item.seller }}</a>
+            <NuxtLink
+              v-if="item.username != 'Anonimous'"
+              :to="`admin/user-detail/?username=${item.username}`"
+              class="istory-name"
+              >{{ item.username }}</NuxtLink
+            >
+            <span v-else class="istory-name">{{ item.username }}</span>
+
+            <NuxtLink
+              v-if="item.seller != 'Admin'"
+              :to="`/admin/user-detail/?username=${item.seller}`"
+              class="istory-name staff"
+              >{{ item.seller }}</NuxtLink
+            >
+            <span v-else class="istory-name staff">{{ item.seller }}</span>
           </div>
           <div class="das-tb-cell _40 block">
             <div v-if="item.transactionType == 'Expenses'">
@@ -90,7 +103,10 @@
             </div>
           </div>
           <div class="das-tb-cell _20">
-            N{{ formatNumber(item.amount * 1) }}
+            <div>
+              N{{ formatNumber(item.amount * 1) }}<br />
+              -N{{ formatNumber(item.discount * 1) }}
+            </div>
           </div>
           <div class="das-tb-cell _20">
             {{ formartTime(item.ordered_time * 1) }}, <br />{{

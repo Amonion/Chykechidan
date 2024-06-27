@@ -11,7 +11,7 @@
 
       <div v-if="warning" class="overlay-btn-wrap">
         <div class="overlay-btn" @click="proceedConfirmation">Proceed</div>
-        <div class="overlay-btn">Cancel</div>
+        <div @click="hideResponse" class="overlay-btn">Cancel</div>
       </div>
     </div>
   </div>
@@ -20,8 +20,8 @@
 <script>
 export default {
   methods: {
-    hideConfirmBox() {
-      this.$store.commit("admin/HIDE_CONFIRM_BOX");
+    hideResponse() {
+      this.$store.commit("admin/TOGGLE_RESPONSE");
     },
 
     showOverlayResponse(msg, error, success, warning, show) {

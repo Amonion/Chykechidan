@@ -19,6 +19,10 @@ export const state = () => ({
   referralLength: 0,
   referralStatus: false,
 
+  comments: [],
+  commentLength: 0,
+  commentStatus: false,
+
   abouts: [],
   aboutLength: 0,
   aboutStatus: false,
@@ -156,13 +160,8 @@ function initializeProducts(data) {
 }
 
 export const mutations = {
-  SHOW_CONFIRM_BOX(state, payload) {
-    const { msg, id, type, data } = payload;
-    state.showConfirmBox = true;
-    state.confirmId = id;
-    state.confirmType = type;
-    state.confirmMsg = msg;
-    state.confirmData = data;
+  TOGGLE_RESPONSE(state) {
+    state.show = !state.show;
   },
 
   SHOW_RESPONSE(state, payload) {
@@ -173,19 +172,6 @@ export const mutations = {
     state.error = error;
     state.msg = msg;
     state.data = data;
-  },
-
-  SHOW_ALERT_BOX(state, payload) {
-    const { msg, status } = payload;
-    state.showAlertBox = true;
-    state.alertMsg = msg;
-    state.alertStatus = status;
-  },
-
-  HIDE_ALERT_BOX(state) {
-    state.showAlertBox = false;
-    state.alertMsg = "";
-    state.alertStatus = false;
   },
 
   TOGGLE_NOTIFICATION_TEMP(state, int) {
@@ -212,15 +198,6 @@ export const mutations = {
         state.selectedNotificationTemps = [];
       }
     }
-  },
-
-  HIDE_CONFIRM_BOX(state) {
-    state.showConfirmBox = false;
-    state.confirmId = "";
-    state.confirmType = "";
-    state.confirmMsg = "";
-    state.confirmData = "";
-    state.isLoading = false;
   },
 
   SET_FILE_URL(state, URL) {
@@ -550,6 +527,12 @@ export const mutations = {
     state.notificationStatus = true;
   },
 
+  SET_COMMENTS(state, data) {
+    state.commentLength = data.totalLength;
+    state.comments = checkArray(data.data);
+    state.commentStatus = true;
+  },
+
   SET_EMAILS(state, data) {
     state.emailLength = data.totalLength;
     state.emails = checkArray(data.data);
@@ -723,6 +706,11 @@ export const actions = {
     commit("SET_NOTIFICATIONS", result.data);
   },
 
+  async GET_COMMENTS({ dispatch, commit }, url) {
+    const result = await dispatch("MAKE_GET", url);
+    commit("SET_COMMENTS", result.data);
+  },
+
   async GET_NOTIFICATION_TEMPS({ dispatch, commit }, url) {
     const result = await dispatch("MAKE_GET", url);
     commit("SET_NOTIFICATION_TEMPS", result.data);
@@ -806,6 +794,7 @@ export const actions = {
     dispatch("GET_POSITIONS", "/staffs/positions/?limit=10&page=1");
     dispatch("GET_ABOUT", "/about/?limit=10&page=1");
     dispatch("GET_BANNERS", "/banners/?limit=10&page=1");
+    dispatch("GET_COMMENTS", "/comments/?limit=10&page=1");
     dispatch(
       "GET_NOTIFICATIONS",
       "/notifications/?limit=10&page=1&sort=time&username=Admin"

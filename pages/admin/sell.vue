@@ -4,6 +4,7 @@
       <div>Make Order</div>
       <div>{{ formattedDate() }}</div>
     </div>
+
     <div class="tb-top-info">
       <div class="tb-info pass">
         <div v-if="buyingUser">{{ buyingUser.username }}</div>
@@ -57,7 +58,9 @@
             <div>{{ (currentPage - 1) * limit + int + 1 }}</div>
           </div>
           <div class="das-tb-cell _40">{{ item.name }}</div>
-          <div class="das-tb-cell _20">70,500</div>
+          <div class="das-tb-cell _20">
+            {{ formatNumber(item.sellingPrice * 1) }}
+          </div>
           <div class="das-tb-cell _20 quant">
             <div class="das-foot-pa quant" @click="removeFromCart(item)">-</div>
             <div class="tb-quant">{{ item.quantity }}</div>
