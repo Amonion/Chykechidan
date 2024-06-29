@@ -1,14 +1,16 @@
 <script>
 import HomeFooter from "../components/HomeFooter.vue";
+import HomeHeader from "../components/HomeHeader.vue";
 import HomeNav from "../components/HomeNav.vue";
 export default {
-  components: { HomeNav, HomeFooter },
+  components: { HomeNav, HomeFooter, HomeHeader },
   head() {
     return {
       title: "Chykechidan Enterprise", // Set the page title
 
       link: [
         { rel: "stylesheet", href: "/css/main.css" },
+        // { rel: "stylesheet", href: "/css/custom.css" },
         // {
         //   rel: "stylesheet",
         //   href: "/css/theme.css",
@@ -18,9 +20,9 @@ export default {
   },
 
   async mounted() {
-    this.$store.commit("SET_URL", this.$config.FILE_URL);
+    this.$store.commit("SET_FILE_URL", this.$config.FILE_URL);
 
-    this.$store.dispatch("INITIALIZE_APP", this.user);
+    this.$store.dispatch("INITIALIZE_APP");
   },
 };
 </script>
@@ -34,64 +36,7 @@ export default {
         class="scroll-icon"
       />
     </div>
-    <div class="top-hearder">
-      <div class="custom-container">
-        <div class="top-header-flex">
-          <div class="top-hearder-left">
-            <img
-              src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6625e43ce66b7f6a33be11c4_chat-bubble-icon%201.svg"
-              loading="lazy"
-              alt=""
-              class="top-chat"
-            />
-            <div>LOOKING FOR SOLAR CONSULTING?</div>
-            <a href="#" class="top-book">BOOK NOW</a>
-          </div>
-          <div class="top-hearder-right">
-            <a href="#" class="top-link-blocks ide w-inline-block"
-              ><img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/662682d336cd0e88f865e207_star-full-icon%201.svg"
-                loading="lazy"
-                alt=""
-                class="top-link-icon"
-              />
-              <div>UPDATES</div></a
-            ><a href="#" class="top-link-blocks w-inline-block"
-              ><img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/662682d346c9f14729072f99_dollar-icon%201.svg"
-                loading="lazy"
-                alt=""
-                class="top-link-icon dolla"
-              />
-              <div>Estimate</div></a
-            >
-            <div class="socials">
-              <a href="#" class="top-socials w-inline-block"
-                ><img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6626854bb0fed7c96ee86af9_youtube%201.svg"
-                  loading="lazy"
-                  alt="" /></a
-              ><a href="#" class="top-socials w-inline-block"
-                ><img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/662685c11455071692d4dc6e_black-instagram-icon%201.svg"
-                  loading="lazy"
-                  alt="" /></a
-              ><a href="#" class="top-socials w-inline-block"
-                ><img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/662685c1c479070080d0388d_x-social-media-logo-icon%201.svg"
-                  loading="lazy"
-                  alt="" /></a
-              ><a href="#" class="top-socials w-inline-block"
-                ><img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/662685c168d98f8cc52fcd76_facebook-app-round-icon%201.svg"
-                  loading="lazy"
-                  alt=""
-              /></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <home-header />
     <home-nav />
     <Nuxt />
     <home-footer />
@@ -128,5 +73,19 @@ export default {
 }
 .my-float {
   margin-top: 10px;
+}
+
+:root {
+  --ash-text: #aab0bf;
+  --white: white;
+  --custom-reen: #ff4141;
+  --dark-blue: #2a3247;
+  --black: black;
+  --smoke: #f4f5f4;
+  --as-dark: #888;
+  --smoke-as: whitesmoke;
+  --custom-yellow: #ff4141;
+  /* --custom-yellow: #d1ca4c; */
+  --darker-blue: #151239;
 }
 </style>

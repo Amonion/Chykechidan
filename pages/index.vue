@@ -1,21 +1,22 @@
 <template>
   <div>
     <hero-slider />
-    <div class="pro-section">
+
+    <div v-if="about" class="pro-section">
       <div class="custom-container">
         <div class="pro-flex">
           <div class="pro-left">
-            <div class="about-pix-top">
+            <div v-if="about[0]" class="about-pix-top">
               <img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627d20d08ba5dcd3fd8b90c_about-2.jpg"
+                :src="`${FILE_URL}/${about[0].media}`"
                 loading="lazy"
                 alt=""
                 class="responsive-pix"
               />
             </div>
-            <div class="pix-mid">
+            <div v-if="about[0]" class="pix-mid">
               <img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627d326eb9ef898c3b2399a_about-1.jpg"
+                :src="`${FILE_URL}/${about[1].media}`"
                 loading="lazy"
                 alt=""
                 class="responsive-pix"
@@ -31,15 +32,17 @@
           </div>
           <div class="pro-rit">
             <div class="ab-intro">// WHO WE ARE</div>
-            <div class="ab-title">
-              SMARTEST WAY TO GENERATE ELECTRICITY<br />
+            <div class="ab-title" v-if="about[0]">
+              {{ about[0].title }} <br />
             </div>
-            <div class="ab-subtitle">
-              We Provide clean, dependable, environmentally friendly, and
-              cost-effective electrical energy to people all over the world in
-              order to save our planet for future generations.<br />
-            </div>
-            <div class="one-module">
+            <div
+              class="ab-subtitle"
+              v-if="about[0]"
+              v-html="about[0].content"
+            ></div>
+            <br />
+
+            <div v-if="about[1]" class="one-module">
               <div class="modus-title">01. OUR CULTURE<br /></div>
               <div class="modus-flex">
                 <div class="modus-box">
@@ -51,23 +54,20 @@
                   />
                 </div>
                 <div class="modus-rit">
-                  <div class="modus-text">
-                    Energo Produce the only energy system which environment
-                    friendly for better future<br />
-                  </div>
-                  <a href="#" class="custom-btn trans w-inline-block"
+                  <div class="modus-text">{{ about[1].title }} <br /></div>
+                  <NuxtLink to="/about" class="custom-btn trans w-inline-block"
                     ><img
-                      src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627da8bbae46715d6890829_arrow-forward-reen.svg"
+                      src="/images/arrow-red.svg"
                       loading="lazy"
                       alt=""
                       class="btn-icon"
                     />
-                    <div>Read More</div></a
+                    <div>Read More</div></NuxtLink
                   >
                 </div>
               </div>
             </div>
-            <div class="one-module">
+            <div v-if="about[1]" class="one-module">
               <div class="modus-title">02. OUR PRODUCTIVITY<br /></div>
               <div class="modus-flex">
                 <div class="modus-box">
@@ -79,18 +79,15 @@
                   />
                 </div>
                 <div class="modus-rit">
-                  <div class="modus-text">
-                    Is always more than our expectation due to your support for
-                    us to grow more around the world<br />
-                  </div>
-                  <a href="#" class="custom-btn trans w-inline-block"
+                  <div class="modus-text">{{ about[1].subtitle }} <br /></div>
+                  <NuxtLink to="/about" class="custom-btn trans w-inline-block"
                     ><img
-                      src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627da8bbae46715d6890829_arrow-forward-reen.svg"
+                      src="/images/arrow-red.svg"
                       loading="lazy"
                       alt=""
                       class="btn-icon"
                     />
-                    <div>Read More</div></a
+                    <div>Read More</div></NuxtLink
                   >
                 </div>
               </div>
@@ -99,6 +96,7 @@
         </div>
       </div>
     </div>
+
     <div class="ome-service">
       <div class="custom-container">
         <div class="ome-service-flex">
@@ -251,6 +249,7 @@
         </div>
       </div>
     </div>
+
     <div class="maintenance">
       <div class="custom-container">
         <div class="mentainance-flex">
@@ -385,6 +384,7 @@
         </div>
       </div>
     </div>
+
     <div class="ome-stats">
       <div class="stats-cover"></div>
       <img
@@ -465,6 +465,7 @@
         </div>
       </div>
     </div>
+
     <div class="process">
       <div class="custom-container">
         <div class="process-flex">
@@ -549,6 +550,7 @@
         </div>
       </div>
     </div>
+
     <div class="ome-latest">
       <div class="custom-container">
         <div class="latest-flex">
@@ -685,6 +687,7 @@
         </div>
       </div>
     </div>
+
     <div class="boss">
       <img
         src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ed3e5a237ae4bb7f35dc6_layerb1.svg"
@@ -769,6 +772,7 @@
         </div>
       </div>
     </div>
+
     <div class="staffs">
       <div class="custom-container">
         <div class="staffs-flex">
@@ -964,7 +968,9 @@
         </div>
       </div>
     </div>
+
     <testimonial />
+
     <div class="ome-blo">
       <div class="custom-container">
         <div class="custom-flex">
@@ -1106,6 +1112,7 @@
         </div>
       </div>
     </div>
+
     <div class="ome-subscribe">
       <img
         src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg.jpg"
@@ -1228,6 +1235,10 @@ export default {
       return this.$store.state.company;
     },
 
+    about() {
+      return this.$store.state.about;
+    },
+
     blogs() {
       const items = this.$store.state.blogs;
       const blogs = [];
@@ -1238,12 +1249,6 @@ export default {
         }
       }
       return blogs;
-    },
-
-    plan() {
-      const items = this.$store.state.plans;
-
-      return items[0];
     },
 
     topBlogs() {

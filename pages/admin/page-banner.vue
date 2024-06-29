@@ -305,6 +305,7 @@ export default {
       this.bannerIntro = "";
       this.bannerTitle = "";
       this.bannerSubtitle = "";
+      this.bannerCategory = "";
       this.image = "";
     },
 
@@ -404,10 +405,8 @@ export default {
           false,
           true
         );
-        // console.log(result);
         this.onRequest = false;
       } else {
-        console.log(result.response);
         this.onRequest = false;
       }
     },

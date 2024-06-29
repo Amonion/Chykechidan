@@ -113,6 +113,7 @@
         loading="lazy"
         alt=""
         class="tb-action-icon"
+        @click="editBanner"
       /><img
         src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665b486dcc7eddebcb1b7c96_trash-alt.svg"
         loading="lazy"
@@ -335,27 +336,47 @@ export default {
     },
 
     duplicateEmail() {
-      if (this.selectedEmails.length == 0) {
-        const msg = `Please select an email to duplicate`;
-        const status = true;
-        this.showAlertBox(msg, status);
+      if (this.selectedItems.length == 0) {
+        this.showOverlayResponse(
+          `Please select at least one item`,
+          true,
+          false,
+          false,
+          true
+        );
         return;
       }
       const email = JSON.parse(
-        JSON.stringify(this.selectedEmails[this.selectedEmails.length - 1])
+        JSON.stringify(this.selectedItems[this.selectedItems.length - 1])
       );
       this.copyData(email);
     },
 
-    editEmail() {
-      if (this.selectedEmails.length == 0) {
-        const msg = `Please select an email to edit`;
-        const status = true;
-        // this.showAlertBox(msg, status);
+    showOverlayResponse(msg, error, success, warning, show) {
+      const payload = {
+        msg,
+        error,
+        success,
+        warning,
+        show,
+      };
+
+      this.$store.commit("admin/SHOW_RESPONSE", payload);
+    },
+
+    editBanner() {
+      if (this.selectedItems.length == 0) {
+        this.showOverlayResponse(
+          `Please select at least one item`,
+          true,
+          false,
+          false,
+          true
+        );
         return;
       }
       const email = JSON.parse(
-        JSON.stringify(this.selectedEmails[this.selectedEmails.length - 1])
+        JSON.stringify(this.selectedItems[this.selectedItems.length - 1])
       );
       this.showEditor = true;
       this.editState = true;
@@ -370,30 +391,6 @@ export default {
     },
 
     async processEmail() {
-      // const fields = [
-      //   { name: "greeting", data: this.greeting },
-      //   { name: "title", data: this.title },
-      //   { name: "template", data: this.template },
-      //   { name: "content", data: this.content },
-      // ];
-
-      // fields.forEach((el) => {
-      //   if (el.data == "" && el.data.trim() == "") {
-      //     this.alertMsg = `Please fill in the ${el.name} field`;
-      //     this.alertStatus = true;
-      //     this.showAlertBox(this.alertMsg, this.alertStatus);
-      //     this.isError = true;
-
-      //     return;
-      //   }
-      // });
-
-      // if (this.isError) {
-      //   this.onRequest = false;
-      //   this.isError = false;
-      //   return;
-      // }
-
       this.onRequest = true;
 
       const form = new FormData();
@@ -464,7 +461,7 @@ export default {
       return this.$store.state.admin.aboutLength;
     },
 
-    selectedEmails() {
+    selectedItems() {
       return this.$store.state.admin.selectedAbout;
     },
   },

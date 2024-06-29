@@ -14,23 +14,26 @@
     data-infinite="true"
   >
     <div class="slide-mask w-slider-mask">
-      <div class="ome-slide w-slide">
+      <div
+        v-for="(banner, int) in banners"
+        :key="banner.id"
+        class="ome-slide w-slide"
+      >
         <img
-          src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627aabb4abe6d29ccd71c0e_banner-2.jpg"
+          :src="`${FILE_URL}/${banner.image}`"
           loading="lazy"
           sizes="100vw"
-          srcset="
-            https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627aabb4abe6d29ccd71c0e_banner-2-p-500.jpg   500w,
-            https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627aabb4abe6d29ccd71c0e_banner-2-p-800.jpg   800w,
-            https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627aabb4abe6d29ccd71c0e_banner-2-p-1080.jpg 1080w,
-            https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627aabb4abe6d29ccd71c0e_banner-2-p-1600.jpg 1600w,
-            https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627aabb4abe6d29ccd71c0e_banner-2.jpg        1920w
-          "
+          :srcset="`
+            ${FILE_URL}/${banner.image}   500w,
+            ${FILE_URL}/${banner.image}   800w,
+            ${FILE_URL}/${banner.image} 1080w,
+            ${FILE_URL}/${banner.image} 1600w,
+            ${FILE_URL}/${banner.image}        1920w`"
           alt=""
           class="responsive-pix"
         />
         <div class="slide-cover">
-          <div class="slide-flex">
+          <div v-if="int > 0" class="slide-flex">
             <div class="ero-play _3">
               <div class="ero-play _2">
                 <div class="ero-play _1">
@@ -45,65 +48,20 @@
                 </div>
               </div>
             </div>
-            <div class="ero-text">TURN TO <br />SOLAR POWER</div>
-            <div class="ero-subtitle">
-              SAVE TODAY RESOURCES FOR BRITER TOMOROW
+            <div class="ero-text">
+              {{ banner.bannerTitle }} <br />{{ banner.bannerSubtitle }}
             </div>
-            <a href="#" class="custom-btn w-inline-block"
+            <div class="ero-subtitle">
+              {{ banner.bannerIntro }}
+            </div>
+            <NuxtLink to="/about" class="custom-btn w-inline-block"
               ><img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627ced1b84d6af368e52e15_arrow-forward.svg"
+                src="/images/arrow-forward.svg"
                 loading="lazy"
                 alt=""
                 class="btn-icon"
               />
-              <div>Read More</div></a
-            >
-          </div>
-        </div>
-      </div>
-      <div class="ome-slide w-slide">
-        <img
-          src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627d02e0539dbef8dbe4231_banner-3.jpg"
-          loading="lazy"
-          sizes="100vw"
-          srcset="
-            https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627d02e0539dbef8dbe4231_banner-3-p-500.jpg   500w,
-            https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627d02e0539dbef8dbe4231_banner-3-p-800.jpg   800w,
-            https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627d02e0539dbef8dbe4231_banner-3-p-1080.jpg 1080w,
-            https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627d02e0539dbef8dbe4231_banner-3-p-1600.jpg 1600w,
-            https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627d02e0539dbef8dbe4231_banner-3.jpg        1920w
-          "
-          alt=""
-          class="responsive-pix"
-        />
-        <div class="slide-cover">
-          <div class="slide-flex">
-            <div class="ero-play _3">
-              <div class="ero-play _2">
-                <div class="ero-play _1">
-                  <div class="ero-play">
-                    <img
-                      src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627b1180b6109f61d727221_play.svg"
-                      loading="lazy"
-                      alt=""
-                      class="play-icon"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="ero-text">TURN TO <br />SOLAR POWER</div>
-            <div class="ero-subtitle">
-              SAVE TODAY RESOURCES FOR BRITER TOMOROW
-            </div>
-            <a href="#" class="custom-btn w-inline-block"
-              ><img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627ced1b84d6af368e52e15_arrow-forward.svg"
-                loading="lazy"
-                alt=""
-                class="btn-icon"
-              />
-              <div>Read More</div></a
+              <div>Read More</div></NuxtLink
             >
           </div>
         </div>
@@ -121,51 +79,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      active: false,
-    };
-  },
-  methods: {
-    loadScript() {
-      if (!process.server) {
-        let el1 = document.getElementById("script");
-
-        if (el1 == null) {
-          const script = document.createElement("script");
-
-          script.type = "text/javascript";
-
-          script.src = "/script/home.js";
-
-          script.id = "script";
-          const app = document.querySelector("#ero-slide");
-          if (app) {
-            app.appendChild(script);
-          } else {
-            console.error("Could not find app node to append script element");
-          }
-        }
-      }
-    },
-  },
-
-  // :style="{
-  //       backgroundImage: `url(${FILE_URL}/${banner.bannerImage})`,
-  //     }"
-
-  mounted() {
-    this.loadScript();
-    // setInterval(() => {
-    //   if (this.services.length > 0) {
-    //     this.active = true;
-    //   }
-    //   if (this.active) {
-    //     this.loadScript();
-    //   }
-    // }, 5000);
-  },
-
   computed: {
     banners() {
       const items = this.$store.state.banners;

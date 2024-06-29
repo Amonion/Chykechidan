@@ -235,7 +235,9 @@ export default {
     //     }
     //   }
     // }, 1000);
-    this.loadScript();
+    setTimeout(() => {
+      this.loadScript();
+    }, 6000);
   },
 
   computed: {

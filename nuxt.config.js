@@ -86,10 +86,10 @@ export default {
         src: "/script/query.js",
         type: "text/javascript",
       },
-      {
-        src: "/script/home.js",
-        type: "text/javascript",
-      },
+      // {
+      //   src: "/script/home.js",
+      //   type: "text/javascript",
+      // },
 
       // {
       //   src: "https://code.tidio.co/0gqmbzwnpgualga6qdslyngzvcs0rocd.js",

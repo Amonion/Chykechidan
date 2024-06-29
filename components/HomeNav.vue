@@ -19,10 +19,23 @@
           />
         </div>
         <div class="nav-flex" :class="{ active: isNavActive }">
-          <NuxtLink to="/" class="nav-links active">Home</NuxtLink
-          ><NuxtLink to="/about" class="nav-links">About</NuxtLink
-          ><NuxtLink to="/services" class="nav-links">Services</NuxtLink
-          ><NuxtLink to="/products" class="nav-links">Shop</NuxtLink
+          <NuxtLink
+            to="/"
+            class="nav-links"
+            :class="{ active: route == 'index' }"
+            >Home</NuxtLink
+          ><NuxtLink
+            to="/about"
+            class="nav-links"
+            :class="{ active: route == 'about' }"
+            >About</NuxtLink
+          >
+
+          <NuxtLink
+            :class="{ active: route == 'products' }"
+            to="/products"
+            class="nav-links"
+            >Shop</NuxtLink
           ><NuxtLink to="/contact" class="nav-links">Contact</NuxtLink
           ><NuxtLink to="/faq" class="nav-links">FAQ</NuxtLink
           ><NuxtLink to="/blog" class="nav-links">Blog</NuxtLink>
@@ -75,6 +88,10 @@ export default {
 
     isNavActive() {
       return this.$store.state.isNavActive;
+    },
+
+    route() {
+      return this.$store.state.route;
     },
 
     company() {

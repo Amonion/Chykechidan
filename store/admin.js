@@ -611,6 +611,8 @@ export const mutations = {
     state.banners = checkArray(data.data);
     state.bannerLength = data.totalLength;
     state.bannerStatus = true;
+    state.selectedBanners = [];
+    state.isBannerChecked = false;
   },
 
   SET_FAQ(state, data) {

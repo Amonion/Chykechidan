@@ -3,6 +3,7 @@ export default function ({ store, redirect, route }) {
   const path = route.name;
 
   store.commit("hideNav");
+  store.commit("SET_ROUTE", path);
 
   if (!store.state.auth.loggedIn) {
     if (path.includes("admin") || path.includes(protectedRoutes)) {

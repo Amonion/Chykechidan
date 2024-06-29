@@ -20,6 +20,9 @@ export const state = () => ({
   banners: [],
   bannerLength: 0,
 
+  products: [],
+  productLength: 0,
+
   reviews: [],
   reviewLength: 0,
 
@@ -37,6 +40,7 @@ export const state = () => ({
 
   company: "",
   about: "",
+  route: "",
 });
 
 export const getters = {
@@ -81,6 +85,10 @@ export const mutations = {
     state.auth.user = user;
   },
 
+  SET_ROUTE(state, route) {
+    state.route = route;
+  },
+
   SET_COMPANY(state, result) {
     state.company = result.data[0];
   },
@@ -112,6 +120,11 @@ export const mutations = {
     state.transactionLength = result.totalLength;
   },
 
+  SET_PRODUCTS(state, result) {
+    state.products = result.data;
+    state.productLength = result.totalLength;
+  },
+
   SET_BANNERS(state, result) {
     state.banners = result.data;
     state.bannerLength = result.totalLength;
@@ -122,8 +135,8 @@ export const mutations = {
     state.commentLength = result.totalLength;
   },
 
-  SET_ABOUT(state, result) {
-    state.about = result.data[0];
+  SET_ABOUTS(state, result) {
+    state.about = result.data;
   },
 
   SET_NOTIFICATIONS(state, result) {
@@ -197,6 +210,16 @@ export const actions = {
     commit("SET_COMMENTS", result.data);
   },
 
+  async GET_BANNERS({ dispatch, commit }, url) {
+    const result = await dispatch("MAKE_GET", url);
+    commit("SET_BANNERS", result.data);
+  },
+
+  async GET_ABOUTS({ dispatch, commit }, url) {
+    const result = await dispatch("MAKE_GET", url);
+    commit("SET_ABOUTS", result.data);
+  },
+
   INITIALIZE_APP({ commit, dispatch }, user) {
     if (user) {
       dispatch(
@@ -212,8 +235,11 @@ export const actions = {
         `/transactions/?limit=20&page=1&sort=-ordered_time&username=${user.username}`
       );
     }
-
     dispatch("GET_COMPANY", "/company");
+    dispatch("GET_BANNERS", `/banners/?limit=10&page=1`);
+    dispatch("GET_PRODUCTS", `/products/?limit=8&page=1`);
+    dispatch("GET_ABOUTS", `/about/?limit=10&page=1`);
+
     // dispatch(
     //   "GET_PRODUCT_CATEGORIES",
     //   "/products/?limit=20&page=1&isCategory=1"
