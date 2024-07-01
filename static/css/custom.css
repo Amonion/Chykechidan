@@ -51,6 +51,15 @@
   margin-bottom: 5px;
 }
 
+.maint-overlay {
+  opacity: 0;
+  transition: 0.5s all;
+}
+
+.maint-overlay.active {
+  opacity: 1;
+}
+
 .nuxt-link-exact-active {
   color: #56b13d;
 }

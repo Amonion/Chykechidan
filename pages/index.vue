@@ -101,144 +101,50 @@
       <div class="custom-container">
         <div class="ome-service-flex">
           <div class="ome-service-intro">// SERVICE AREAS \\</div>
-          <div class="ome-service-title">FREE ENERGY IN THE LONG RUN<br /></div>
-          <div class="rit-title widt">
-            Energo gives their services in multiple areas such agriculture,
-            industry, residence and also forlarge areas due to thinking about
-            you.
+          <div class="ome-service-title">
+            QUICK FOOD STUFFS DISTRIBUTION SERVICES<br />
           </div>
-          <div class="w-layout-grid service-rid">
-            <div class="eac-service-ome">
-              <div class="eac-service-top">
-                <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66286780afd57880749bc233_solar-reen.svg"
-                  loading="lazy"
-                  alt=""
-                  class="serice-rid-icon"
-                /><a href="#" class="service-title active"
-                  >Solar Inverter Installation</a
-                >
-                <div class="service-subtitle">
-                  Helping the environment to stay green and energetic...
-                </div>
-                <a href="#" class="service-read-more w-inline-block"
-                  ><img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627da8bbae46715d6890829_arrow-forward-reen.svg"
-                    loading="lazy"
-                    alt=""
-                    class="read-icon"
-                  />
-                  <div>More</div></a
-                >
-              </div>
-              <div class="service-rid-pix">
-                <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66286b8829b3b867556d7b64_service-1.jpg"
-                  loading="lazy"
-                  alt=""
-                  class="responsive-pix"
-                />
-              </div>
-            </div>
+          <div class="rit-title widt">
+            Partnering with Chyke Chidan Enterprise is simple and
+            straightforward. Here’s how you can start benefiting from our
+            wholesale rice distribution service
+          </div>
+          <div v-if="services" class="w-layout-grid service-rid">
             <div
-              id="w-node-a84735cc-529c-8b80-e8c2-3a8c43ed4d76-7a51b666"
+              v-for="item in services"
+              :key="item.id"
               class="eac-service-ome"
             >
               <div class="eac-service-top">
                 <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66286780985c172f7c4491a9_software-reen.svg"
+                  src="/Icon.png"
                   loading="lazy"
                   alt=""
                   class="serice-rid-icon"
-                /><a href="#" class="service-title active"
-                  >Solar Inverter Installation</a
-                >
-                <div class="service-subtitle">
-                  Helping the environment to stay green and energetic...
-                </div>
-                <a href="#" class="service-read-more w-inline-block"
-                  ><img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627da8bbae46715d6890829_arrow-forward-reen.svg"
-                    loading="lazy"
-                    alt=""
-                    class="read-icon"
-                  />
-                  <div>More</div></a
-                >
-              </div>
-              <div class="service-rid-pix">
-                <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66286b8849790c21737c4f29_service-4.jpg"
-                  loading="lazy"
-                  alt=""
-                  class="responsive-pix"
                 />
-              </div>
-            </div>
-            <div
-              id="w-node-bde8813f-2364-9189-818c-d255f62c4c2a-7a51b666"
-              class="eac-service-ome"
-            >
-              <div class="eac-service-top">
-                <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6628678049790c2173793f52_enery-reen.svg"
-                  loading="lazy"
-                  alt=""
-                  class="serice-rid-icon"
-                /><a href="#" class="service-title active"
-                  >Solar Inverter Installation</a
-                >
+                <NuxtLink
+                  :to="`/blog-details/?id=${item.id}`"
+                  class="service-title active"
+                  >{{ item.title }}
+                </NuxtLink>
                 <div class="service-subtitle">
-                  Helping the environment to stay green and energetic...
+                  {{ item.subtitle }}
                 </div>
-                <a href="#" class="service-read-more w-inline-block"
+                <NuxtLink
+                  :to="`/blog-details/?id=${item.id}`"
+                  class="service-read-more w-inline-block"
                   ><img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627da8bbae46715d6890829_arrow-forward-reen.svg"
+                    src="/images/arrow-red.svg"
                     loading="lazy"
                     alt=""
                     class="read-icon"
                   />
-                  <div>More</div></a
+                  <div>More</div></NuxtLink
                 >
               </div>
               <div class="service-rid-pix">
                 <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66286b8821e8e2d65f8ed7cc_service-2.jpg"
-                  loading="lazy"
-                  alt=""
-                  class="responsive-pix"
-                />
-              </div>
-            </div>
-            <div
-              id="w-node-a73475b2-4571-aa0b-4f1a-bcbcbfee833d-7a51b666"
-              class="eac-service-ome"
-            >
-              <div class="eac-service-top">
-                <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66286780bbd05fe15606549c_floor-reen.svg"
-                  loading="lazy"
-                  alt=""
-                  class="serice-rid-icon"
-                /><a href="#" class="service-title active"
-                  >Solar Inverter Installation</a
-                >
-                <div class="service-subtitle">
-                  Helping the environment to stay green and energetic...
-                </div>
-                <a href="#" class="service-read-more w-inline-block"
-                  ><img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627da8bbae46715d6890829_arrow-forward-reen.svg"
-                    loading="lazy"
-                    alt=""
-                    class="read-icon"
-                  />
-                  <div>More</div></a
-                >
-              </div>
-              <div class="service-rid-pix">
-                <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66286b886fa0a5d1bbf36065_service-3.jpg"
+                  :src="`${FILE_URL}/${item.banner}`"
                   loading="lazy"
                   alt=""
                   class="responsive-pix"
@@ -255,127 +161,72 @@
         <div class="mentainance-flex">
           <div class="mentainance-top">
             <div>
-              <div class="maintenance-intro">// Mentainance</div>
-              <div class="mentainance-title">OUR EFFICIENT SOLUTIONS<br /></div>
+              <div class="maintenance-intro">// Quality</div>
+              <div class="mentainance-title">CHYKE CHIDAN PRODUCTS<br /></div>
             </div>
             <div class="mentainance-rit">
-              These cases are perfectly simple and easy to distinguish. In a
-              free hour, when our power off choice is untrammelled.<br />
+              At Chyke Chidan Enterprise, we understand that the secret to
+              delicious meals often lies in the ingredients.
+              <br />
             </div>
           </div>
           <div class="w-layout-grid maintenance-rid">
-            <div class="eac-maintenance">
-              <div
-                id="w-node-d1719366-9bde-d8a4-7a6f-8a6cdb6c6c49-7a51b666"
-                class="maintenance-cover"
-              >
-                <a href="#" class="service-read-more wite w-inline-block"
-                  ><img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627da8bbae46715d6890829_arrow-forward-reen.svg"
-                    loading="lazy"
-                    alt=""
-                    class="read-icon"
-                  />
-                  <div>More</div></a
-                ><img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66286780afd57880749bc233_solar-reen.svg"
-                  loading="lazy"
-                  alt=""
-                  class="maintenance-icon"
-                />
-                <div class="maintenance-title">
-                  HIGH END TECHNICAL MAINTENANCE
-                </div>
-              </div>
-              <img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/662870757917a31d5734530a_service-5.jpg"
-                loading="lazy"
-                alt=""
-                class="responsive-pix"
-              />
-            </div>
             <div
-              id="w-node-_0450223a-6716-6708-9d16-196e17d30abe-7a51b666"
               class="eac-maintenance"
+              v-for="(item, int) in products"
+              :key="item.id"
+              @mouseenter="setProd(int)"
+              @mouseleave="unsetProd()"
             >
-              <div
-                id="w-node-_0450223a-6716-6708-9d16-196e17d30abf-7a51b666"
-                class="maintenance-cover"
-              >
-                <a href="#" class="service-read-more wite w-inline-block"
+              <div class="maintenance-cover">
+                <NuxtLink
+                  :to="`/blog-details/?id=${item.id}`"
+                  class="service-read-more wite w-inline-block"
                   ><img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627da8bbae46715d6890829_arrow-forward-reen.svg"
+                    src="/images/arrow-red.svg"
                     loading="lazy"
                     alt=""
                     class="read-icon"
                   />
-                  <div>More</div></a
+                  <div>More</div></NuxtLink
                 ><img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6628678049790c2173793f52_enery-reen.svg"
+                  src="/Icon.png"
                   loading="lazy"
                   alt=""
                   class="maintenance-icon"
                 />
                 <div class="maintenance-title">
-                  HIGH END TECHNICAL MAINTENANCE
+                  {{ item.title }}
                 </div>
               </div>
               <img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66287074cea2b6f7b164677c_service-6.jpg"
+                :src="`${FILE_URL}/${item.banner}`"
                 loading="lazy"
                 alt=""
                 class="responsive-pix"
               />
-            </div>
-            <div
-              id="w-node-_099ed2dc-da4c-5153-ed79-3636d8de75d2-7a51b666"
-              class="eac-maintenance"
-            >
-              <div
-                id="w-node-_099ed2dc-da4c-5153-ed79-3636d8de75d3-7a51b666"
-                class="maintenance-cover"
-              >
-                <a href="#" class="service-read-more wite w-inline-block"
-                  ><img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627da8bbae46715d6890829_arrow-forward-reen.svg"
-                    loading="lazy"
-                    alt=""
-                    class="read-icon"
-                  />
-                  <div>More</div></a
-                ><img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66286780985c172f7c4491a9_software-reen.svg"
-                  loading="lazy"
-                  alt=""
-                  class="maintenance-icon"
-                />
-                <div class="maintenance-title">
-                  HIGH END TECHNICAL MAINTENANCE
-                </div>
-              </div>
-              <img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/662870747d981756034e3f1d_service-7.jpg"
-                loading="lazy"
-                alt=""
-                class="responsive-pix"
-              />
-              <div class="maint-overlay">
+              <div :class="{ active: prod == int }" class="maint-overlay">
                 <div class="border-overlay">
-                  <a href="#" class="maint-overly-title"
-                    >HIGH END TECHNICAL MAINTENANCE</a
+                  <NuxtLink
+                    :to="`/blog-details/?id=${item.id}`"
+                    class="maint-overly-title"
                   >
+                    {{ item.title }}
+                  </NuxtLink>
                   <div class="maint-overlay-text">
-                    Energo Service is a firm that specializes in power plant
-                    operation and maintenance,..<br />
+                    {{ item.subtitle }}
+                    <br />
                   </div>
-                  <a href="#" class="service-read-more reen w-inline-block"
+                  <NuxtLink
+                    :to="`/blog-details/?id=${item.id}`"
+                    class="service-read-more reen w-inline-block"
                     ><img
                       src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627ced1b84d6af368e52e15_arrow-forward.svg"
                       loading="lazy"
                       alt=""
                       class="read-icon bi"
                     />
-                    <div>More</div></a
+                    <div>More</div></NuxtLink
                   >
                 </div>
               </div>
@@ -388,14 +239,14 @@
     <div class="ome-stats">
       <div class="stats-cover"></div>
       <img
-        src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664d863cc455da947bdadf66_project.jpg"
+        src="/images/banner2.jpeg"
         loading="lazy"
         sizes="100vw"
         srcset="
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664d863cc455da947bdadf66_project-p-500.jpg   500w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664d863cc455da947bdadf66_project-p-800.jpg   800w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664d863cc455da947bdadf66_project-p-1080.jpg 1080w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664d863cc455da947bdadf66_project.jpg        1200w
+          /images/banner2.jpeg  500w,
+          /images/banner2.jpeg  800w,
+          /images/banner2.jpeg 1080w,
+          /images/banner2.jpeg 1200w
         "
         alt=""
         class="responsive-pix"
@@ -545,143 +396,6 @@
             <div class="process-text">
               You can use our Energo product so easily and it is easy to move
               and replace guarantees.<br />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="ome-latest">
-      <div class="custom-container">
-        <div class="latest-flex">
-          <div class="title-sm">// LATEST PROJECTS \\</div>
-          <div class="ome-title sm">WORKS ACROSS THE WORLD<br /></div>
-          <div class="rit-title widt">
-            Energo running multiple projects around the world that you are
-            seeing below and also the most popular projects.
-          </div>
-        </div>
-        <div class="display-flex">
-          <div class="display-left">
-            <div class="v-display">
-              <img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ec20aff5359b251a33ea2_first.jpg"
-                loading="lazy"
-                alt=""
-                class="responsive-pix"
-              />
-              <div class="display-cover"><div>[LATEST PROJECT V1]</div></div>
-              <div class="disp-sow active">
-                <div class="disp-left">
-                  <div>[LATEST PROJECT V1]</div>
-                  <a href="#" class="dis-link active w-inline-block"
-                    ><div>LEADING THE ENERGY TRANSITION</div>
-                    <img
-                      src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627da8bbae46715d6890829_arrow-forward-reen.svg"
-                      loading="lazy"
-                      alt=""
-                      class="dis-link-icon"
-                  /></a>
-                </div>
-                <div class="dis-box">
-                  <img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ec85ff77c8f1ed9296b85_magnifying-glass-zoom-icon.svg"
-                    loading="lazy"
-                    alt=""
-                    class="dis-box-icon"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="v-display">
-              <img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664eca04e14451c009aff72b_second.jpg"
-                loading="lazy"
-                alt=""
-                class="responsive-pix"
-              />
-              <div class="display-cover"><div>[LATEST PROJECT V1]</div></div>
-              <div class="disp-sow">
-                <div class="disp-left">
-                  <div>[LATEST PROJECT V1]</div>
-                  <a href="#" class="dis-link active w-inline-block"
-                    ><div>LEADING THE ENERGY TRANSITION</div>
-                    <img
-                      src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627da8bbae46715d6890829_arrow-forward-reen.svg"
-                      loading="lazy"
-                      alt=""
-                      class="dis-link-icon"
-                  /></a>
-                </div>
-                <div class="dis-box">
-                  <img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ec85ff77c8f1ed9296b85_magnifying-glass-zoom-icon.svg"
-                    loading="lazy"
-                    alt=""
-                    class="dis-box-icon"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="horizontal-display">
-              <img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664eca04e14451c009aff72b_second.jpg"
-                loading="lazy"
-                alt=""
-                class="responsive-pix"
-              />
-              <div class="display-cover"><div>[LATEST PROJECT V1]</div></div>
-              <div class="disp-sow">
-                <div class="disp-left">
-                  <div>[LATEST PROJECT V1]</div>
-                  <a href="#" class="dis-link active w-inline-block"
-                    ><div>LEADING THE ENERGY TRANSITION</div>
-                    <img
-                      src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627da8bbae46715d6890829_arrow-forward-reen.svg"
-                      loading="lazy"
-                      alt=""
-                      class="dis-link-icon"
-                  /></a>
-                </div>
-                <div class="dis-box">
-                  <img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ec85ff77c8f1ed9296b85_magnifying-glass-zoom-icon.svg"
-                    loading="lazy"
-                    alt=""
-                    class="dis-box-icon"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="display-rit">
-            <img
-              src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ecad730710fa537706a17_tird.jpg"
-              loading="lazy"
-              alt=""
-              class="responsive-pix"
-            />
-            <div class="display-cover"><div>[LATEST PROJECT V1]</div></div>
-            <div class="disp-sow">
-              <div class="disp-left">
-                <div>[LATEST PROJECT V1]</div>
-                <a href="#" class="dis-link active w-inline-block"
-                  ><div>LEADING THE ENERGY TRANSITION</div>
-                  <img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6627da8bbae46715d6890829_arrow-forward-reen.svg"
-                    loading="lazy"
-                    alt=""
-                    class="dis-link-icon"
-                /></a>
-              </div>
-              <div class="dis-box">
-                <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ec85ff77c8f1ed9296b85_magnifying-glass-zoom-icon.svg"
-                  loading="lazy"
-                  alt=""
-                  class="dis-box-icon"
-                />
-              </div>
             </div>
           </div>
         </div>
@@ -1194,7 +908,9 @@ export default {
   components: { HeroSlider, Testimonial },
   layout: "home",
   data() {
-    return {};
+    return {
+      prod: 10,
+    };
   },
   methods: {
     truncateText(text, maxLength) {
@@ -1206,6 +922,14 @@ export default {
 
     numberWithCommas(number) {
       return number.toLocaleString("en-US", { maximumFractionDigits: 2 });
+    },
+
+    setProd(int) {
+      this.prod = int;
+    },
+
+    unsetProd() {
+      this.prod = 10;
     },
 
     formatDateToDD(dateString) {
@@ -1268,7 +992,19 @@ export default {
       const blogs = [];
       for (let i = 0; i < items.length; i++) {
         const el = items[i];
-        if (el.category == "Services") {
+        if (el.type == "Services") {
+          blogs.push(el);
+        }
+      }
+      return blogs;
+    },
+
+    products() {
+      const items = this.$store.state.blogs;
+      const blogs = [];
+      for (let i = 0; i < items.length; i++) {
+        const el = items[i];
+        if (el.type == "Products") {
           blogs.push(el);
         }
       }

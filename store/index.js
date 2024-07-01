@@ -110,7 +110,7 @@ export const mutations = {
     state.faqs = result.data;
   },
 
-  setBlog(state, result) {
+  SET_BLOG(state, result) {
     state.blogs = result.data;
     state.blogLength = result.totalLength;
   },
@@ -172,6 +172,7 @@ export const actions = {
 
   async GET_BLOG({ commit, dispatch }, url) {
     const result = await dispatch("MAKE_GET", url);
+    console.log(result);
     commit("SET_BLOG", result.data);
   },
 
@@ -239,6 +240,7 @@ export const actions = {
     dispatch("GET_BANNERS", `/banners/?limit=10&page=1`);
     dispatch("GET_PRODUCTS", `/products/?limit=8&page=1`);
     dispatch("GET_ABOUTS", `/about/?limit=10&page=1`);
+    dispatch("GET_BLOG", "/blog/?limit=20&page=1");
 
     // dispatch(
     //   "GET_PRODUCT_CATEGORIES",
@@ -246,8 +248,6 @@ export const actions = {
     // );
     // dispatch("GET_TERMS", "/terms/?limit=20&page=1");
     // dispatch("GET_PROMOS", "/promotions/?limit=20&page=1&sort=-target");
-
-    // dispatch("GET_BLOG", "/blog/?limit=20&page=1");
 
     // dispatch("GET_PRODUCTS", "/products/?limit=40&page=1");
   },

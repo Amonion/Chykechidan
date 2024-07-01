@@ -10,7 +10,7 @@ export default {
 
       link: [
         { rel: "stylesheet", href: "/css/main.css" },
-        // { rel: "stylesheet", href: "/css/custom.css" },
+        { rel: "stylesheet", href: "/css/custom.css" },
         // {
         //   rel: "stylesheet",
         //   href: "/css/theme.css",
