@@ -236,7 +236,7 @@
       </div>
     </div>
 
-    <div class="ome-stats">
+    <div v-if="company" class="ome-stats">
       <div class="stats-cover"></div>
       <img
         src="/images/banner2.jpeg"
@@ -254,13 +254,15 @@
       <div class="custom-container">
         <div class="stats-flex">
           <div class="eac-stats">
-            <div class="ome-title">242</div>
-            <div class="small-title">PROJECTS COMPLETED<br /></div>
+            <div class="ome-title">
+              {{ numberWithCommas(company.days * 1) }}+
+            </div>
+            <div class="small-title">DAYS ONLINE<br /></div>
             <div class="stat-circle bi">
               <div class="stat-circle abs active"></div>
               <div class="stat-circle">
                 <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664dc24f02566668e7024952_renewable-energy-solar-icon.svg"
+                  src="/images/calendar.svg"
                   loading="lazy"
                   alt=""
                   class="stat-icon"
@@ -269,13 +271,15 @@
             </div>
           </div>
           <div class="eac-stats">
-            <div class="ome-title">242</div>
-            <div class="small-title">PROJECTS COMPLETED<br /></div>
+            <div class="ome-title">
+              {{ numberWithCommas(company.customers * 1) }}+
+            </div>
+            <div class="small-title">LOYAL CUSTOMERS<br /></div>
             <div class="stat-circle bi">
               <div class="stat-circle abs active"></div>
               <div class="stat-circle">
                 <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664dc24f02566668e7024952_renewable-energy-solar-icon.svg"
+                  src="/images/boys.svg"
                   loading="lazy"
                   alt=""
                   class="stat-icon"
@@ -284,13 +288,15 @@
             </div>
           </div>
           <div class="eac-stats">
-            <div class="ome-title">242</div>
-            <div class="small-title">PROJECTS COMPLETED<br /></div>
+            <div class="ome-title">
+              {{ numberWithCommas(company.products * 1) }}+
+            </div>
+            <div class="small-title">AVAILABLE PRODUCTS<br /></div>
             <div class="stat-circle bi">
               <div class="stat-circle abs active"></div>
               <div class="stat-circle">
                 <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664dc24f02566668e7024952_renewable-energy-solar-icon.svg"
+                  src="/images/box.svg"
                   loading="lazy"
                   alt=""
                   class="stat-icon"
@@ -299,13 +305,15 @@
             </div>
           </div>
           <div class="eac-stats">
-            <div class="ome-title">242</div>
-            <div class="small-title">PROJECTS COMPLETED<br /></div>
+            <div class="ome-title">
+              {{ numberWithCommas(company.partners * 1) }}+
+            </div>
+            <div class="small-title">BEST PARTNERS<br /></div>
             <div class="stat-circle bi">
               <div class="stat-circle abs active"></div>
               <div class="stat-circle">
                 <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664dc24f02566668e7024952_renewable-energy-solar-icon.svg"
+                  src="/images/handshake.svg"
                   loading="lazy"
                   alt=""
                   class="stat-icon"
@@ -321,12 +329,12 @@
       <div class="custom-container">
         <div class="process-flex">
           <div class="process-title-left">
-            <div class="title-sm">// WORKING PROCESS</div>
-            <div class="ome-title sm">4 WAYS TO ACHIVE RESULTS<br /></div>
+            <div class="title-sm">// MODUS OPERANDI</div>
+            <div class="ome-title sm">WAYS WE ACHIVE RESULTS<br /></div>
           </div>
           <div class="process-title-rit">
             <div class="rit-title">
-              We are following these processes to maintain our working process
+              We are following these processes to maintain our working culture
               and also for better outcomes.<br />
             </div>
           </div>
@@ -335,16 +343,16 @@
             <div class="process-arrow-flex">
               <div>01...</div>
               <img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ebb2b8380e37beb92fed8_arrow-down.svg"
+                src="/images/arrow-down.svg"
                 loading="lazy"
                 alt=""
                 class="process-arrow"
               />
             </div>
-            <div class="process-title">CONSULT WITH US</div>
+            <div class="process-title">SELECTIVE SOURCING</div>
             <div class="process-text">
-              Our engineers have extensive knowledge and design any system from
-              start to finish.<br />
+              We carefully choose manufacturers who meet our high standards for
+              quality and reliability. <br />
             </div>
           </div>
           <div class="eac-process">
@@ -352,16 +360,16 @@
             <div class="process-arrow-flex">
               <div>02...</div>
               <img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664eb9dff7886de88410cfb6_arrow.svg"
+                src="/images/arrow-up.svg"
                 loading="lazy"
                 alt=""
                 class="process-arrow"
               />
             </div>
-            <div class="process-title">GENREATE POWER</div>
+            <div class="process-title">BULK PURCHASING</div>
             <div class="process-text">
-              We generate Power by using non pollution equipment such as
-              turbines, water, steam.<br />
+              We buy products in large quantities, which allows us to take
+              advantage of bulk pricing.<br />
             </div>
           </div>
           <div class="eac-process">
@@ -369,16 +377,16 @@
             <div class="process-arrow-flex">
               <div>03...</div>
               <img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ebb2b8380e37beb92fed8_arrow-down.svg"
+                src="/images/arrow-down.svg"
                 loading="lazy"
                 alt=""
                 class="process-arrow"
               />
             </div>
-            <div class="process-title">STORE THE POWER</div>
+            <div class="process-title">EFFICIENT LOGISTICS</div>
             <div class="process-text">
-              Energo stores the power for the future to handle any kind of
-              disaster that may happen or not.<br />
+              Our streamlined logistics and efficient supply chain management
+              reduce overhead costs.<br />
             </div>
           </div>
           <div class="eac-process">
@@ -386,101 +394,16 @@
             <div class="process-arrow-flex">
               <div>04...</div>
               <img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664eb9dff7886de88410cfb6_arrow.svg"
+                src="/images/arrow-up.svg"
                 loading="lazy"
                 alt=""
                 class="process-arrow"
               />
             </div>
-            <div class="process-title">USE IT FLEXIBLY</div>
+            <div class="process-title">COMPETITIVE PRICING</div>
             <div class="process-text">
-              You can use our Energo product so easily and it is easy to move
-              and replace guarantees.<br />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="boss">
-      <img
-        src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ed3e5a237ae4bb7f35dc6_layerb1.svg"
-        loading="lazy"
-        alt=""
-        class="responsive-pix"
-      /><img
-        src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ed31ac437d16bd7d79c98_wind-1.png"
-        loading="lazy"
-        sizes="(max-width: 1439px) 100vw, 1385.5250244140625px"
-        srcset="
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ed31ac437d16bd7d79c98_wind-1-p-500.png 500w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ed31ac437d16bd7d79c98_wind-1.png       584w
-        "
-        alt=""
-        class="boss-solar"
-      /><img
-        src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ed98a33e60f43e377283e_boss.png"
-        loading="lazy"
-        sizes="100vw"
-        srcset="
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ed98a33e60f43e377283e_boss-p-500.png 500w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ed98a33e60f43e377283e_boss.png       644w
-        "
-        alt=""
-        class="boss-im"
-      /><img
-        src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ed31a178062a343b3d6a6_shape-2.png"
-        loading="lazy"
-        sizes="100vw"
-        srcset="
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ed31a178062a343b3d6a6_shape-2-p-500.png   500w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ed31a178062a343b3d6a6_shape-2-p-800.png   800w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ed31a178062a343b3d6a6_shape-2-p-1080.png 1080w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ed31a178062a343b3d6a6_shape-2-p-1600.png 1600w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ed31a178062a343b3d6a6_shape-2.png        1920w
-        "
-        alt=""
-        class="responsive-pix _0"
-      />
-      <div class="custom-container">
-        <div class="boss-flex">
-          <div class="boss-rit">
-            <div class="title-sm">// COMPANY STATISTICS</div>
-            <div class="ome-title sm lit">
-              FOR OVER 08 YEARS IN<br />THE BUSINESS
-            </div>
-            <div class="rit-title lit">
-              Our power of choice is untrammelled and when nothing prevents us
-              from being able to do what we like best, every pleasure is to be
-              welcomed and every pain avoided in certain circumstances.<br />
-            </div>
-            <div class="boss-stats">
-              <div class="dis-box"><div>62%</div></div>
-              <div class="boss-stat-wrap">
-                <div>SOLAR ENERGY<br /></div>
-                <div class="stat-bar"></div>
-              </div>
-            </div>
-            <div class="boss-stats">
-              <div class="dis-box"><div>62%</div></div>
-              <div class="boss-stat-wrap">
-                <div>SOLAR ENERGY<br /></div>
-                <div class="stat-bar"></div>
-              </div>
-            </div>
-            <div class="boss-stats">
-              <div class="dis-box"><div>62%</div></div>
-              <div class="boss-stat-wrap">
-                <div>SOLAR ENERGY<br /></div>
-                <div class="stat-bar"></div>
-              </div>
-            </div>
-            <div class="boss-stats">
-              <div class="dis-box"><div>62%</div></div>
-              <div class="boss-stat-wrap">
-                <div>SOLAR ENERGY<br /></div>
-                <div class="stat-bar"></div>
-              </div>
+              We price our products competitively, balancing affordability with
+              quality.<br />
             </div>
           </div>
         </div>
@@ -491,77 +414,33 @@
       <div class="custom-container">
         <div class="staffs-flex">
           <div class="process-title-left">
-            <div class="title-sm">// WORKING PROCESS</div>
+            <div class="title-sm">// WONDERFUL STAFF</div>
             <div class="ome-title sm">TEAM BEHIND OUR SUCCESS<br /></div>
           </div>
           <div class="process-title-rit">
             <div class="rit-title">
-              We are following these processes to maintain our working process
-              and also for better outcomes.<br />
+              Meat our wonderful staff of Chyke Chidan who are working very
+              smart and efficient to make available our services to your reach
+              <br />
             </div>
           </div>
           <div class="w-layout-grid staff-rid">
-            <div class="eac-staff-rid">
-              <div
-                id="w-node-_5dc38d1b-ea24-430d-381a-0f69cfb74d8f-7a51b666"
-                class="rid-color active"
-              ></div>
-              <div
-                id="w-node-_45dd9f45-b237-e295-6441-7b0c57cfbd3a-7a51b666"
-                class="rid-pix-older"
-              >
-                <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f74d199c5069d1a2f8cb6_team-1.jpg"
-                  loading="lazy"
-                  alt=""
-                  class="responsive-pix"
-                />
-                <div class="site-socials active">
-                  <a href="#" class="dis-box bot w-inline-block"
-                    ><img
-                      src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/662685c168d98f8cc52fcd76_facebook-app-round-icon%201.svg"
-                      loading="lazy"
-                      alt=""
-                      class="dis-box-icon" /></a
-                  ><a href="#" class="dis-box bot w-inline-block"
-                    ><img
-                      src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/662685c168d98f8cc52fcd76_facebook-app-round-icon%201.svg"
-                      loading="lazy"
-                      alt=""
-                      class="dis-box-icon" /></a
-                  ><a href="#" class="dis-box w-inline-block"
-                    ><img
-                      src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/662685c168d98f8cc52fcd76_facebook-app-round-icon%201.svg"
-                      loading="lazy"
-                      alt=""
-                      class="dis-box-icon"
-                  /></a>
-                </div>
-                <div class="staff-name-older">
-                  <div class="staff-name">MARC KENNETH</div>
-                  <div class="title-sm rem">SENIOR VP</div>
-                </div>
-              </div>
-            </div>
             <div
-              id="w-node-_95c3852b-9e9c-6918-0d3e-829d0e3f2cb0-7a51b666"
+              @mouseenter="activateStaff(int)"
+              @mouseleave="deactivateStaff"
+              v-for="(item, int) in staffs"
+              :key="int"
               class="eac-staff-rid"
             >
-              <div
-                id="w-node-_95c3852b-9e9c-6918-0d3e-829d0e3f2cb1-7a51b666"
-                class="rid-color"
-              ></div>
-              <div
-                id="w-node-_95c3852b-9e9c-6918-0d3e-829d0e3f2cb2-7a51b666"
-                class="rid-pix-older"
-              >
+              <div class="rid-color" :class="{ active: int == staf }"></div>
+              <div class="rid-pix-older">
                 <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f74d168df473770ff61df_team-3.jpg"
+                  :src="`${FILE_URL}/${item.image}`"
                   loading="lazy"
                   alt=""
                   class="responsive-pix"
                 />
-                <div class="site-socials">
+                <div :class="{ active: int == staf }" class="site-socials">
                   <a href="#" class="dis-box bot w-inline-block"
                     ><img
                       src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/662685c168d98f8cc52fcd76_facebook-app-round-icon%201.svg"
@@ -583,98 +462,8 @@
                   /></a>
                 </div>
                 <div class="staff-name-older">
-                  <div class="staff-name">MARC KENNETH</div>
-                  <div class="title-sm rem">SENIOR VP</div>
-                </div>
-              </div>
-            </div>
-            <div
-              id="w-node-_992d466a-db33-e869-6a1d-58907ee426c6-7a51b666"
-              class="eac-staff-rid"
-            >
-              <div
-                id="w-node-_992d466a-db33-e869-6a1d-58907ee426c7-7a51b666"
-                class="rid-color"
-              ></div>
-              <div
-                id="w-node-_992d466a-db33-e869-6a1d-58907ee426c8-7a51b666"
-                class="rid-pix-older"
-              >
-                <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f74d260b27de6797cca7e_team-2.jpg"
-                  loading="lazy"
-                  alt=""
-                  class="responsive-pix"
-                />
-                <div class="site-socials">
-                  <a href="#" class="dis-box bot w-inline-block"
-                    ><img
-                      src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/662685c168d98f8cc52fcd76_facebook-app-round-icon%201.svg"
-                      loading="lazy"
-                      alt=""
-                      class="dis-box-icon" /></a
-                  ><a href="#" class="dis-box bot w-inline-block"
-                    ><img
-                      src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/662685c168d98f8cc52fcd76_facebook-app-round-icon%201.svg"
-                      loading="lazy"
-                      alt=""
-                      class="dis-box-icon" /></a
-                  ><a href="#" class="dis-box w-inline-block"
-                    ><img
-                      src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/662685c168d98f8cc52fcd76_facebook-app-round-icon%201.svg"
-                      loading="lazy"
-                      alt=""
-                      class="dis-box-icon"
-                  /></a>
-                </div>
-                <div class="staff-name-older">
-                  <div class="staff-name">MARC KENNETH</div>
-                  <div class="title-sm rem">SENIOR VP</div>
-                </div>
-              </div>
-            </div>
-            <div
-              id="w-node-a6227dc7-ea9d-90a8-0254-1c1f644da933-7a51b666"
-              class="eac-staff-rid"
-            >
-              <div
-                id="w-node-a6227dc7-ea9d-90a8-0254-1c1f644da934-7a51b666"
-                class="rid-color"
-              ></div>
-              <div
-                id="w-node-a6227dc7-ea9d-90a8-0254-1c1f644da935-7a51b666"
-                class="rid-pix-older"
-              >
-                <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f74d260b27de6797cca7e_team-2.jpg"
-                  loading="lazy"
-                  alt=""
-                  class="responsive-pix"
-                />
-                <div class="site-socials">
-                  <a href="#" class="dis-box bot w-inline-block"
-                    ><img
-                      src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/662685c168d98f8cc52fcd76_facebook-app-round-icon%201.svg"
-                      loading="lazy"
-                      alt=""
-                      class="dis-box-icon" /></a
-                  ><a href="#" class="dis-box bot w-inline-block"
-                    ><img
-                      src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/662685c168d98f8cc52fcd76_facebook-app-round-icon%201.svg"
-                      loading="lazy"
-                      alt=""
-                      class="dis-box-icon" /></a
-                  ><a href="#" class="dis-box w-inline-block"
-                    ><img
-                      src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/662685c168d98f8cc52fcd76_facebook-app-round-icon%201.svg"
-                      loading="lazy"
-                      alt=""
-                      class="dis-box-icon"
-                  /></a>
-                </div>
-                <div class="staff-name-older">
-                  <div class="staff-name">MARC KENNETH</div>
-                  <div class="title-sm rem">SENIOR VP</div>
+                  <div class="staff-name">{{ item.username }}</div>
+                  <div class="title-sm rem">{{ item.position }}</div>
                 </div>
               </div>
             </div>
@@ -910,6 +699,7 @@ export default {
   data() {
     return {
       prod: 10,
+      staf: -1,
     };
   },
   methods: {
@@ -922,6 +712,14 @@ export default {
 
     numberWithCommas(number) {
       return number.toLocaleString("en-US", { maximumFractionDigits: 2 });
+    },
+
+    activateStaff(int) {
+      this.staf = int;
+    },
+
+    deactivateStaff() {
+      this.staf = -1;
     },
 
     setProd(int) {
@@ -1011,8 +809,8 @@ export default {
       return blogs;
     },
 
-    currencies() {
-      return this.$store.state.currencies;
+    staffs() {
+      return this.$store.state.staffs;
     },
   },
 };

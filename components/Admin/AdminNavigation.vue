@@ -167,7 +167,9 @@
           <NuxtLink to="/admin/set-notifications" class="das-nav-items inner">
             <div>Notifications</div>
           </NuxtLink>
-          <div class="das-nav-items inner"><div>SMS</div></div>
+          <NuxtLink to="/admin/set-staffs" class="das-nav-items inner"
+            ><div>Staffs</div></NuxtLink
+          >
           <NuxtLink to="/admin/set-application" class="das-nav-items inner"
             ><div>Application</div></NuxtLink
           >

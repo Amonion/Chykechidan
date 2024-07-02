@@ -38,16 +38,18 @@
           <div class="das-tb-cell _20">
             <div class="das-eader-pix">
               <img
-                src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f80d1c1cea9efa6271a5b_testimonial-3.jpg"
+                :src="`${FILE_URL}/${item.image}`"
                 loading="lazy"
                 alt=""
                 class="responsive-pix"
               />
             </div>
           </div>
-          <div class="das-tb-cell _30">3 * 300W Solar Panel = N400,500,</div>
-          <div class="das-tb-cell _40">70,500</div>
-          <div class="das-tb-cell _20">70,500</div>
+          <div class="das-tb-cell _30">{{ item.username }}</div>
+          <div class="das-tb-cell _40">{{ item.content }}</div>
+          <div class="das-tb-cell _20">
+            {{ formatNumberToDate(item.time * 1) }}
+          </div>
         </div>
       </div>
     </div>
@@ -315,8 +317,8 @@ export default {
       const payload = {
         form: commentData,
         url: this.editingState
-          ? `/comments/update/?id=${this.editId}&limit=${this.limit}&page=${this.currentPage}&sort=${this.sort}`
-          : `/comments/?limit=${this.limit}&page=${this.currentPage}&sort=${this.sort}`,
+          ? `/comments/update/?id=${this.editId}&limit=${this.limit}&page=${this.currentPage}&sort=${this.sort}&username=${this.user.username}`
+          : `/comments/?limit=${this.limit}&page=${this.currentPage}&sort=${this.sort}&username=${this.user.username}`,
       };
 
       this.onRequest = true;
@@ -344,7 +346,12 @@ export default {
     },
   },
 
-  mounted() {},
+  mounted() {
+    // this.$store.dispatch(
+    //   "GET_COMMENTS",
+    //   `/comments/?username=${this.user.username}&limit=10&page=1`
+    // );
+  },
 
   computed: {
     isAuthenticated() {
@@ -355,12 +362,16 @@ export default {
       return this.$store.getters.getUserInfo;
     },
 
+    FILE_URL() {
+      return this.$store.state.fileURL;
+    },
+
     totalLength() {
-      return this.$store.state.commentLength;
+      return this.$store.state.reviewLength;
     },
 
     items() {
-      return this.$store.state.comments;
+      return this.$store.state.reviews;
     },
   },
 };

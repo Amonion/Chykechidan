@@ -176,7 +176,7 @@ export default {
 
   async mounted() {
     this.$store.commit("admin/SET_FILE_URL", this.$config.FILE_URL);
-    // this.$store.commit("SET_FILE_URL", this.$config.FILE_URL);
+    this.$store.commit("SET_FILE_URL", this.$config.FILE_URL);
     this.$store.dispatch("admin/INITIALIZE_APP");
     // this.$store.dispatch("INITIALIZE_APP", this.user);
     if (!this.productStatus) {

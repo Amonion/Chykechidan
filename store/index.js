@@ -93,12 +93,12 @@ export const mutations = {
     state.company = result.data[0];
   },
 
-  setReviews(state, result) {
+  SET_REVIEWS(state, result) {
     state.reviews = result.data;
     state.reviewLength = result.totalLength;
   },
 
-  setStaffs(state, result) {
+  SET_STAFFS(state, result) {
     state.staffs = result.data;
   },
 
@@ -131,8 +131,8 @@ export const mutations = {
   },
 
   SET_COMMENTS(state, result) {
-    state.comments = result.data;
-    state.commentLength = result.totalLength;
+    state.reviews = result.data;
+    state.reviewLength = result.totalLength;
   },
 
   SET_ABOUTS(state, result) {
@@ -172,8 +172,12 @@ export const actions = {
 
   async GET_BLOG({ commit, dispatch }, url) {
     const result = await dispatch("MAKE_GET", url);
-    console.log(result);
     commit("SET_BLOG", result.data);
+  },
+
+  async GET_STAFFS({ commit, dispatch }, url) {
+    const result = await dispatch("MAKE_GET", url);
+    commit("SET_STAFFS", result.data);
   },
 
   async GET_TERMS({ dispatch, commit }, url) {
@@ -196,9 +200,9 @@ export const actions = {
     commit("SET_NOTIFICATIONS", result.data);
   },
 
-  async GET_PRODUCT_CATEGORIES({ dispatch, commit }, url) {
+  async GET_REVIEWS({ dispatch, commit }, url) {
     const result = await dispatch("MAKE_GET", url);
-    commit("SET_PRODUCT_CATEGORIES", result.data);
+    commit("SET_REVIEWS", result.data);
   },
 
   async GET_COMPANY({ dispatch, commit }, url) {
@@ -241,11 +245,7 @@ export const actions = {
     dispatch("GET_PRODUCTS", `/products/?limit=8&page=1`);
     dispatch("GET_ABOUTS", `/about/?limit=10&page=1`);
     dispatch("GET_BLOG", "/blog/?limit=20&page=1");
-
-    // dispatch(
-    //   "GET_PRODUCT_CATEGORIES",
-    //   "/products/?limit=20&page=1&isCategory=1"
-    // );
+    dispatch("GET_STAFFS", "/staffs/?limit=20&page=1");
     // dispatch("GET_TERMS", "/terms/?limit=20&page=1");
     // dispatch("GET_PROMOS", "/promotions/?limit=20&page=1&sort=-target");
 

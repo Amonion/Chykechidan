@@ -203,33 +203,23 @@ export default {
       }, 6000);
     },
 
-    // checkResponse(result, msg, status) {
-    //   this.onRequest = false;
-    //   if (result.status == 200) {
-    //   } else {
-    //     this.callResponse(result.response.data.message, true);
-    //   }
-    // },
-
     async setPicture(e) {
       const form = new FormData();
 
       form.append("image", e.target.files[0]);
+      this.onRequest = true;
 
       const payload = {
         form: form,
         url: `/users/?id=${this.user.id}`,
       };
-      const result = await this.$store.dispatch("MAKE_POST", payload);
 
-      this.onRequest = true;
-      if (result) {
-        this.handleResponse(result);
-      }
+      const result = await this.$store.dispatch("MAKE_POST", payload);
+      this.handleResponse(result);
     },
 
     handleResponse(result) {
-      // console.log(result, result.response);
+      console.log(result, result.response);
       if (!result.response) {
         this.onRequest = false;
         this.$store.commit("UPDATE_ME", result.data);
@@ -257,7 +247,7 @@ export default {
     },
 
     FILE_URL() {
-      return this.$store.state.admin.fileURL;
+      return this.$store.state.fileURL;
     },
   },
 };

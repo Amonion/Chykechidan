@@ -8,7 +8,8 @@
       @click="toggleNav"
     />
     <div class="das-welcome">
-      Welcome Back <span class="das-eader-name">{{ user.username }}</span>
+      Welcome Back
+      <span class="das-eader-name">{{ user.username }}</span>
     </div>
     <div class="das-eader-icons">
       <NuxtLink to="/admin/profile" class="das-icons-top w-inline-block"
@@ -29,7 +30,7 @@
           alt=""
       /></span>
     </div>
-    <div class="das-eader-pix">
+    <div v-if="user" class="das-eader-pix">
       <img
         :src="`${FILE_URL}/${user.image}`"
         loading="lazy"
@@ -93,11 +94,13 @@ export default {
     expandNav() {
       return this.$store.state.expandNav;
     },
-    FILE_URL() {
-      return this.$store.state.admin.fileURL;
-    },
+
     user() {
       return this.$store.getters.getUserInfo;
+    },
+
+    FILE_URL() {
+      return this.$store.state.fileURL;
     },
   },
 };

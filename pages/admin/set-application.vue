@@ -145,6 +145,42 @@
             type="text"
           />
         </div>
+        <div class="eac-form-input">
+          <div class="from-rid-label">Customers</div>
+          <input
+            class="from-rid-input w-input"
+            v-model="customers"
+            placeholder="Enter Customers"
+            type="number"
+          />
+        </div>
+        <div class="eac-form-input">
+          <div class="from-rid-label">Days Online</div>
+          <input
+            class="from-rid-input w-input"
+            v-model="days"
+            placeholder="Enter Days"
+            type="number"
+          />
+        </div>
+        <div class="eac-form-input">
+          <div class="from-rid-label">Products</div>
+          <input
+            class="from-rid-input w-input"
+            v-model="products"
+            placeholder="Enter Products"
+            type="number"
+          />
+        </div>
+        <div class="eac-form-input">
+          <div class="from-rid-label">Partners</div>
+          <input
+            class="from-rid-input w-input"
+            v-model="partners"
+            placeholder="Enter Partners"
+            type="number"
+          />
+        </div>
       </div>
 
       <div
@@ -213,6 +249,11 @@ export default {
       companyAddress: "",
       referralPercentage: 0,
       takeStock: false,
+
+      customers: "",
+      products: "",
+      days: "",
+      partners: "",
 
       isEditing: false,
       editingId: "",
@@ -284,6 +325,10 @@ export default {
       this.companyBank = "";
       this.companyAccountName = "";
       this.companyAccountNumber = "";
+      this.customers = "";
+      this.days = "";
+      this.products = "";
+      this.partners = "";
       this.announcements = [];
       this.referralPercentage = 0;
       this.systemEmail = "";
@@ -332,6 +377,10 @@ export default {
       this.announcements = newCompany.announcements;
       this.systemEmail = newCompany.systemEmail;
       this.takeStock = newCompany.takeStock;
+      this.customers = newCompany.customers;
+      this.products = newCompany.products;
+      this.partners = newCompany.partners;
+      this.days = newCompany.days;
     },
 
     checkResponse(response) {
@@ -353,6 +402,10 @@ export default {
         companyAddress: this.companyAddress,
         companyAccountName: this.companyAccountName,
         companyAccountNumber: this.companyAccountNumber,
+        customers: this.customers,
+        products: this.products,
+        days: this.days,
+        partners: this.partners,
         takeStock: this.takeStock,
         systemEmail: this.systemEmail,
         referralPercentage: this.referralPercentage,

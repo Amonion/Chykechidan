@@ -21,7 +21,8 @@ export const state = () => ({
 
   comments: [],
   commentLength: 0,
-  commentStatus: false,
+  isCommentsChecked: false,
+  selectedComments: [],
 
   abouts: [],
   aboutLength: 0,
@@ -341,6 +342,29 @@ export const mutations = {
     }
   },
 
+  TOGGLE_COMMENT(state, int) {
+    state.comments[int].checked = !state.comments[int].checked;
+
+    const comment = state.comments[int];
+    const exists = state.selectedComments.some(
+      (obj) => obj._id === comment._id
+    );
+    if (!exists) {
+      state.selectedComments.push(comment);
+      if (state.selectedComments.length == state.comments.length) {
+        state.isCommentsChecked = true;
+      }
+    } else {
+      state.selectedComments = state.selectedComments.filter(
+        (obj) => obj.id !== comment.id
+      );
+      if (state.selectedComments.length == 0) {
+        state.isCommentsChecked = false;
+        state.selectedComments = [];
+      }
+    }
+  },
+
   TOGGLE_STAFF(state, int) {
     state.staffs[int].checked = !state.staffs[int].checked;
 
@@ -530,7 +554,8 @@ export const mutations = {
   SET_COMMENTS(state, data) {
     state.commentLength = data.totalLength;
     state.comments = checkArray(data.data);
-    state.commentStatus = true;
+    state.isCommentsChecked = true;
+    state.selectedComments = [];
   },
 
   SET_EMAILS(state, data) {

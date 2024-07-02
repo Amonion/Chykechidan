@@ -1,11 +1,6 @@
 <template>
   <div class="dashboard">
     <admin-response />
-
-    <admin-checkout />
-
-    <admin-purchase-checkout />
-
     <div class="checkout-wrap">
       <div class="checkout-child progress"></div>
     </div>
@@ -22,72 +17,16 @@
         </div>
       </div>
     </div>
-
-    <div v-if="isShowCart">
-      <div
-        @click="showCart"
-        v-if="cartProperties.totalQuantity > 0"
-        class="scroll-up cart active w-inline-block"
-      >
-        <div class="cart-wrap">
-          <div
-            v-if="
-              cartProperties.totalQuantity < 10 &&
-              cartProperties.totalQuantity > 0
-            "
-            class="cart-text"
-          >
-            {{ cartProperties.totalQuantity }}
-          </div>
-          <div v-else class="cart-text">9+</div>
-          <img
-            src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6657141a03a0bb8927cb10a3_cart-plus.svg"
-            loading="lazy"
-            alt=""
-          />
-        </div>
-      </div>
-    </div>
-
-    <div v-if="isShowPurchase">
-      <div
-        @click="showPurchase"
-        v-if="purchaseProperties.totalQuantity > 0"
-        class="scroll-up cart active w-inline-block"
-      >
-        <div class="cart-wrap">
-          <div
-            v-if="
-              purchaseProperties.totalQuantity < 10 &&
-              purchaseProperties.totalQuantity > 0
-            "
-            class="cart-text"
-          >
-            {{ purchaseProperties.totalQuantity }}
-          </div>
-          <div v-else class="cart-text">9+</div>
-          <img
-            src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6657141a03a0bb8927cb10a3_cart-plus.svg"
-            loading="lazy"
-            alt=""
-          />
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
-import AdminCheckout from "../components/Admin/AdminCheckout.vue";
-import AdminPurchaseCheckout from "../components/Admin/AdminPurchaseCheckout.vue";
 import AdminResponse from "../components/Admin/AdminResponse.vue";
 import UserHeader from "../components/Customer/UserHeader.vue";
 import UserNavigation from "../components/Customer/UserNavigation.vue";
 export default {
   components: {
-    AdminCheckout,
     AdminResponse,
-    AdminPurchaseCheckout,
     UserNavigation,
     UserHeader,
   },
@@ -220,7 +159,7 @@ export default {
     },
 
     company() {
-      return this.$store.state.admin.company[0];
+      return this.$store.state.company;
     },
 
     isNotification() {

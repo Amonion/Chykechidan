@@ -4,8 +4,10 @@
     <div class="custom-container">
       <div class="custom-flex">
         <div class="latest-flex wite">
-          <div class="title-sm wite">// LATEST PROJECTS \\</div>
-          <div class="ome-title sm">WORKS ACROSS THE WORLD<br /></div>
+          <div class="title-sm wite">// LATEST REVEIWS \\</div>
+          <div class="ome-title sm">
+            WHAT CUSTOMERS & PARTNERS SAY ABOUT US<br />
+          </div>
         </div>
         <div
           data-delay="4000"
@@ -25,7 +27,7 @@
               <div class="test-slide">
                 <div class="quote-flex">
                   <img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f7dcb2e352cbbe0e3acfb_quote-left.svg"
+                    src="/images/quote-left.svg"
                     loading="lazy"
                     alt=""
                     class="quote-icon"
@@ -41,22 +43,22 @@
                 </div>
                 <div>
                   <img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f7fad1446bc277c6aa10d_star.svg"
+                    src="/images/star.svg"
                     loading="lazy"
                     alt=""
                     class="test-star"
                   /><img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f7fad1446bc277c6aa10d_star.svg"
+                    src="/images/star.svg"
                     loading="lazy"
                     alt=""
                     class="test-star"
                   /><img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f7fad1446bc277c6aa10d_star.svg"
+                    src="/images/star.svg"
                     loading="lazy"
                     alt=""
                     class="test-star"
                   /><img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f7fad1446bc277c6aa10d_star.svg"
+                    src="/images/star.svg"
                     loading="lazy"
                     alt=""
                     class="test-star"
@@ -246,15 +248,7 @@ export default {
     },
 
     reviews() {
-      const items = this.$store.state.reviews;
-      const blogs = [];
-      for (let i = 0; i < items.length; i++) {
-        const el = items[i];
-        if (el.country !== "Initiative") {
-          blogs.push(el);
-        }
-      }
-      return blogs;
+      return this.$store.state.reviews;
     },
   },
 };

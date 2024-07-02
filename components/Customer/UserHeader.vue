@@ -96,7 +96,7 @@ export default {
       return this.$store.state.expandNav;
     },
     FILE_URL() {
-      return this.$store.state.admin.fileURL;
+      return this.$store.state.fileURL;
     },
     user() {
       return this.$store.getters.getUserInfo;

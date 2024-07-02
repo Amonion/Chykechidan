@@ -43,6 +43,11 @@
   cursor: pointer;
 }
 
+.eac-staff-rid,
+.site-socials {
+  transition: 0.5s all;
+}
+
 .flex-btw {
   display: flex;
   justify-content: space-between;
@@ -99,6 +104,10 @@
 
 .spinner {
   animation: spin 1s linear infinite;
+}
+
+.stats-cover {
+  background-color: rgba(255, 65, 65, 0.5);
 }
 
 .stock-input {

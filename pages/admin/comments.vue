@@ -18,6 +18,7 @@
           :key="item.id"
           :class="{
             even: int % 2 == 0,
+            fail: item.status == 0,
           }"
           class="das-tb-body"
         >
@@ -26,7 +27,7 @@
             <div
               :class="{ active: item.checked }"
               class="das-tb-ceck"
-              @click="toggleComment(int)"
+              @click="selectComment(int)"
             >
               <img
                 src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665805ea25eaee8db62cce44_check.svg"
@@ -96,6 +97,8 @@
           />
         </div>
       </div>
+      <div @click="approveComment" class="tb-action-text">Toggle Comment</div>
+
       <img
         src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/666010bad7eb3baa6c4314b2_edit.svg"
         loading="lazy"
@@ -229,7 +232,45 @@ export default {
       return formattedDate;
     },
 
-    toggleComment(int) {},
+    showOverlayResponse(msg, error, success, warning, show) {
+      const payload = {
+        msg,
+        error,
+        success,
+        warning,
+        show,
+      };
+
+      this.$store.commit("admin/SHOW_RESPONSE", payload);
+    },
+
+    async approveComment() {
+      if (this.selectedComments.length == 0) {
+        this.showOverlayResponse(
+          "Select at least one comment to update",
+          true,
+          false,
+          false,
+          true
+        );
+        return;
+      }
+
+      const payload = {
+        form: JSON.parse(JSON.stringify(this.selectedComments)),
+        url: `/comments/toggle-status/?&limit=${this.limit}&page=${this.currentPage}`,
+      };
+      const result = await this.$store.dispatch(`MAKE_POST`, payload);
+      if (!result.response) {
+        this.$store.commit(`admin/SET_COMMENTS`, result.data);
+      } else {
+        console.log(result.response);
+      }
+    },
+
+    selectComment(int) {
+      this.$store.commit("admin/TOGGLE_COMMENT", int);
+    },
 
     async getActiveDeposits() {
       this.$store.dispatch(
@@ -254,6 +295,10 @@ export default {
 
     items() {
       return this.$store.state.admin.comments;
+    },
+
+    selectedComments() {
+      return this.$store.state.admin.selectedComments;
     },
   },
 };
