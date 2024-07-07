@@ -236,94 +236,7 @@
       </div>
     </div>
 
-    <div v-if="company" class="ome-stats">
-      <div class="stats-cover"></div>
-      <img
-        src="/images/banner2.jpeg"
-        loading="lazy"
-        sizes="100vw"
-        srcset="
-          /images/banner2.jpeg  500w,
-          /images/banner2.jpeg  800w,
-          /images/banner2.jpeg 1080w,
-          /images/banner2.jpeg 1200w
-        "
-        alt=""
-        class="responsive-pix"
-      />
-      <div class="custom-container">
-        <div class="stats-flex">
-          <div class="eac-stats">
-            <div class="ome-title">
-              {{ numberWithCommas(company.days * 1) }}+
-            </div>
-            <div class="small-title">DAYS ONLINE<br /></div>
-            <div class="stat-circle bi">
-              <div class="stat-circle abs active"></div>
-              <div class="stat-circle">
-                <img
-                  src="/images/calendar.svg"
-                  loading="lazy"
-                  alt=""
-                  class="stat-icon"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="eac-stats">
-            <div class="ome-title">
-              {{ numberWithCommas(company.customers * 1) }}+
-            </div>
-            <div class="small-title">LOYAL CUSTOMERS<br /></div>
-            <div class="stat-circle bi">
-              <div class="stat-circle abs active"></div>
-              <div class="stat-circle">
-                <img
-                  src="/images/boys.svg"
-                  loading="lazy"
-                  alt=""
-                  class="stat-icon"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="eac-stats">
-            <div class="ome-title">
-              {{ numberWithCommas(company.products * 1) }}+
-            </div>
-            <div class="small-title">AVAILABLE PRODUCTS<br /></div>
-            <div class="stat-circle bi">
-              <div class="stat-circle abs active"></div>
-              <div class="stat-circle">
-                <img
-                  src="/images/box.svg"
-                  loading="lazy"
-                  alt=""
-                  class="stat-icon"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="eac-stats">
-            <div class="ome-title">
-              {{ numberWithCommas(company.partners * 1) }}+
-            </div>
-            <div class="small-title">BEST PARTNERS<br /></div>
-            <div class="stat-circle bi">
-              <div class="stat-circle abs active"></div>
-              <div class="stat-circle">
-                <img
-                  src="/images/handshake.svg"
-                  loading="lazy"
-                  alt=""
-                  class="stat-icon"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <stats />
 
     <div class="process">
       <div class="custom-container">
@@ -410,67 +323,7 @@
       </div>
     </div>
 
-    <div class="staffs">
-      <div class="custom-container">
-        <div class="staffs-flex">
-          <div class="process-title-left">
-            <div class="title-sm">// WONDERFUL STAFF</div>
-            <div class="ome-title sm">TEAM BEHIND OUR SUCCESS<br /></div>
-          </div>
-          <div class="process-title-rit">
-            <div class="rit-title">
-              Meat our wonderful staff of Chyke Chidan who are working very
-              smart and efficient to make available our services to your reach
-              <br />
-            </div>
-          </div>
-          <div class="w-layout-grid staff-rid">
-            <div
-              @mouseenter="activateStaff(int)"
-              @mouseleave="deactivateStaff"
-              v-for="(item, int) in staffs"
-              :key="int"
-              class="eac-staff-rid"
-            >
-              <div class="rid-color" :class="{ active: int == staf }"></div>
-              <div class="rid-pix-older">
-                <img
-                  :src="`${FILE_URL}/${item.image}`"
-                  loading="lazy"
-                  alt=""
-                  class="responsive-pix"
-                />
-                <div :class="{ active: int == staf }" class="site-socials">
-                  <a href="#" class="dis-box bot w-inline-block"
-                    ><img
-                      src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/662685c168d98f8cc52fcd76_facebook-app-round-icon%201.svg"
-                      loading="lazy"
-                      alt=""
-                      class="dis-box-icon" /></a
-                  ><a href="#" class="dis-box bot w-inline-block"
-                    ><img
-                      src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/662685c168d98f8cc52fcd76_facebook-app-round-icon%201.svg"
-                      loading="lazy"
-                      alt=""
-                      class="dis-box-icon" /></a
-                  ><a href="#" class="dis-box w-inline-block"
-                    ><img
-                      src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/662685c168d98f8cc52fcd76_facebook-app-round-icon%201.svg"
-                      loading="lazy"
-                      alt=""
-                      class="dis-box-icon"
-                  /></a>
-                </div>
-                <div class="staff-name-older">
-                  <div class="staff-name">{{ item.username }}</div>
-                  <div class="title-sm rem">{{ item.position }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <staffs />
 
     <testimonial />
 
@@ -478,137 +331,67 @@
       <div class="custom-container">
         <div class="custom-flex">
           <div class="process-title-left">
-            <div class="title-sm">// WORKING PROCESS</div>
-            <div class="ome-title sm">TEAM BEHIND OUR SUCCESS<br /></div>
+            <div class="title-sm">// BE UPDATED</div>
+            <div class="ome-title sm">GET THE LATEST NEWS ON FOODS<br /></div>
           </div>
           <div class="process-title-rit">
             <div class="rit-title">
-              We are following these processes to maintain our working process
-              and also for better outcomes.<br />
+              Always remain informed on with price updates, quality and
+              introduction of new products in the market with Chyke Chidan.
+              <br />
             </div>
           </div>
           <div class="ome-blo-flex">
-            <div class="eac-blo active">
-              <div class="ome-blo-date">Sep 21, 2024</div>
+            <div
+              @mouseenter="setBlog(int)"
+              @mouseleave="unsetBlog"
+              v-for="(item, int) in items"
+              :key="int"
+              class="eac-blo"
+              :class="{ active: int == blog }"
+            >
+              <div class="ome-blo-date">{{ formattedDate(item.time * 1) }}</div>
               <div class="ome-blo-details">
                 <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f85c52560a1b333396e44_comments.svg"
+                  src="/images/comments.svg"
                   loading="lazy"
                   alt=""
                   class="ome-blo-icon"
                 />
                 <div class="blo-det-text">Comments</div>
                 <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f85c596459c05bef09943_user-alt.svg"
+                  src="/images/author.svg"
                   loading="lazy"
                   alt=""
                   class="ome-blo-icon"
                 />
-                <div class="blo-det-text">Admin</div>
+                <div class="blo-det-text">{{ item.author }}</div>
               </div>
-              <a href="#" class="ome-blo-title active"
-                >ENERGO IMPROVES A LEADING ONSHORE TURBINE TO INCREASE
-                ELECTRICITY OUTPUT</a
-              >
+              <NuxtLink
+                to="/"
+                class="ome-blo-title"
+                :class="{ active: int == blog }"
+                >{{ item.title }}
+              </NuxtLink>
               <div class="blo-pix">
                 <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f87a8ce6c3760bfdfc48f_news-1.jpg"
+                  :src="`${FILE_URL}/${item.banner}`"
                   loading="lazy"
                   alt=""
                   class="responsive-pix"
                 />
-                <div class="cover active"></div>
+                <div class="cover" :class="{ active: int == blog }"></div>
               </div>
-              <a href="#" class="ome-read-more w-inline-block"
+              <NuxtLink
+                :to="`/blog-details/?id=${item.id}`"
+                class="ome-read-more w-inline-block"
                 ><img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f89750919596a347c0ba5_arrow-right.svg"
+                  src="/images/arrow-red.svg"
                   loading="lazy"
                   alt=""
                   class="read-blo-icon"
                 />
-                <div>Read More</div></a
-              >
-            </div>
-            <div class="eac-blo">
-              <div class="ome-blo-date">Sep 21, 2024</div>
-              <div class="ome-blo-details">
-                <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f85c52560a1b333396e44_comments.svg"
-                  loading="lazy"
-                  alt=""
-                  class="ome-blo-icon"
-                />
-                <div class="blo-det-text">Comments</div>
-                <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f85c596459c05bef09943_user-alt.svg"
-                  loading="lazy"
-                  alt=""
-                  class="ome-blo-icon"
-                />
-                <div class="blo-det-text">Admin</div>
-              </div>
-              <a href="#" class="ome-blo-title"
-                >ENERGO IMPROVES A LEADING ONSHORE TURBINE TO INCREASE
-                ELECTRICITY OUTPUT</a
-              >
-              <div class="blo-pix">
-                <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f87a84cea4f55b7103f0d_news-3.jpg"
-                  loading="lazy"
-                  alt=""
-                  class="responsive-pix"
-                />
-                <div class="cover active"></div>
-              </div>
-              <a href="#" class="ome-read-more w-inline-block"
-                ><img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f89750919596a347c0ba5_arrow-right.svg"
-                  loading="lazy"
-                  alt=""
-                  class="read-blo-icon"
-                />
-                <div>Read More</div></a
-              >
-            </div>
-            <div class="eac-blo">
-              <div class="ome-blo-date">Sep 21, 2024</div>
-              <div class="ome-blo-details">
-                <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f85c52560a1b333396e44_comments.svg"
-                  loading="lazy"
-                  alt=""
-                  class="ome-blo-icon"
-                />
-                <div class="blo-det-text">Comments</div>
-                <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f85c596459c05bef09943_user-alt.svg"
-                  loading="lazy"
-                  alt=""
-                  class="ome-blo-icon"
-                />
-                <div class="blo-det-text">Admin</div>
-              </div>
-              <a href="#" class="ome-blo-title"
-                >ENERGO IMPROVES A LEADING ONSHORE TURBINE TO INCREASE
-                ELECTRICITY OUTPUT</a
-              >
-              <div class="blo-pix">
-                <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f87a9c814b40b06b01f2e_news-2.jpg"
-                  loading="lazy"
-                  alt=""
-                  class="responsive-pix"
-                />
-                <div class="cover active"></div>
-              </div>
-              <a href="#" class="ome-read-more w-inline-block"
-                ><img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f89750919596a347c0ba5_arrow-right.svg"
-                  loading="lazy"
-                  alt=""
-                  class="read-blo-icon"
-                />
-                <div>Read More</div></a
+                <div>Read More</div></NuxtLink
               >
             </div>
           </div>
@@ -692,14 +475,17 @@
 
 <script>
 import HeroSlider from "../components/HeroSlider.vue";
+import Staffs from "../components/Staffs.vue";
+import Stats from "../components/Stats.vue";
 import Testimonial from "../components/Testimonial.vue";
 export default {
-  components: { HeroSlider, Testimonial },
+  components: { HeroSlider, Testimonial, Staffs, Stats },
   layout: "home",
   data() {
     return {
       prod: 10,
       staf: -1,
+      blog: -1,
     };
   },
   methods: {
@@ -714,12 +500,50 @@ export default {
       return number.toLocaleString("en-US", { maximumFractionDigits: 2 });
     },
 
-    activateStaff(int) {
-      this.staf = int;
+    formattedDate(time) {
+      const monthNames = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      const date = new Date(time);
+      const day = date.getDate();
+      const month = monthNames[date.getMonth()];
+      const year = date.getFullYear();
+
+      // Function to get the day suffix
+      function getDaySuffix(day) {
+        if (day > 3 && day < 21) return "th"; // catch 11th, 12th, 13th
+        switch (day % 10) {
+          case 1:
+            return "st";
+          case 2:
+            return "nd";
+          case 3:
+            return "rd";
+          default:
+            return "th";
+        }
+      }
+
+      return `${month} ${day}${getDaySuffix(day)}, ${year}`;
     },
 
-    deactivateStaff() {
-      this.staf = -1;
+    setBlog(int) {
+      this.blog = int;
+    },
+
+    unsetBlog() {
+      this.blog = -1;
     },
 
     setProd(int) {
@@ -761,24 +585,12 @@ export default {
       return this.$store.state.about;
     },
 
-    blogs() {
+    items() {
       const items = this.$store.state.blogs;
       const blogs = [];
       for (let i = 0; i < items.length; i++) {
         const el = items[i];
-        if (el.category == "Blog") {
-          blogs.push(el);
-        }
-      }
-      return blogs;
-    },
-
-    topBlogs() {
-      const items = this.$store.state.blogs;
-      const blogs = [];
-      for (let i = 0; i < items.length; i++) {
-        const el = items[i];
-        if (el.category == "TopBlog") {
+        if (el.type == "Blog") {
           blogs.push(el);
         }
       }

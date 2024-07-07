@@ -53,10 +53,16 @@
         </div>
       </div>
     </div>
+
     <div class="das-tb-info">
-      <div>20 of 210</div>
+      <div>Page {{ currentPage }} of {{ pages().length }}</div>
+
       <div class="das-paination">
-        <div class="das-pa-next">
+        <div
+          v-if="currentPage > 1"
+          class="das-pa-next"
+          @click="paginate(currentPage - 1)"
+        >
           <img
             src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665b4f324c69c44d55719f02_chevron0.svg"
             loading="lazy"
@@ -64,10 +70,20 @@
             class="das-paination-icon"
           />
         </div>
-        <div class="das-foot-pa active">1</div>
-        <div class="das-foot-pa">...</div>
-        <div class="das-foot-pa">3</div>
-        <div class="das-pa-next">
+        <div
+          v-for="(item, int) in pages()"
+          @click="paginate(int + 1)"
+          :key="int"
+          class="das-foot-pa"
+        >
+          {{ int + 1 }}
+        </div>
+
+        <div
+          class="das-pa-next"
+          @click="paginate(currentPage + 1)"
+          v-if="currentPage < pages().length"
+        >
           <img
             src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665b500072be49a09b6c1d36_chevron10.svg"
             loading="lazy"
@@ -77,6 +93,7 @@
         </div>
       </div>
     </div>
+
     <div class="das-tb-footer">
       <div class="das-tb-cell">
         <div>3</div>
@@ -94,6 +111,7 @@
         loading="lazy"
         alt=""
         class="tb-action-icon"
+        @click="editComment(selectedItems[selectedItems.length - 1])"
       /><img
         src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665b486dcc7eddebcb1b7c96_trash-alt.svg"
         loading="lazy"
@@ -153,8 +171,8 @@ export default {
     };
   },
   methods: {
-    getPages(length, limit) {
-      const num = Math.ceil(length / limit);
+    pages() {
+      const num = Math.ceil(this.total / this.limit);
       let pages = [];
       for (let i = 0; i < num; i++) {
         pages.push(1);
@@ -259,19 +277,20 @@ export default {
       return formattedDate;
     },
 
-    toggleComment(int) {},
+    toggleComment(int) {
+      this.$store.commit("TOGGLE_COMMENT", int);
+    },
 
     clearInputs() {
       this.editId = "";
       this.editingState = false;
-
       this.content = "";
     },
 
-    editComment() {
-      if (this.payment == "Payment") {
+    editComment(data) {
+      if (data.length == 0) {
         this.showOverlayResponse(
-          "Please select payment to proceed",
+          "Please select comment to proceed",
           true,
           false,
           false,
@@ -280,6 +299,11 @@ export default {
 
         return;
       }
+
+      const load = JSON.parse(JSON.stringify(data));
+      this.editId = load.id;
+      this.editingState = true;
+      this.content = load.content;
     },
 
     showOverlayResponse(msg, error, success, warning, show) {
@@ -290,7 +314,6 @@ export default {
         warning,
         show,
       };
-
       this.$store.commit("admin/SHOW_RESPONSE", payload);
     },
 
@@ -317,13 +340,13 @@ export default {
       const payload = {
         form: commentData,
         url: this.editingState
-          ? `/comments/update/?id=${this.editId}&limit=${this.limit}&page=${this.currentPage}&sort=${this.sort}&username=${this.user.username}`
+          ? `/comments/?id=${this.editId}&limit=${this.limit}&page=${this.currentPage}&sort=${this.sort}&username=${this.user.username}`
           : `/comments/?limit=${this.limit}&page=${this.currentPage}&sort=${this.sort}&username=${this.user.username}`,
       };
 
       this.onRequest = true;
 
-      const result = await this.$store.dispatch("admin/MAKE_POST", payload);
+      const result = await this.$store.dispatch("MAKE_POST", payload);
       this.handleResponse(result);
     },
 
@@ -366,12 +389,16 @@ export default {
       return this.$store.state.fileURL;
     },
 
-    totalLength() {
-      return this.$store.state.reviewLength;
+    total() {
+      return this.$store.state.commentLength;
     },
 
     items() {
-      return this.$store.state.reviews;
+      return this.$store.state.comments;
+    },
+
+    selectedItems() {
+      return this.$store.state.selectedComments;
     },
   },
 };

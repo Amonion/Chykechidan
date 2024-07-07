@@ -61,9 +61,14 @@
     </div>
 
     <div class="das-tb-info">
-      <div>20 of 210</div>
+      <div>Page {{ currentPage }} of {{ pages().length }}</div>
+
       <div class="das-paination">
-        <div class="das-pa-next">
+        <div
+          v-if="currentPage > 1"
+          class="das-pa-next"
+          @click="paginate(currentPage - 1)"
+        >
           <img
             src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665b4f324c69c44d55719f02_chevron0.svg"
             loading="lazy"
@@ -71,10 +76,20 @@
             class="das-paination-icon"
           />
         </div>
-        <div class="das-foot-pa active">1</div>
-        <div class="das-foot-pa">...</div>
-        <div class="das-foot-pa">3</div>
-        <div class="das-pa-next">
+        <div
+          v-for="(item, int) in pages()"
+          @click="paginate(int + 1)"
+          :key="int"
+          class="das-foot-pa"
+        >
+          {{ int + 1 }}
+        </div>
+
+        <div
+          class="das-pa-next"
+          @click="paginate(currentPage + 1)"
+          v-if="currentPage < pages().length"
+        >
           <img
             src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665b500072be49a09b6c1d36_chevron10.svg"
             loading="lazy"
@@ -126,8 +141,8 @@ export default {
     };
   },
   methods: {
-    getPages(length, limit) {
-      const num = Math.ceil(length / limit);
+    pages() {
+      const num = Math.ceil(this.total / this.limit);
       let pages = [];
       for (let i = 0; i < num; i++) {
         pages.push(1);
@@ -261,6 +276,7 @@ export default {
         url: `/comments/toggle-status/?&limit=${this.limit}&page=${this.currentPage}`,
       };
       const result = await this.$store.dispatch(`MAKE_POST`, payload);
+
       if (!result.response) {
         this.$store.commit(`admin/SET_COMMENTS`, result.data);
       } else {

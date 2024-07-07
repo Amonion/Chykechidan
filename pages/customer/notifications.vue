@@ -12,6 +12,14 @@
         <div class="note-date">{{ formattedDate(item.time) }}</div>
       </div>
     </div>
+    <div v-if="items.length == 0" class="eac-notification-wrap">
+      <img src="/Icon.png" loading="lazy" alt="" class="note-loo" />
+      <div class="note-content">
+        <div class="note-title">YOU HAVE NO NOTIFICATIONS YET</div>
+        <div>WELCOME TO CHYKE CHIDAN</div>
+        <div class="note-date">{{ formattedDate(new Date().getTime()) }}</div>
+      </div>
+    </div>
   </div>
 </template>
 

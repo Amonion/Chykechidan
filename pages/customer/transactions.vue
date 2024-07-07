@@ -30,8 +30,7 @@
           </div>
 
           <div class="das-tb-cell _20 link">
-            <a href="#" class="istory-name">{{ item.username }}</a
-            ><a href="#" class="istory-name staff">{{ item.seller }}</a>
+            <span class="istory-name">{{ item.username }}</span>
           </div>
           <div class="das-tb-cell _40 block">
             <div v-if="item.transactionType == 'Expenses'">

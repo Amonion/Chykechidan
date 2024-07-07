@@ -43,7 +43,13 @@
   cursor: pointer;
 }
 
+.cover,
+.eac-blo,
 .eac-staff-rid,
+.eac-footer-link,
+.footer-link-box,
+.footer-link-line,
+.ome-blo-title,
 .site-socials {
   transition: 0.5s all;
 }

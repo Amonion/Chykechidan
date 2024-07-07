@@ -37,6 +37,8 @@ export const state = () => ({
 
   comments: [],
   commentLength: 0,
+  selectedComments: [],
+  isCommentsChecked: false,
 
   company: "",
   about: "",
@@ -106,6 +108,29 @@ export const mutations = {
     state.terms = result.data;
   },
 
+  TOGGLE_COMMENT(state, int) {
+    state.comments[int].checked = !state.comments[int].checked;
+
+    const comment = state.comments[int];
+    const exists = state.selectedComments.some(
+      (obj) => obj._id === comment._id
+    );
+    if (!exists) {
+      state.selectedComments.push(comment);
+      if (state.selectedComments.length == state.comments.length) {
+        state.isCommentsChecked = true;
+      }
+    } else {
+      state.selectedComments = state.selectedComments.filter(
+        (obj) => obj.id !== comment.id
+      );
+      if (state.selectedComments.length == 0) {
+        state.isCommentsChecked = false;
+        state.selectedComments = [];
+      }
+    }
+  },
+
   SET_FAQ(state, result) {
     state.faqs = result.data;
   },
@@ -131,8 +156,9 @@ export const mutations = {
   },
 
   SET_COMMENTS(state, result) {
-    state.reviews = result.data;
-    state.reviewLength = result.totalLength;
+    state.comments = unCheckData(result.data);
+    state.commentLength = result.totalLength;
+    state.selectedComments = [];
   },
 
   SET_ABOUTS(state, result) {
@@ -243,9 +269,10 @@ export const actions = {
     dispatch("GET_COMPANY", "/company");
     dispatch("GET_BANNERS", `/banners/?limit=10&page=1`);
     dispatch("GET_PRODUCTS", `/products/?limit=8&page=1`);
-    dispatch("GET_ABOUTS", `/about/?limit=10&page=1`);
+    dispatch("GET_ABOUTS", `/about/?limit=20&page=1`);
     dispatch("GET_BLOG", "/blog/?limit=20&page=1");
     dispatch("GET_STAFFS", "/staffs/?limit=20&page=1");
+    dispatch("GET_REVIEWS", "/comments/?limit=20&page=1&status=1");
     // dispatch("GET_TERMS", "/terms/?limit=20&page=1");
     // dispatch("GET_PROMOS", "/promotions/?limit=20&page=1&sort=-target");
 

@@ -51,7 +51,10 @@
           <div class="das-tb-cell _30">{{ item.title }}</div>
           <div class="das-tb-cell _30">{{ item.subtitle }}</div>
 
-          <div class="das-tb-cell _60" v-html="item.content"></div>
+          <div
+            class="das-tb-cell _60"
+            v-html="truncateText(item.content, 200)"
+          ></div>
         </div>
       </div>
     </div>
@@ -143,6 +146,11 @@
             type="text"
           />
         </div>
+
+        <div class="eac-form-input">
+          <div class="from-rid-label">Year</div>
+          <input class="from-rid-input w-input" v-model="year" type="date" />
+        </div>
       </div>
       <div class="eac-form-input">
         <div class="from-rid-label">Content</div>
@@ -210,6 +218,7 @@ export default {
       subtitle: "",
       title: "",
       media: "",
+      year: "",
 
       isAllChecked: false,
 
@@ -246,6 +255,13 @@ export default {
         this.response = "";
         this.showResponse = false;
       }, 6000);
+    },
+
+    truncateText(text, maxLength) {
+      if (text.length > maxLength) {
+        return text.substring(0, maxLength) + "...";
+      }
+      return text;
     },
 
     formattedDate() {
@@ -292,6 +308,7 @@ export default {
       this.title = "";
       this.subtitle = "";
       this.media = "";
+      this.year = "";
       this.content = "";
       this.deleteId = "";
     },
@@ -319,6 +336,14 @@ export default {
       this.getAbout();
     },
 
+    async getAbout() {
+      const result = await this.$store.dispatch(
+        "admin/MAKE_GET",
+        `/about/?limit=${this.limit}&page=${this.currentPage}`
+      );
+      this.$store.commit("admin/SET_ABOUT", result.data);
+    },
+
     closeEditor() {
       this.clearInputs();
       this.showEditor = false;
@@ -333,6 +358,7 @@ export default {
       this.content = item.content;
       this.title = item.title;
       this.media = item.media;
+      this.year = new Date(item.year * 1);
     },
 
     duplicateEmail() {
@@ -398,6 +424,7 @@ export default {
       form.append("title", this.title);
       form.append("content", this.content);
       form.append("subtitle", this.subtitle);
+      form.append("year", new Date(this.year).getTime());
 
       const payload = {
         form: form,
@@ -423,25 +450,6 @@ export default {
         this.deleteEmail();
       }
     },
-
-    async getEmails() {
-      const query = `?limit=${this.limit}&page=${this.currentPage}&sort=${title}`;
-      this.$store.dispatch("settingsStore/GET_EMAILS", query);
-    },
-
-    // async deleteEmail() {
-    //   const query = `?limit=${this.limit}&page=${this.currentPage}`;
-    //   try {
-    //     const result = await this.$axios.delete(
-    //       `/emails/${this.deleteId}/${query}`
-    //     );
-    //     this.emails = result.data.data;
-    //     this.resultLength = result.data.resultLength;
-    //     this.clearInputs();
-    //   } catch (err) {
-    //     console.log(err.response.data);
-    //   }
-    // },
   },
 
   computed: {

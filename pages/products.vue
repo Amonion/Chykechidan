@@ -2,15 +2,15 @@
   <div>
     <div class="hero">
       <img
-        src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg.jpg"
+        src="/images/banner2.jpeg"
         loading="lazy"
         sizes="100vw"
         srcset="
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg-p-500.jpg   500w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg-p-800.jpg   800w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg-p-1080.jpg 1080w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg-p-1600.jpg 1600w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg.jpg        1920w
+          /images/banner2.jpeg  500w,
+          /images/banner2.jpeg  800w,
+          /images/banner2.jpeg 1080w,
+          /images/banner2.jpeg 1600w,
+          /images/banner2.jpeg 1920w
         "
         alt=""
         class="responsive-pix"
@@ -20,7 +20,8 @@
         <div class="custom-flex ero">
           <div class="ero-title">SHOP</div>
           <div class="ero-link">
-            [<a href="#" class="ero-text-link active">Home</a> - Shop]
+            [<NuxtLink to="/" class="ero-text-link active">Home</NuxtLink> -
+            Shop]
           </div>
         </div>
       </div>

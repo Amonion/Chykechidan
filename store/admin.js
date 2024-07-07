@@ -817,7 +817,7 @@ export const actions = {
     dispatch("GET_TERMS", "/terms/?limit=10&page=1");
     dispatch("GET_STOCK", "/stock/?limit=20&page=1&sort=name");
     dispatch("GET_FAQ", "/faq/?limit=10&page=1&sort=-time");
-    dispatch("GET_BLOG", "/blog/?limit=10&page=1");
+    dispatch("GET_BLOG", "/blog/?limit=10&page=1&sort=-time");
     dispatch("GET_POSITIONS", "/staffs/positions/?limit=10&page=1");
     dispatch("GET_ABOUT", "/about/?limit=10&page=1");
     dispatch("GET_BANNERS", "/banners/?limit=10&page=1");
