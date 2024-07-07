@@ -36,9 +36,22 @@
             to="/products"
             class="nav-links"
             >Shop</NuxtLink
-          ><NuxtLink to="/contact" class="nav-links">Contact</NuxtLink
-          ><NuxtLink to="/faq" class="nav-links">FAQ</NuxtLink
-          ><NuxtLink to="/blog" class="nav-links">Blog</NuxtLink>
+          ><NuxtLink
+            to="/contact"
+            :class="{ active: route == 'contact' }"
+            class="nav-links"
+            >Contact</NuxtLink
+          ><NuxtLink
+            to="/faq"
+            :class="{ active: route == 'faq' }"
+            class="nav-links"
+            >FAQ</NuxtLink
+          ><NuxtLink
+            to="/blog"
+            :class="{ active: route == 'blog' }"
+            class="nav-links"
+            >Blog</NuxtLink
+          >
           <span @click="redirect" v-if="isAuthenticated" class="nav-links staff"
             >Dashboard</span
           >

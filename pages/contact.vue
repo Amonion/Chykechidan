@@ -2,15 +2,15 @@
   <div>
     <div class="hero">
       <img
-        src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg.jpg"
+        src="/images/banner2.jpeg"
         loading="lazy"
         sizes="100vw"
         srcset="
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg-p-500.jpg   500w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg-p-800.jpg   800w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg-p-1080.jpg 1080w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg-p-1600.jpg 1600w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg.jpg        1920w
+          /images/banner2.jpeg  500w,
+          /images/banner2.jpeg  800w,
+          /images/banner2.jpeg 1080w,
+          /images/banner2.jpeg 1600w,
+          /images/banner2.jpeg 1920w
         "
         alt=""
         class="responsive-pix"
@@ -20,7 +20,8 @@
         <div class="custom-flex ero">
           <div class="ero-title">CONTACT</div>
           <div class="ero-link">
-            [<a href="#" class="ero-text-link active">Home</a> - CONTACT]
+            [<NuxtLink to="/" class="ero-text-link active">Home</NuxtLink> -
+            CONTACT]
           </div>
         </div>
       </div>
@@ -28,58 +29,50 @@
     <div class="maintenance">
       <div class="custom-container">
         <div class="w-form">
-          <form
-            id="email-form-2"
-            name="email-form-2"
-            data-name="Email Form 2"
-            method="get"
-            class="mentainance-flex faq"
-            data-wf-page-id="6625e0ead22d28967a51b666"
-            data-wf-element-id="08b8793c-b490-aa12-5519-d916e33c9688"
-          >
+          <div class="mentainance-flex faq">
             <div class="title-sm mid">// FIND ANSWERS \\</div>
             <div class="ome-title sm mid">HOW CAN WE HELP YOU?</div>
-            <div class="contact-start">
+            <div v-if="company" class="contact-start">
               <div class="eac-contact">
                 <div class="product-pa-item sm">
                   <img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66501bd220de87873e7cb4f7_envelope1.svg"
+                    src="/images/email.svg"
                     loading="lazy"
                     alt=""
                     class="contact-icon"
                   />
                 </div>
                 <div>
-                  <div>address</div>
-                  <div class="contact-text">no. 10 st louis st. owerri</div>
+                  <div>email</div>
+                  <div class="contact-text">{{ company.systemEmail }}</div>
                 </div>
               </div>
               <div class="eac-contact">
                 <div class="product-pa-item sm">
                   <img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66501bd220de87873e7cb4f7_envelope1.svg"
+                    src="/images/call.svg"
                     loading="lazy"
                     alt=""
                     class="contact-icon"
                   />
                 </div>
                 <div>
-                  <div>address</div>
-                  <div class="contact-text">no. 10 st louis st. owerri</div>
+                  <div>call line</div>
+                  <div class="contact-text">{{ company.companyPhone }}</div>
                 </div>
               </div>
               <div class="eac-contact">
                 <div class="product-pa-item sm">
                   <img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66501bd220de87873e7cb4f7_envelope1.svg"
+                    src="/images/maps.svg"
                     loading="lazy"
                     alt=""
                     class="contact-icon"
                   />
                 </div>
-                <div>
+                <div v-if="company">
                   <div>address</div>
-                  <div class="contact-text">no. 10 st louis st. owerri</div>
+                  <div class="contact-text">{{ company.companyAddress }}</div>
                 </div>
               </div>
             </div>
@@ -93,43 +86,45 @@
               <div class="eac-contact left">
                 <div class="product-pa-item sm">
                   <img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66501bd220de87873e7cb4f7_envelope1.svg"
+                    src="/images/clock.svg"
                     loading="lazy"
                     alt=""
                     class="contact-icon"
                   />
                 </div>
                 <div>
-                  <div>address</div>
-                  <div class="contact-text">no. 10 st louis st. owerri</div>
+                  <div>Work Houraddress</div>
+                  <div class="contact-text">8:00 AM - 6:00 PM</div>
                 </div>
               </div>
               <div class="eac-contact left">
                 <div class="product-pa-item sm">
                   <img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66501bd220de87873e7cb4f7_envelope1.svg"
+                    src="/images/headphone.svg"
                     loading="lazy"
                     alt=""
                     class="contact-icon"
                   />
                 </div>
                 <div>
-                  <div>address</div>
-                  <div class="contact-text">no. 10 st louis st. owerri</div>
+                  <div>INQUIRIES</div>
+                  <div class="contact-text">8:00AM - 7:00PM DAILY</div>
                 </div>
               </div>
               <div class="eac-contact left">
                 <div class="product-pa-item sm">
                   <img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66501bd220de87873e7cb4f7_envelope1.svg"
+                    src="/images/maps.svg"
                     loading="lazy"
                     alt=""
                     class="contact-icon"
                   />
                 </div>
-                <div>
+                <div v-if="company">
                   <div>address</div>
-                  <div class="contact-text">no. 10 st louis st. owerri</div>
+                  <div class="contact-text">
+                    {{ company.companyAddress }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -224,13 +219,8 @@
               </div>
               <div class="btn-roup">
                 <div class="response">Please Fill in all the fields</div>
-                <div
-                  id="w-node-a8ba1326-59c7-0c08-a43b-55afeacd450b-7a51b666"
-                  class="ceck-out-btn btn"
-                >
-                  SUBMIT
-                </div>
-                <div class="load-btn">
+
+                <div v-if="onRequest" class="load-btn">
                   <img
                     src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6656d0a87fa1d0b4305d0a2b_spinner.svg"
                     loading="lazy"
@@ -239,27 +229,23 @@
                   />
                   <div>Processing...</div>
                 </div>
+                <div v-else class="ceck-out-btn btn">SUBMIT</div>
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
     <div class="contact-map">
-      <img
-        src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66585b5f6364d8300be5ff12_map.png"
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3971.579318821107!2d7.044548424984569!3d5.4805883444991395!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104259aa55923ed5%3A0x4fd7f3d86c09f5d3!2sRelief%20Market%2C%20Owerri%20460281%2C%20Imo!5e0!3m2!1sen!2sng!4v1720353973186!5m2!1sen!2sng"
+        width="100%"
+        height="450"
+        style="border: 0"
+        allowfullscreen=""
         loading="lazy"
-        sizes="100vw"
-        srcset="
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66585b5f6364d8300be5ff12_map-p-500.png   500w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66585b5f6364d8300be5ff12_map-p-800.png   800w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66585b5f6364d8300be5ff12_map-p-1080.png 1080w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66585b5f6364d8300be5ff12_map-p-1600.png 1600w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66585b5f6364d8300be5ff12_map.png        1855w
-        "
-        alt=""
-        class="responsive-pix"
-      />
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
     </div>
   </div>
 </template>
@@ -272,7 +258,9 @@ export default {
   layout: "home",
 
   data() {
-    return {};
+    return {
+      onRequest: false,
+    };
   },
 
   methods: {
@@ -338,64 +326,8 @@ export default {
       return this.$store.state.about;
     },
 
-    intro() {
-      return this.$store.state.about[10];
-    },
-
-    owner() {
-      return this.$store.state.about[11];
-    },
-
-    events() {
-      const items = this.$store.state.about;
-      const blogs = [];
-      for (let i = 0; i < items.length; i++) {
-        const el = items[i];
-        if (el.subtitle == "Event") {
-          blogs.push(el);
-        }
-      }
-      return blogs;
-    },
-
-    missions() {
-      const items = this.$store.state.about;
-      const blogs = [];
-      for (let i = 0; i < items.length; i++) {
-        const el = items[i];
-        if (el.subtitle.includes("STATEMENT")) {
-          blogs.push(el);
-        }
-      }
-      return blogs;
-    },
-
-    topBlogs() {
-      const items = this.$store.state.blogs;
-      const blogs = [];
-      for (let i = 0; i < items.length; i++) {
-        const el = items[i];
-        if (el.category == "TopBlog") {
-          blogs.push(el);
-        }
-      }
-      return blogs;
-    },
-
     staffs() {
       return this.$store.state.staffs;
-    },
-
-    ceo() {
-      const items = this.$store.state.staffs;
-      let person = "";
-      for (let i = 0; i < items.length; i++) {
-        const el = items[i];
-        if (el.position == "CEO") {
-          person = el;
-        }
-      }
-      return person;
     },
   },
 };
