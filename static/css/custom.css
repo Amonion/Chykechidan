@@ -1,5 +1,15 @@
+.black.staff {
+  background: #1e1f43;
+  margin-right: 20px;
+}
+
 .das-nav-wrapper {
   transition: 0.5s all;
+}
+
+.das-overlay.active {
+  display: flex;
+  z-index: 99;
 }
 
 .rane-date.w-input {
@@ -98,6 +108,10 @@
 
 .rane-date.search {
   color: white;
+}
+
+.red.staff {
+  margin-left: 0;
 }
 
 .send-email-wrap {

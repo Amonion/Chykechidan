@@ -1,9 +1,43 @@
+<template>
+  <div class="page index">
+    <div class="scroll-up">
+      <img
+        src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ebde30bbbad250f95977a_arrow-up.svg"
+        loading="lazy"
+        alt=""
+        class="scroll-icon"
+      />
+    </div>
+
+    <user-response />
+    <home-header />
+    <home-nav />
+    <Nuxt />
+    <home-footer />
+
+    <NuxtLink
+      :to="`/cart/?items=${cartProperties.totalQuantity}`"
+      class="scroll-up cart active w-inline-block"
+      v-if="isShowCart"
+      ><div class="cart-wrap">
+        <div class="cart-text">
+          <div v-if="cartProperties.totalQuantity < 10">
+            {{ cartProperties.totalQuantity }}
+          </div>
+          <div v-else>9+</div>
+        </div>
+        <img width="25" src="/images/cart.svg" loading="lazy" alt="" /></div
+    ></NuxtLink>
+  </div>
+</template>
+
 <script>
+import UserResponse from "../components/Customer/UserResponse.vue";
 import HomeFooter from "../components/HomeFooter.vue";
 import HomeHeader from "../components/HomeHeader.vue";
 import HomeNav from "../components/HomeNav.vue";
 export default {
-  components: { HomeNav, HomeFooter, HomeHeader },
+  components: { HomeNav, HomeFooter, HomeHeader, UserResponse },
   head() {
     return {
       title: "Chykechidan Enterprise", // Set the page title
@@ -19,38 +53,46 @@ export default {
     };
   },
 
+  data() {
+    return {
+      limit: 8,
+      currentPage: 1,
+      sort: "name",
+    };
+  },
+
+  methods: {
+    getProducts() {
+      this.$store.dispatch(
+        "productStore/GET_PRODUCTS",
+        `/products/?limit=${this.limit}&page=${this.currentPage}&sort=${this.sort}`
+      );
+    },
+  },
+
   async mounted() {
     this.$store.commit("SET_FILE_URL", this.$config.FILE_URL);
-
     this.$store.dispatch("INITIALIZE_APP");
+    if (!this.productStatus) {
+      this.getProducts();
+    }
+  },
+
+  computed: {
+    productStatus() {
+      return this.$store.state.productStore.productStatus;
+    },
+
+    cartProperties() {
+      return this.$store.state.productStore.cartProperties;
+    },
+
+    isShowCart() {
+      return this.$store.state.productStore.showCart;
+    },
   },
 };
 </script>
-<template>
-  <div class="page index">
-    <div class="scroll-up">
-      <img
-        src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664ebde30bbbad250f95977a_arrow-up.svg"
-        loading="lazy"
-        alt=""
-        class="scroll-icon"
-      />
-    </div>
-    <home-header />
-    <home-nav />
-    <Nuxt />
-    <home-footer />
-    <a href="#" class="scroll-up cart active w-inline-block"
-      ><div class="cart-wrap">
-        <div class="cart-text">9+</div>
-        <img
-          src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6657141a03a0bb8927cb10a3_cart-plus.svg"
-          loading="lazy"
-          alt=""
-        /></div
-    ></a>
-  </div>
-</template>
 
 <style>
 .whats-app {

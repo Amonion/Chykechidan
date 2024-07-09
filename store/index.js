@@ -43,6 +43,13 @@ export const state = () => ({
   company: "",
   about: "",
   route: "",
+
+  show: false,
+  error: false,
+  success: false,
+  warning: false,
+  msg: "",
+  data: "",
 });
 
 export const getters = {
@@ -77,6 +84,20 @@ export const mutations = {
 
   hideNav(state) {
     state.isNavActive = false;
+  },
+
+  TOGGLE_RESPONSE(state) {
+    state.show = !state.show;
+  },
+
+  SHOW_RESPONSE(state, payload) {
+    const { msg, error, success, warning, show, data } = payload;
+    state.show = show;
+    state.warning = warning;
+    state.success = success;
+    state.error = error;
+    state.msg = msg;
+    state.data = data;
   },
 
   SET_FILE_URL(state, URL) {

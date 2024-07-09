@@ -2,15 +2,15 @@
   <div>
     <div class="hero">
       <img
-        src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg.jpg"
+        src="/images/banner2.jpeg"
         loading="lazy"
         sizes="100vw"
         srcset="
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg-p-500.jpg   500w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg-p-800.jpg   800w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg-p-1080.jpg 1080w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg-p-1600.jpg 1600w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg.jpg        1920w
+          /images/banner2.jpeg  500w,
+          /images/banner2.jpeg  800w,
+          /images/banner2.jpeg 1080w,
+          /images/banner2.jpeg 1600w,
+          /images/banner2.jpeg 1920w
         "
         alt=""
         class="responsive-pix"
@@ -18,13 +18,15 @@
       <div class="ero-cover"></div>
       <div class="custom-container">
         <div class="custom-flex ero">
-          <div class="ero-title">REGISTER</div>
+          <div class="ero-title">CART ITEMS</div>
           <div class="ero-link">
-            [<a href="#" class="ero-text-link active">Home</a> - product]
+            [<NuxtLink to="/" class="ero-text-link active">Home</NuxtLink> -
+            Signup]
           </div>
         </div>
       </div>
     </div>
+
     <div class="maintenance">
       <div class="custom-container">
         <div class="w-form">
@@ -64,8 +66,18 @@
                   placeholder="Enter Password"
                   :type="passwordType"
                   v-model="password"
-                /><img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66580319033ec9be51772fd1_eye-slash.svg"
+                />
+                <img
+                  v-if="passwordType == 'password'"
+                  src="/images/eye-slash.svg"
+                  loading="lazy"
+                  alt=""
+                  class="input-icon"
+                  @click="resetPasswordType"
+                />
+                <img
+                  v-else
+                  src="/images/eye.svg"
                   loading="lazy"
                   alt=""
                   class="input-icon"
@@ -79,8 +91,18 @@
                   placeholder="Confirm Password"
                   :type="passwordType"
                   v-model="confirmPassword"
-                /><img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66580319033ec9be51772fd1_eye-slash.svg"
+                />
+                <img
+                  v-if="passwordType == 'password'"
+                  src="/images/eye-slash.svg"
+                  loading="lazy"
+                  alt=""
+                  class="input-icon"
+                  @click="resetPasswordType"
+                />
+                <img
+                  v-else
+                  src="/images/eye.svg"
                   loading="lazy"
                   alt=""
                   class="input-icon"
@@ -116,19 +138,14 @@
 
               <div v-if="onRequest" class="load-btn">
                 <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6656d0a87fa1d0b4305d0a2b_spinner.svg"
+                  src="/images/spinner.svg"
                   loading="lazy"
                   alt=""
                   class="spinner"
                 />
                 <div>Processing...</div>
               </div>
-              <div
-                v-else
-                @click="processUserData"
-                id="w-node-_3bd3b4f6-8bdf-c072-e2fd-2a928497259b-7a51b666"
-                class="ceck-out-btn btn"
-              >
+              <div v-else @click="processUserData" class="ceck-out-btn btn">
                 SUBMIT
               </div>
 

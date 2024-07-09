@@ -99,22 +99,6 @@ function selectRandomItems(array, count) {
 }
 
 function reduceItems(state, item, index) {
-  // let index = null;
-
-  // if (item.type == "Product") {
-  //   for (let i = 0; i < state.products.length; i++) {
-  //     if (state.products[i].id == item.id) {
-  //       index = i;
-  //     }
-  //   }
-  // } else {
-  //   for (let i = 0; i < state.promos.length; i++) {
-  //     if (state.promos[i].id == item.id) {
-  //       index = i;
-  //     }
-  //   }
-  // }
-
   for (let i = 0; i < state.cartProducts.length; i++) {
     if (state.cartProducts[i].id == item.id) {
       if (state.cartProducts[i].quantity > 0) {
@@ -267,13 +251,6 @@ export const mutations = {
       (item) => item.id == data.id && item.type == "Product"
     );
     const product = state.products.find((item) => item.id == data.id);
-    const promo = state.promos.find((item) => item.id == data.id);
-    let existPromo = null;
-    if (promo) {
-      existPromo = state.cartProducts.find(
-        (item) => item.id == promo.id && item.type == "Promo"
-      );
-    }
 
     let index = null;
 
@@ -287,34 +264,16 @@ export const mutations = {
     if (existingItem) {
       existingItem.quantity++;
       existingItem.cartNumber++;
-      if (promo) {
-        promo.quantity++;
-      }
-    } else if (!existingItem && !existPromo) {
+    } else if (!existingItem) {
       data.quantity = 1;
       state.cartProducts.push(data);
       state.products[index] = data;
-      if (promo) {
-        promo.quantity = 1;
-      }
-    } else if (!existingItem && existPromo) {
-      product.quantity++;
-      existPromo.quantity++;
     }
-
     state.cartProperties.totalQuantity++;
     state.cartProperties.totalAmount += data.sellingPrice * 1;
   },
 
   REMOVE_FROM_CART(state, data) {
-    // if (state.cartType == "Purchase") {
-    //   state.cartProducts = [];
-    //   state.cartProperties.totalAmount = 0;
-    //   state.cartProperties.totalQuantity = 0;
-    //   state.cartType = "Sales";
-    //   // return;
-    // }
-
     let index = null;
     for (let i = 0; i < state.products.length; i++) {
       if (state.products[i].id == data.id) {
@@ -325,23 +284,11 @@ export const mutations = {
     const existingItem = state.cartProducts.find(
       (item) => item.id == data.id && item.type == "Product"
     );
-    const promo = state.promos.find((item) => item.id == data.id);
     const product = state.products.find((item) => item.id == data.id);
-    let existPromo = "";
-    if (promo) {
-      existPromo = state.cartProducts.find(
-        (item) => item.id == promo.id && item.type == "Promo"
-      );
-    }
 
-    if (existingItem && !existPromo) {
+    if (existingItem) {
       reduceItems(state, data, index);
-      if (promo) {
-        promo.quantity--;
-      }
-    } else if (!existingItem && existPromo) {
-      reduceItems(state, promo, index);
-      product.quantity--;
+      state.cartProperties.totalQuantity--;
     }
 
     if (state.cartProducts.length > 0) {

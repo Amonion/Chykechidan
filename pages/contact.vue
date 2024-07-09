@@ -137,15 +137,14 @@
               <div class="bill-input-wrap contact">
                 <input
                   class="bill-input contact w-input"
-                  maxlength="256"
-                  name="field-3"
-                  data-name="Field 3"
+                  :class="{ active: active == 'name' }"
+                  @focus="active = 'name'"
+                  @blur="active = ''"
+                  v-model="name"
                   placeholder="Your Name"
                   type="text"
-                  id="field-3"
-                  required=""
                 /><img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f85c596459c05bef09943_user-alt.svg"
+                  src="/images/user.svg"
                   loading="lazy"
                   alt=""
                   class="input-icon cont"
@@ -153,16 +152,15 @@
               </div>
               <div class="bill-input-wrap contact">
                 <input
+                  :class="{ active: active == 'email' }"
+                  @focus="active = 'email'"
+                  @blur="active = ''"
                   class="bill-input contact w-input"
-                  maxlength="256"
-                  name="field-3"
-                  data-name="Field 3"
                   placeholder="Your Email"
                   type="email"
-                  id="field-3"
-                  required=""
+                  v-model="email"
                 /><img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665016897d66616f010b8d7d_envelope.svg"
+                  src="/images/smoke_envelope.svg"
                   loading="lazy"
                   alt=""
                   class="input-icon cont"
@@ -170,16 +168,14 @@
               </div>
               <div class="bill-input-wrap contact">
                 <input
+                  :class="{ active: active == 'pone' }"
+                  @focus="active = 'pone'"
+                  @blur="active = ''"
                   class="bill-input contact w-input"
-                  maxlength="256"
-                  name="field-3"
-                  data-name="Field 3"
                   placeholder="Your Phone"
-                  type="email"
-                  id="field-3"
-                  required=""
+                  type="tel"
                 /><img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665856a56af606e37b446c5e_phone.svg"
+                  src="/images/phone.svg"
                   loading="lazy"
                   alt=""
                   class="input-icon cont"
@@ -187,16 +183,15 @@
               </div>
               <div class="bill-input-wrap contact">
                 <input
-                  class="bill-input contact active w-input"
-                  maxlength="256"
-                  name="field-3"
-                  data-name="Field 3"
+                  :class="{ active: active == 'subject' }"
+                  @focus="active = 'subject'"
+                  @blur="active = ''"
+                  class="bill-input contact w-input"
+                  v-model="subject"
                   placeholder="Subject"
-                  type="email"
-                  id="field-3"
-                  required=""
+                  type="text"
                 /><img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6658574de8b315bf910914a1_podcast.svg"
+                  src="/images/podcast.svg"
                   loading="lazy"
                   alt=""
                   class="input-icon cont"
@@ -204,32 +199,40 @@
               </div>
               <div class="bill-input-wrap contact full">
                 <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/664f85c52560a1b333396e44_comments.svg"
+                  src="/images/comments.svg"
                   loading="lazy"
                   alt=""
                   class="input-icon top"
                 /><textarea
-                  placeholder="Example Text"
-                  maxlength="5000"
-                  id="field-5"
-                  name="field-5"
-                  data-name="Field 5"
+                  :class="{ active: active == 'content' }"
+                  @focus="active = 'content'"
+                  @blur="active = ''"
+                  placeholder="Enter Message"
+                  v-model="content"
                   class="bill-input contact text w-input"
                 ></textarea>
               </div>
               <div class="btn-roup">
-                <div class="response">Please Fill in all the fields</div>
+                <div
+                  class="response"
+                  :class="{ error: isError }"
+                  v-if="showResponse"
+                >
+                  {{ response }}
+                </div>
 
                 <div v-if="onRequest" class="load-btn">
                   <img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6656d0a87fa1d0b4305d0a2b_spinner.svg"
+                    src="/images/spinner.svg"
                     loading="lazy"
                     alt=""
                     class="spinner"
                   />
                   <div>Processing...</div>
                 </div>
-                <div v-else class="ceck-out-btn btn">SUBMIT</div>
+                <div v-else @click="processData" class="ceck-out-btn btn">
+                  SUBMIT
+                </div>
               </div>
             </div>
           </div>
@@ -251,65 +254,120 @@
 </template>
 
 <script>
-import Staffs from "../components/Staffs.vue";
-import Stats from "../components/Stats.vue";
 export default {
-  components: { Staffs, Stats },
   layout: "home",
 
   data() {
     return {
+      name: "",
+      email: "",
+      active: "",
+      subject: "",
+      content: "",
+
+      response: "",
       onRequest: false,
+      isError: false,
+      showResponse: false,
     };
   },
 
   methods: {
-    loadScript() {
-      if (!process.server) {
-        let review = document.getElementById("scriptStaff");
+    truncateText(text, maxLength) {
+      if (text.length > maxLength) {
+        return text.substring(0, maxLength) + "...";
+      }
+      return text;
+    },
 
-        if (review == null) {
-          const script = document.createElement("script");
-
-          script.type = "text/javascript";
-
-          script.src = "/script/home.js";
-
-          script.id = "scriptStaff";
-          const app = document.querySelector("#staff");
-          if (app) {
-            app.appendChild(script);
-          } else {
-            console.error("Could not find app node to append script element");
-          }
+    checkErrorInputs(input, data) {
+      //|| !/^\w+$/.test(data)
+      if (input == "name") {
+        if (data == "" || !data || data.length < 2) {
+          this.isError = true;
+          this.response = "Name must be at least 2 characters long.";
+          return true;
+        } else {
+          this.isError = false;
+        }
+      } else if (input == "email") {
+        if (data == "" || !data || !/^\S+@\S+\.\S+$/.test(data)) {
+          this.response = "Please write a valid email.";
+          this.isError = true;
+          return true;
+        } else {
+          this.isError = false;
+        }
+      } else if (input == "content") {
+        if (data == "" || !data || data.length < 30) {
+          this.response = "Message must be at least 30 characters long.";
+          this.isError = true;
+          return true;
+        } else {
+          this.isError = false;
         }
       }
     },
 
-    formattedDate(time) {
-      const monthNames = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ];
-      const date = new Date(time);
-      const month = monthNames[date.getMonth()];
-      const year = date.getFullYear();
-
-      return `${month} ${year}`;
+    callResponse(msg, state) {
+      this.response = msg;
+      this.isError = state;
+      this.showResponse = true;
+      this.onRequest = false;
+      setTimeout(() => {
+        this.showResponse = false;
+      }, 6000);
     },
 
-    numberWithCommas(number) {
-      return number.toLocaleString("en-US", { maximumFractionDigits: 2 });
+    clearInputs() {
+      this.name = "";
+      this.subject = "";
+      this.email = "";
+      this.content = "";
+      this.onRequest = false;
+    },
+
+    setArray() {
+      this.checkArray = [
+        { name: "name", data: this.name },
+        { name: "email", data: this.email },
+        { name: "subject", data: this.subject },
+        { name: "content", data: this.content },
+      ];
+    },
+
+    async processData() {
+      this.setArray();
+      for (let i = 0; i < this.checkArray.length; i++) {
+        const el = this.checkArray[i];
+        const result = this.checkErrorInputs(el.name, el.data);
+        if (result) {
+          break; // This will exit the entire loop
+        }
+      }
+
+      if (this.isError) {
+        this.callResponse(this.response, true);
+        return;
+      }
+
+      const form = {
+        name: this.name,
+        email: this.email,
+        subject: this.subject,
+        content: this.content,
+        time: new Date().getTime(),
+      };
+
+      this.onRequest = true;
+
+      try {
+        const result = await this.$axios.post("/emails/contact", form);
+        this.callResponse(result.data.message, false);
+        this.clearInputs();
+      } catch (err) {
+        this.callResponse(err.response.data.message, true);
+      }
     },
   },
 
@@ -324,10 +382,6 @@ export default {
 
     about() {
       return this.$store.state.about;
-    },
-
-    staffs() {
-      return this.$store.state.staffs;
     },
   },
 };

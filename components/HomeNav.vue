@@ -52,7 +52,16 @@
             class="nav-links"
             >Blog</NuxtLink
           >
-          <span @click="redirect" v-if="isAuthenticated" class="nav-links staff"
+          <span
+            @click="logout"
+            v-if="isAuthenticated"
+            class="nav-links black staff"
+            >Logout</span
+          >
+          <span
+            @click="redirect"
+            v-if="isAuthenticated"
+            class="nav-links red staff"
             >Dashboard</span
           >
           <NuxtLink v-else to="/signup" class="nav-links staff"
