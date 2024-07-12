@@ -18,7 +18,7 @@
       <div class="ero-cover"></div>
       <div class="custom-container">
         <div class="custom-flex ero">
-          <div class="ero-title">CART ITEMS</div>
+          <div class="ero-title">LOGIN ACCOUNT</div>
           <div class="ero-link">
             [<NuxtLink to="/" class="ero-text-link active">Home</NuxtLink> -
             Login]
@@ -47,8 +47,18 @@
                   placeholder="Enter Password"
                   :type="passwordType"
                   v-model="password"
-                /><img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66580319033ec9be51772fd1_eye-slash.svg"
+                />
+                <img
+                  v-if="passwordType == 'password'"
+                  src="/images/eye-slash.svg"
+                  loading="lazy"
+                  alt=""
+                  class="input-icon"
+                  @click="resetPasswordType"
+                />
+                <img
+                  v-else
+                  src="/images/eye.svg"
                   loading="lazy"
                   alt=""
                   class="input-icon"
@@ -63,19 +73,14 @@
               </div>
               <div class="load-btn" v-if="onRequest">
                 <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6656d0a87fa1d0b4305d0a2b_spinner.svg"
+                  src="/images/spinner.svg"
                   loading="lazy"
                   alt=""
                   class="spinner"
                 />
                 <div>Processing...</div>
               </div>
-              <div
-                v-else
-                @click="processUserData"
-                id="w-node-_6ccb78a3-0248-286d-90f2-55065e9a1611-7a51b666"
-                class="ceck-out-btn btn"
-              >
+              <div v-else @click="processUserData" class="ceck-out-btn btn">
                 SUBMIT
               </div>
 

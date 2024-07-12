@@ -37,7 +37,7 @@ export default {
     },
 
     proceedConfirmation() {
-      this.handleResponse();
+      this.hideResponse();
       this.$router.push("/signup");
     },
 

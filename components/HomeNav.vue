@@ -52,21 +52,21 @@
             class="nav-links"
             >Blog</NuxtLink
           >
-          <span
-            @click="logout"
-            v-if="isAuthenticated"
-            class="nav-links black staff"
-            >Logout</span
+
+          <span v-if="isAuthenticated" class="nav-links auto">
+            <span
+              @click="logout"
+              v-if="isAuthenticated"
+              class="nav-links black staff"
+              >Logout</span
+            ><span @click="redirect" class="nav-links red staff"
+              >Dashboard</span
+            ></span
           >
-          <span
-            @click="redirect"
-            v-if="isAuthenticated"
-            class="nav-links red staff"
-            >Dashboard</span
-          >
-          <NuxtLink v-else to="/signup" class="nav-links staff"
-            >Signup</NuxtLink
-          >
+          <span v-else class="nav-links auto">
+            <NuxtLink to="/login" class="nav-links black staff">Login</NuxtLink>
+            <NuxtLink to="/signup" class="nav-links staff">Signup</NuxtLink>
+          </span>
         </div>
       </div>
     </div>

@@ -438,6 +438,7 @@ export const mutations = {
     state.cartProducts = [];
     state.cartProperties.totalQuantity = 0;
     state.cartProperties.totalAmount = 0;
+    state.isShowingCart = false;
 
     const products = state.products;
     const items = [];

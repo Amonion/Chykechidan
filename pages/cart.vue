@@ -99,7 +99,7 @@
                   <div>N{{ numberWithCommas(cartProperties.totalAmount) }}</div>
                 </div>
                 <div class="ceck-out-btn" @click="processData">
-                  PROCEED TO CHECKOUT
+                  CONFIRM BILLING
                 </div>
               </div>
             </div>
@@ -168,11 +168,6 @@ export default {
       this.$store.commit("productStore/REMOVE_FROM_CART", product);
     },
 
-    paginate(page) {
-      this.currentPage = page;
-      this.getProducts();
-    },
-
     showOverlayResponse(msg, error, success, warning, show) {
       const payload = {
         msg,
@@ -203,7 +198,7 @@ export default {
     async processData() {
       if (!this.user) {
         this.showOverlayResponse(
-          "You have to create an account to continue!",
+          "You have to login or create an account to continue!",
           false,
           false,
           true,
@@ -219,31 +214,11 @@ export default {
         quantity: this.cartProperties.totalQuantity,
         amount: this.cartProperties.totalAmount,
         transactionType: "Order",
-        payment: this.payment,
         status: false,
-        seller: this.user.username,
-        description: this.description,
         username: this.buyingUser ? this.buyingUser.username : "Anonimous",
       };
 
-      //   this.$store.commit("TOGGLE_PROCESSING");
-      this.$store.commit("productStore/HIDE_CART");
-
-      const payload = {
-        form: productData,
-        url: `/transactions/?limit=${this.limit}&page=${this.currentPage}`,
-      };
-
-      const result = await this.$store.dispatch(
-        "productStore/MAKE_POST",
-        payload
-      );
-      this.handleResponse(result);
-
-      //   if (result) {
-      //     this.$store.commit("TOGGLE_PROCESSING");
-      //     this.$store.commit("productStore/SET_BUYING_USER", "");
-      //   }
+      this.$router.push("/checkout");
     },
   },
 

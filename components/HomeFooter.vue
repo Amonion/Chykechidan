@@ -166,7 +166,7 @@
             @mouseleave="unlink"
           >
             <NuxtLink
-              to="/blogs"
+              to="/blog"
               class="eac-footer-link w-inline-block"
               :class="{ active: link == 'blogs' }"
             >

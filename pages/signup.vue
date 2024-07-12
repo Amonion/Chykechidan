@@ -18,7 +18,7 @@
       <div class="ero-cover"></div>
       <div class="custom-container">
         <div class="custom-flex ero">
-          <div class="ero-title">CART ITEMS</div>
+          <div class="ero-title">REGISTER</div>
           <div class="ero-link">
             [<NuxtLink to="/" class="ero-text-link active">Home</NuxtLink> -
             Signup]
@@ -165,7 +165,6 @@
 </template>
 
 <script>
-import HomeNav from "../components/HomeNav";
 export default {
   layout: "home",
   data() {
@@ -229,16 +228,18 @@ export default {
     },
 
     callResponse(msg, state) {
-      this.response = state
-        ? msg
-        : "Congratulations... Your registration is successful. You will be redirected to login page.";
+      this.response = msg;
       this.isError = state;
       this.showResponse = true;
       this.onRequest = false;
       if (!state) {
         setTimeout(() => {
           this.showResponse = false;
-          this.$router.push("/login");
+          if (this.cartProperties.totalQuantity == 0) {
+            this.$router.push("/checkout");
+          } else {
+            this.$router.push("/login");
+          }
         }, 6000);
       }
     },
@@ -272,7 +273,7 @@ export default {
         const el = this.checkArray[i];
         const result = this.checkErrorInputs(el.name, el.data);
         if (result) {
-          break; // This will exit the entire loop
+          break;
         }
       }
 
@@ -303,7 +304,10 @@ export default {
       try {
         const result = await this.$axios.post("/users/signup", form);
         //console.log(result);
-        const msg = result.data.message;
+        const msg =
+          this.cartProperties.totalQuantity == 0
+            ? "Congratulations... Your registration is successful. You will be redirected to login page."
+            : "Congratulations... Your registration is successful. You will be redirected to chheckout page.";
         this.callResponse(msg, false);
         this.clearInputs();
         this.onRequest = false;
@@ -318,6 +322,10 @@ export default {
   computed: {
     countries() {
       return this.$store.state.registrationDetails.countries;
+    },
+
+    cartProperties() {
+      return this.$store.state.productStore.cartProperties;
     },
 
     FILE_URL() {

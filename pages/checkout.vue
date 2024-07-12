@@ -18,10 +18,10 @@
       <div class="ero-cover"></div>
       <div class="custom-container">
         <div class="custom-flex ero">
-          <div class="ero-title">SHOP</div>
+          <div class="ero-title">CONFIRM BILLING</div>
           <div class="ero-link">
             [<NuxtLink to="/" class="ero-text-link active">Home</NuxtLink> -
-            Shop]
+            Billing]
           </div>
         </div>
       </div>
@@ -34,122 +34,105 @@
             <div class="cart-total-title">Customer Billing Details</div>
             <div class="w-layout-grid bill-rid">
               <div class="bill-input-wrap">
-                <div>First Name</div>
+                <div>Username</div>
                 <input
                   class="bill-input w-input"
-                  maxlength="256"
-                  name="field"
-                  data-name="Field"
-                  placeholder="Enter First Name"
+                  v-model="user.username"
+                  placeholder="Enter Username"
                   type="text"
-                  id="field"
-                  required=""
+                  disabled
                 />
               </div>
-              <div
-                id="w-node-cd7787f1-eef0-0195-6f81-3f3e71bc96e6-7a51b666"
-                class="bill-input-wrap"
-              >
-                <div>Last Name</div>
+              <div class="bill-input-wrap">
+                <div>Full Name</div>
                 <input
                   class="bill-input w-input"
-                  maxlength="256"
-                  name="field-2"
-                  data-name="Field 2"
-                  placeholder="Enter First Name"
+                  v-model="fullName"
+                  placeholder="Enter Full Name"
                   type="text"
-                  id="field-2"
-                  required=""
                 />
               </div>
-              <div
-                id="w-node-_8cf403ca-38ed-ff2e-2088-054f766c3448-7a51b666"
-                class="bill-input-wrap"
-              >
+              <div class="bill-input-wrap">
                 <div>Phone Number</div>
                 <input
                   class="bill-input w-input"
-                  maxlength="256"
-                  name="field-2"
-                  data-name="Field 2"
-                  placeholder="Enter First Name"
+                  placeholder="Enter Phone Number"
                   type="text"
-                  id="field-2"
-                  required=""
+                  disabled
+                  v-model="user.phone"
                 />
               </div>
-              <div
-                id="w-node-e3c0c72b-85e6-289a-05f7-168de1e28d51-7a51b666"
-                class="bill-input-wrap"
-              >
+              <div class="bill-input-wrap">
                 <div>Email Address</div>
                 <input
                   class="bill-input w-input"
-                  maxlength="256"
-                  name="field-2"
-                  data-name="Field 2"
+                  v-model="user.email"
                   placeholder="Enter First Name"
                   type="text"
-                  id="field-2"
-                  required=""
+                  disabled
                 />
               </div>
-              <div
-                id="w-node-_8015c16e-096c-7f17-76f5-571a5052b602-7a51b666"
-                class="bill-input-wrap"
-              >
-                <div>Address</div>
+              <div class="bill-input-wrap">
+                <div>Your Address</div>
                 <input
                   class="bill-input w-input"
-                  maxlength="256"
-                  name="field-2"
-                  data-name="Field 2"
-                  placeholder="Enter First Name"
+                  v-model="address"
+                  placeholder="Enter Address"
                   type="text"
-                  id="field-2"
-                  required=""
                 />
               </div>
-              <div
-                id="w-node-c3d7ed1e-e3bf-ec3a-93d5-5543a033d489-7a51b666"
-                class="bill-input-wrap"
-              >
-                <div>Optional Note</div>
-                <input
-                  class="bill-input w-input"
-                  maxlength="256"
-                  name="field-2"
-                  data-name="Field 2"
-                  placeholder="Enter First Name"
-                  type="text"
-                  id="field-2"
-                  required=""
-                />
+              <div class="bill-input-wrap">
+                <div>Your Payment</div>
+                <div class="das-select full">
+                  <div
+                    class="das-drop-ead top"
+                    @click="showPayments = !showPayments"
+                  >
+                    <div>{{ payment }}</div>
+                    <img
+                      src="/images/chevron.svg"
+                      loading="lazy"
+                      alt=""
+                      class="drop-icon"
+                    />
+                  </div>
+                  <div class="das-drop-list" :class="{ active: showPayments }">
+                    <div
+                      v-for="item in payments"
+                      :key="item"
+                      @click="selectPayment(item)"
+                      class="drop-items"
+                    >
+                      {{ item }}
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="ceck-out-btn btn active">CANCEL ORDER</div>
-              <div
-                id="w-node-_768973a7-903e-8c5e-55d2-5812611ce613-7a51b666"
-                class="ceck-out-btn btn active"
-              >
-                GO TO HOMEPAGE
+              <div class="ceck-out-btn btn active" @click="cancelOrder">
+                CANCEL ORDER
               </div>
-              <div class="load-btn">
+              <div v-if="onRequest" class="load-btn">
                 <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6656d0a87fa1d0b4305d0a2b_spinner.svg"
+                  src="/images/spinner.svg"
                   loading="lazy"
                   alt=""
                   class="spinner"
                 />
                 <div>Processing...</div>
               </div>
-              <div
-                id="w-node-e6f29867-2c6c-4980-8619-2a65fd59599b-7a51b666"
-                class="ceck-out-btn btn"
-              >
-                PLACE ORDER (N2,300,000)
+              <div v-else @click="processData" class="ceck-out-btn btn">
+                PLACE ORDER (N{{
+                  numberWithCommas(cartProperties.totalAmount)
+                }})
               </div>
             </div>
-            <div class="response error">Please Fill in all the fields</div>
+            <div
+              class="response"
+              :class="{ error: isError }"
+              v-if="showResponse"
+            >
+              {{ response }}
+            </div>
           </div>
         </div>
       </div>
@@ -162,10 +145,15 @@ export default {
   layout: "home",
   data() {
     return {
-      limit: 8,
-      currentPage: 1,
-      sort: "name",
-      productWord: "",
+      payment: "Select Payment",
+      address: "",
+      fullName: "",
+      payments: ["POS", "Cash", "Transfer"],
+      showPayments: false,
+      showResponse: false,
+      isError: false,
+      response: false,
+      onRequest: false,
 
       pages() {
         let array = [];
@@ -177,12 +165,47 @@ export default {
       },
     };
   },
+
   methods: {
-    truncateText(text, maxLength) {
-      if (text.length > maxLength) {
-        return text.substring(0, maxLength) + "...";
+    checkErrorInputs(input, data) {
+      if (input == "fullName") {
+        if (
+          data == "" ||
+          !data ||
+          data.length < 2 ||
+          !/^[a-zA-Z]+(?:\s+[a-zA-Z]+)+$/.test(data)
+        ) {
+          this.response = "Please enter your full name.";
+          this.isError = true;
+          return true;
+        } else {
+          this.response = "";
+          this.isError = false;
+        }
+      } else if (input == "address") {
+        if (
+          data == "" ||
+          !data ||
+          data.length < 2 ||
+          /^[a-zA-Z]+(?:\s+[a-zA-Z]+)+$/.test(data)
+        ) {
+          this.response = "Please enter your correct address.";
+          this.isError = true;
+          return true;
+        } else {
+          this.response = "";
+          this.isError = false;
+        }
+      } else if (input == "payment") {
+        if (data == "Select Payment") {
+          this.response = "Please select a payment method.";
+          this.isError = true;
+          return true;
+        } else {
+          this.response = "";
+          this.isError = false;
+        }
       }
-      return text;
     },
 
     numberWithCommas(number) {
@@ -207,32 +230,85 @@ export default {
       return formattedDate;
     },
 
-    addProduct(product) {
-      this.$store.commit("productStore/ADD_TO_CART", product);
+    setArray() {
+      this.checkArray = [
+        { name: "fullName", data: this.fullName },
+        { name: "address", data: this.address },
+        { name: "payment", data: this.payment },
+      ];
     },
 
-    removeProduct(product) {
-      this.$store.commit("productStore/REMOVE_FROM_CART", product);
+    callResponse(msg, state) {
+      this.showResponse = true;
+      this.isError = state;
+      this.response = msg;
+      this.onRequest = false;
+      setTimeout(() => {
+        if (!state) {
+          this.$router.push("/products");
+        }
+        this.showResponse = false;
+      }, 6000);
     },
 
-    paginate(page) {
-      this.currentPage = page;
-      this.getProducts();
+    cancelOrder() {
+      this.$store.commit("productStore/CLEAR_CART");
+      this.$router.push("/");
     },
 
-    async searchProduct() {
+    selectPayment(item) {
+      this.payment = item;
+      this.showPayments = false;
+    },
+
+    async processData() {
+      this.setArray();
+      for (let i = 0; i < this.checkArray.length; i++) {
+        const el = this.checkArray[i];
+        const result = this.checkErrorInputs(el.name, el.data);
+        if (result) {
+          break; // This will exit the entire loop
+        }
+      }
+      if (this.isError) {
+        this.callResponse(this.response, true);
+        return;
+      }
+
+      const productData = {
+        products: JSON.stringify(this.cartItems),
+        ordered_time: new Date().getTime(),
+        quantity: this.cartProperties.totalQuantity,
+        amount: this.cartProperties.totalAmount,
+        transactionType: "Order",
+        seller: "User",
+        status: false,
+        username: this.user.username,
+        fullName: this.fullName,
+        address: this.address,
+      };
+
+      const payload = {
+        form: productData,
+        url: `/transactions/?limit=${this.limit}&page=${this.currentPage}`,
+      };
+
+      this.onRequest = true;
+
       const result = await this.$store.dispatch(
-        "MAKE_GET",
-        `/products/?name=${this.productWord}&limit=20&page=1`
+        "productStore/MAKE_POST",
+        payload
       );
-      this.$store.commit("productStore/SET_PRODUCTS", result.data);
-    },
 
-    async getProducts() {
-      this.$store.dispatch(
-        "productStore/GET_PRODUCTS",
-        `/products/?limit=${this.limit}&page=${this.currentPage}&sort=${this.sort}`
-      );
+      if (!result.response) {
+        this.callResponse(
+          "Your order has been placed successfully, waiting for confirmation.",
+          false
+        );
+        this.$store.commit("productStore/CLEAR_CART");
+      } else {
+        this.callResponse(result.response.message, true);
+      }
     },
   },
 
@@ -241,16 +317,20 @@ export default {
       return this.$store.state.fileURL;
     },
 
+    cartItems() {
+      return this.$store.state.productStore.cartProducts;
+    },
+
+    user() {
+      return this.$store.getters.getUserInfo;
+    },
+
     company() {
       return this.$store.state.company;
     },
 
-    items() {
-      return this.$store.state.productStore.products;
-    },
-
-    total() {
-      return this.$store.state.productStore.productLength;
+    cartProperties() {
+      return this.$store.state.productStore.cartProperties;
     },
   },
 };

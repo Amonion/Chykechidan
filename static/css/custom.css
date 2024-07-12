@@ -1,4 +1,4 @@
-.black.staff {
+.nav-links.black.staff {
   background: #1e1f43;
   margin-right: 20px;
 }
@@ -53,6 +53,10 @@
   cursor: pointer;
 }
 
+.das-select.full {
+  width: 100%;
+}
+
 .cover,
 .eac-blo,
 .eac-staff-rid,
@@ -82,7 +86,11 @@
 }
 
 .nuxt-link-exact-active {
-  color: #56b13d;
+  color: #ff4141;
+}
+
+.nav-links.auto {
+  margin-left: auto;
 }
 
 .ck.ck-editor {
@@ -120,6 +128,10 @@
 
 .sinup-ceck {
   margin-right: 10px;
+}
+
+span.nav-links {
+  margin-right: 0;
 }
 
 .spinner {

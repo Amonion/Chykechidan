@@ -232,6 +232,11 @@ export const actions = {
     commit("SET_TERMS", result.data);
   },
 
+  async GET_FAQ({ dispatch, commit }, url) {
+    const result = await dispatch("MAKE_GET", url);
+    commit("SET_FAQ", result.data);
+  },
+
   async GET_PROMOS({ dispatch, commit }, url) {
     const result = await dispatch("MAKE_GET", url);
     commit("SET_PROMOS", result.data);
@@ -291,11 +296,11 @@ export const actions = {
     dispatch("GET_BANNERS", `/banners/?limit=10&page=1`);
     dispatch("GET_PRODUCTS", `/products/?limit=8&page=1`);
     dispatch("GET_ABOUTS", `/about/?limit=20&page=1`);
-    dispatch("GET_BLOG", "/blog/?limit=20&page=1");
+    dispatch("GET_BLOG", "/blog/?limit=30&page=1");
     dispatch("GET_STAFFS", "/staffs/?limit=20&page=1");
     dispatch("GET_REVIEWS", "/comments/?limit=20&page=1&status=1");
     // dispatch("GET_TERMS", "/terms/?limit=20&page=1");
-    // dispatch("GET_PROMOS", "/promotions/?limit=20&page=1&sort=-target");
+    dispatch("GET_FAQ", "/faq/?limit=40&page=1");
 
     // dispatch("GET_PRODUCTS", "/products/?limit=40&page=1");
   },

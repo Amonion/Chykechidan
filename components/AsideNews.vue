@@ -1,25 +1,40 @@
 <template>
-  <div class="aside-blog">
-    <div class="aside-sticky">
-      <h1 class="pricing-name blog">Services Posts</h1>
-      <div v-for="item in blogs" :key="item.id" class="each-aside-post">
-        <div
-          class="aside-post-bg"
-          :style="{ backgroundImage: `url(${FILE_URL}/${item.banner})` }"
-        ></div>
-        <div class="aside-content">
-          <NuxtLink :to="`/blog/${item.id}`" class="aside-title">{{
-            item.title
-          }}</NuxtLink>
-          <div class="aside-date">{{ formatDate(item.time) }}</div>
+  <div class="blo-aside">
+    <div class="searc-list-wrap">
+      <div class="searc-wrap">
+        <input
+          class="searc-input w-input"
+          placeholder="Searc Posts"
+          type="text"
+        />
+        <div class="searc-box">
+          <img src="/images/search.svg" loading="lazy" alt="" class="image" />
         </div>
       </div>
-
-      <h1 class="pricing-name blog top">Tag Cloud</h1>
-      <div class="tag-wrapper">
-        <span v-for="item in tags" :key="item.id" class="each-tag">{{
-          item.title
-        }}</span>
+      <div class="searc-list-drop">
+        <a href="#" class="searc-link">Te importance of prorammin</a
+        ><a href="#" class="searc-link">Te importance of prorammin</a
+        ><a href="#" class="searc-link">Te importance of prorammin</a
+        ><a href="#" class="searc-link">Te importance of prorammin</a>
+      </div>
+    </div>
+    <div class="main-blo-title sm">// RELATED POSTS</div>
+    <div class="aside-card">
+      <div v-for="item in items" :key="item.id" class="eac-aside-news">
+        <div class="aside-pix">
+          <img
+            :src="`${FILE_URL}/${item.banner}`"
+            loading="lazy"
+            alt=""
+            class="responsive-pix"
+          />
+        </div>
+        <div class="aside-body">
+          <div>{{ formattedDate(item.time * 1) }}</div>
+          <NuxtLink :to="`/blog-details/?id=${item.id}`" class="aside-title"
+            >{{ item.title }}
+          </NuxtLink>
+        </div>
       </div>
     </div>
   </div>
@@ -28,107 +43,55 @@
 <script>
 export default {
   methods: {
-    truncateText(text, maxLength) {
-      if (text.length > maxLength) {
-        return text.substring(0, maxLength) + "...";
-      }
-      return text;
-    },
+    formattedDate() {
+      const monthNames = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      const date = new Date();
+      const day = date.getDate();
+      const month = monthNames[date.getMonth()];
+      const year = date.getFullYear();
 
-    getPages(length, limit) {
-      const num = Math.ceil(length / limit);
-      let pages = [];
-      for (let i = 0; i < num; i++) {
-        pages.push(1);
-      }
-      return pages;
-    },
-
-    formatDateToDD(dateString) {
-      const options = { day: "2-digit" };
-      const date = new Date(dateString);
-      const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
-        date
-      );
-      return formattedDate;
-    },
-
-    formatDateToMon(dateString) {
-      const options = { month: "short" };
-      const date = new Date(dateString);
-      const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
-        date
-      );
-      return formattedDate;
-    },
-
-    formatDate(time = new Date()) {
-      const today = new Date(time);
-      const day = today.getDate();
-      const month = today.toLocaleString("default", { month: "short" });
-      const year = today.getFullYear();
-
-      // Function to add ordinal suffix to the day
-      const addOrdinalSuffix = (day) => {
-        if (day >= 11 && day <= 13) {
-          return day + "th";
-        } else {
-          switch (day % 10) {
-            case 1:
-              return day + "st";
-            case 2:
-              return day + "nd";
-            case 3:
-              return day + "rd";
-            default:
-              return day + "th";
-          }
+      // Function to get the day suffix
+      function getDaySuffix(day) {
+        if (day > 3 && day < 21) return "th"; // catch 11th, 12th, 13th
+        switch (day % 10) {
+          case 1:
+            return "st";
+          case 2:
+            return "nd";
+          case 3:
+            return "rd";
+          default:
+            return "th";
         }
-      };
+      }
 
-      const formattedDate = `${addOrdinalSuffix(day)} ${month}, ${year}`;
-      return formattedDate;
-    },
-
-    paginate(int) {
-      this.currentPage = int;
-      this.getBlog();
-    },
-
-    async getBlog() {
-      await this.$store.dispatch(
-        "getBlog",
-        `/blog/?limit=${this.limit}&page=${this.currentPage}&sort=${this.sort}`
-      );
+      return `${month} ${day}${getDaySuffix(day)}, ${year}`;
     },
   },
   computed: {
-    blogs() {
+    items() {
       const items = this.$store.state.blogs;
       const blogs = [];
       for (let i = 0; i < items.length; i++) {
         const el = items[i];
-        if (el.category == "Services") {
+        if (el.type == "Services") {
           blogs.push(el);
         }
       }
       return blogs;
-    },
-
-    tags() {
-      const items = this.$store.state.blogs;
-      const blogs = [];
-      for (let i = 0; i < items.length; i++) {
-        const el = items[i];
-        if (el.category == "Initiative") {
-          blogs.push(el);
-        }
-      }
-      return blogs;
-    },
-
-    totalLength() {
-      return this.blogs.length;
     },
 
     FILE_URL() {

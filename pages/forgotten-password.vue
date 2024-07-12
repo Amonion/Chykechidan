@@ -2,15 +2,15 @@
   <div>
     <div class="hero">
       <img
-        src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg.jpg"
+        src="/images/banner2.jpeg"
         loading="lazy"
         sizes="100vw"
         srcset="
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg-p-500.jpg   500w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg-p-800.jpg   800w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg-p-1080.jpg 1080w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg-p-1600.jpg 1600w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg.jpg        1920w
+          /images/banner2.jpeg  500w,
+          /images/banner2.jpeg  800w,
+          /images/banner2.jpeg 1080w,
+          /images/banner2.jpeg 1600w,
+          /images/banner2.jpeg 1920w
         "
         alt=""
         class="responsive-pix"
@@ -20,11 +20,13 @@
         <div class="custom-flex ero">
           <div class="ero-title">PASSWORD RECOVERY</div>
           <div class="ero-link">
-            [<a href="#" class="ero-text-link active">Home</a> - product]
+            [<NuxtLink to="/" class="ero-text-link active">Home</NuxtLink> -
+            Password]
           </div>
         </div>
       </div>
     </div>
+
     <div class="maintenance">
       <div class="custom-container">
         <div class="w-form">
@@ -34,31 +36,31 @@
                 <div>Email</div>
                 <input
                   class="bill-input w-input"
-                  maxlength="256"
-                  name="field-3"
-                  data-name="Field 3"
-                  placeholder="Enter First Name"
-                  type="text"
-                  id="field-3"
-                  required=""
+                  v-model="email"
+                  placeholder="Enter Email"
+                  type="email"
                 />
               </div>
-              <div
-                id="w-node-_7ff90450-f3ab-c667-9f97-86e1aca86eb8-7a51b666"
-                class="ceck-out-btn btn"
-              >
-                RESET PASSWORD
-              </div>
-              <div class="load-btn">
+              <div v-if="onRequest" class="load-btn">
                 <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6656d0a87fa1d0b4305d0a2b_spinner.svg"
+                  src="/images/spinner.svg"
                   loading="lazy"
                   alt=""
                   class="spinner"
                 />
                 <div>Processing...</div>
               </div>
-              <div class="response error">Please Fill in all the fields</div>
+              <div v-else class="ceck-out-btn btn" @click="processUserData">
+                RESET PASSWORD
+              </div>
+
+              <div
+                v-if="showResponse"
+                class="response"
+                :class="{ error: isError }"
+              >
+                {{ response }}
+              </div>
             </div>
           </div>
         </div>
@@ -77,10 +79,8 @@ export default {
 
       showResponse: false,
       isError: false,
-      response: false,
+      response: "",
       onRequest: false,
-
-      isError: false,
     };
   },
   methods: {
@@ -129,7 +129,7 @@ export default {
       };
 
       this.onRequest = true;
-      const result = await this.$store.dispatch("makePOST", payload);
+      const result = await this.$store.dispatch("MAKE_POST", payload);
       if (result.response) {
         this.callResponse(result.response.data.message, true);
       } else {
