@@ -157,7 +157,7 @@ export default {
         amount: this.purchaseProperties.totalAmount,
         transactionType: "Purchase",
         payment: this.payment,
-        status: false,
+        status: true,
         seller: this.user.username,
         description: this.description,
         username: this.company.companyName,

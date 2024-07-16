@@ -21,7 +21,7 @@ export default {
 
   data() {
     return {
-      sort: "time",
+      sort: "-time",
       limit: 10,
       currentPage: 1,
       pages: function () {

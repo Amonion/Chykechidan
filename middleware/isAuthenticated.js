@@ -6,7 +6,11 @@ export default function ({ store, redirect, route }) {
   store.commit("SET_ROUTE", path);
 
   if (!store.state.auth.loggedIn) {
-    if (path.includes("admin") || path.includes(protectedRoutes)) {
+    if (
+      path.includes("admin") ||
+      path.includes("checkout") ||
+      path.includes(protectedRoutes)
+    ) {
       return redirect("/login");
     }
   } else if (path.includes("admin")) {

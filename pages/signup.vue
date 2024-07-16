@@ -236,9 +236,9 @@ export default {
         setTimeout(() => {
           this.showResponse = false;
           if (this.cartProperties.totalQuantity == 0) {
-            this.$router.push("/checkout");
-          } else {
             this.$router.push("/login");
+          } else {
+            this.$router.push("/checkout");
           }
         }, 6000);
       }

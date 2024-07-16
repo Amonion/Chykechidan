@@ -17,7 +17,10 @@
           src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665a67f7c1d02e9b4048dc16_user-alt1.svg"
           loading="lazy"
           alt="" /></NuxtLink
-      ><NuxtLink to="/admin/notifications" class="das-icons-top w-inline-block"
+      ><NuxtLink
+        v-if="user.position == 'Admin'"
+        to="/admin/notifications"
+        class="das-icons-top w-inline-block"
         ><div class="note-dot"></div>
         <img
           src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665a7063f4a83c5f2b820dee_bell.svg"

@@ -4,7 +4,7 @@
     :class="{ active: showNav }"
     @click.self="toggleNav"
   >
-    <div class="das-nav">
+    <div v-if="user.position == 'Admin'" class="das-nav">
       <img
         src="/images/admin/menu.svg"
         loading="lazy"
@@ -175,6 +175,72 @@
           >
         </div>
       </div>
+
+      <div @click="logout" class="das-nav-items">
+        <img
+          src="/images/admin/logout.svg"
+          loading="lazy"
+          alt=""
+          class="das-nav-icon"
+        />
+        <div>Logout</div>
+      </div>
+    </div>
+
+    <div v-else class="das-nav">
+      <img
+        src="/images/admin/menu.svg"
+        loading="lazy"
+        alt=""
+        class="das-menu-close"
+        @click="toggleNav"
+      />
+      <div class="das-menu-flex">
+        <NuxtLink to="/" class="das-brand w-inline-block"
+          ><img src="/Logo.png" loading="lazy" alt="" /></NuxtLink
+        ><img
+          src="/images/admin/menu.svg"
+          loading="lazy"
+          alt=""
+          class="das-menu"
+        />
+      </div>
+      <NuxtLink
+        to="/admin/profile"
+        class="das-nav-items w-inline-block"
+        :class="{ active: route == 'admin-profile' }"
+        ><img
+          src="/images/admin/user.svg"
+          loading="lazy"
+          alt=""
+          class="das-nav-icon"
+        />
+        <div>Profile</div></NuxtLink
+      >
+      <NuxtLink
+        to="/admin/orders"
+        class="das-nav-items w-inline-block"
+        :class="{ active: route == 'admin-orders' }"
+        ><img
+          src="/images/admin/activities.svg"
+          loading="lazy"
+          alt=""
+          class="das-nav-icon"
+        />
+        <div>Pending Order</div></NuxtLink
+      >
+      <NuxtLink
+        to="/admin/sell"
+        class="das-nav-items w-inline-block"
+        :class="{ active: route == 'admin-sell' }"
+        ><img
+          src="/images/admin/activities.svg"
+          loading="lazy"
+          alt=""
+          class="das-nav-icon"
+        />
+        <div>Sell</div></NuxtLink
+      >
 
       <div @click="logout" class="das-nav-items">
         <img

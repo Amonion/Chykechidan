@@ -139,6 +139,7 @@
         </div>
         <div class="tb-action-text">Send</div>
       </div>
+
       <div class="send-email-wrap">
         <div class="das-select">
           <div @click="showPositions = !showPositions" class="das-drop-ead">
@@ -161,7 +162,10 @@
             </div>
           </div>
         </div>
-        <div @click="makeStaff" class="tb-action-text">Make User</div>
+        <div @click="makeStaff" class="tb-action-text">Make Staff</div>
+      </div>
+      <div class="send-email-wrap">
+        <div @click="makeUser" class="tb-action-text">Make User</div>
       </div>
       <img
         src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665b486d0ffa805b48773e0d_times-circle.svg"
@@ -306,7 +310,7 @@ export default {
     },
 
     toggleUser(int) {
-      this.$store.commit("admin/TOGGLE_USER", int);
+      this.$store.commit("admin/TOGGLE_STAFF", int);
     },
 
     toggleEmailList() {
@@ -385,8 +389,8 @@ export default {
 
     async getUsers() {
       const result = await this.$store.dispatch(
-        "admin/GET_USERS",
-        `/users/?limit=${this.limit}&page=${this.currentPage}&userType=User&sort=${this.sort}`
+        "admin/GET_STAFFS",
+        `/staffs/?limit=${this.limit}&page=${this.currentPage}&userType=User&sort=${this.sort}`
       );
     },
 
@@ -470,11 +474,37 @@ export default {
         form: this.setPositions(
           JSON.parse(JSON.stringify(this.selectedUsersArray))
         ),
-        url: `/users/toggle-status/?&limit=${this.limit}&page=${this.currentPage}&userType=User`,
+        url: `/users/toggle-status/?&limit=${this.limit}&page=${this.currentPage}&userType=Staff`,
       };
       const result = await this.$store.dispatch(`MAKE_POST`, payload);
       if (!result.response) {
-        this.$store.commit(`admin/SET_USERS`, result.data);
+        this.$store.commit(`admin/SET_STAFFS`, result.data);
+      } else {
+        console.log(result.response);
+      }
+    },
+
+    async makeUser() {
+      if (this.selectedUsersArray.length == 0) {
+        this.showOverlayResponse(
+          "Select at least one staff to update",
+          true,
+          false,
+          false,
+          true
+        );
+        return;
+      }
+
+      const payload = {
+        form: this.setPositions(
+          JSON.parse(JSON.stringify(this.selectedUsersArray))
+        ),
+        url: `/users/make-user/?&limit=${this.limit}&page=${this.currentPage}`,
+      };
+      const result = await this.$store.dispatch(`MAKE_POST`, payload);
+      if (!result.response) {
+        this.$store.commit(`admin/SET_STAFFS`, result.data);
       } else {
         console.log(result.response);
       }
@@ -491,9 +521,9 @@ export default {
   },
 
   mounted() {
-    if (!this.userStatus) {
-      this.getUsers();
-    }
+    // if (!this.userStatus) {
+    //   this.getUsers();
+    // }
     // this.getSMS();
     // this.getEmails();
     // this.$socket.on("fetchedItems", (data, cb) => {

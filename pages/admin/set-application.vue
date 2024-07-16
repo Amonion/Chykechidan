@@ -195,14 +195,14 @@
         <div
           class="das-tb-ceck"
           @click="toggleStock"
-          :class="{ active: takeStock }"
+          :class="{ active: takeStock == 1 }"
         >
           <img
             src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665805ea25eaee8db62cce44_check.svg"
             loading="lazy"
             alt=""
             class="das-tb-icon"
-            :class="{ active: takeStock }"
+            :class="{ active: takeStock == 1 }"
           />
         </div>
       </div>

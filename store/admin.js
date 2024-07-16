@@ -824,7 +824,7 @@ export const actions = {
     dispatch("GET_COMMENTS", "/comments/?limit=10&page=1");
     dispatch(
       "GET_NOTIFICATIONS",
-      "/notifications/?limit=10&page=1&sort=time&username=Admin"
+      "/notifications/?limit=10&page=1&sort=-time&username=Admin"
     );
     dispatch("GET_COMPANY", "/company");
   },

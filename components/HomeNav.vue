@@ -53,17 +53,12 @@
             >Blog</NuxtLink
           >
 
-          <span v-if="isAuthenticated" class="nav-links auto">
-            <span
-              @click="logout"
-              v-if="isAuthenticated"
-              class="nav-links black staff"
-              >Logout</span
-            ><span @click="redirect" class="nav-links red staff"
-              >Dashboard</span
-            ></span
-          >
-          <span v-else class="nav-links auto">
+          <div v-show="isAuthenticated" class="nav-links auto">
+            <span @click="logout" class="nav-links black staff">Logout</span>
+            <span @click="redirect" class="nav-links red staff">Dashboard</span>
+          </div>
+
+          <span v-show="!isAuthenticated" class="nav-links auto">
             <NuxtLink to="/login" class="nav-links black staff">Login</NuxtLink>
             <NuxtLink to="/signup" class="nav-links staff">Signup</NuxtLink>
           </span>
