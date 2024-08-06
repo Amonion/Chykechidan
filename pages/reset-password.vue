@@ -2,15 +2,15 @@
   <div>
     <div class="hero">
       <img
-        src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg.jpg"
+        src="/images/banner2.jpeg"
         loading="lazy"
         sizes="100vw"
         srcset="
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg-p-500.jpg   500w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg-p-800.jpg   800w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg-p-1080.jpg 1080w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg-p-1600.jpg 1600w,
-          https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665011ca79044631aa660dda_subscribe-bg.jpg        1920w
+          /images/banner2.jpeg  500w,
+          /images/banner2.jpeg  800w,
+          /images/banner2.jpeg 1080w,
+          /images/banner2.jpeg 1600w,
+          /images/banner2.jpeg 1920w
         "
         alt=""
         class="responsive-pix"
@@ -20,11 +20,13 @@
         <div class="custom-flex ero">
           <div class="ero-title">RESET PASSWORD</div>
           <div class="ero-link">
-            [<a href="#" class="ero-text-link active">Home</a> - product]
+            [<NuxtLink to="/" class="ero-text-link active">Home</NuxtLink> -
+            Password]
           </div>
         </div>
       </div>
     </div>
+
     <div class="maintenance">
       <div class="custom-container">
         <div class="w-form">
@@ -34,75 +36,72 @@
                 <div>Password</div>
                 <input
                   class="bill-input w-input"
-                  maxlength="256"
-                  name="field-3"
-                  data-name="Field 3"
+                  v-model="password"
                   placeholder="Enter Password"
-                  type="password"
-                  id="field-3"
-                  required=""
+                  :type="passwordType"
                 /><img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66580319033ec9be51772fd1_eye-slash.svg"
+                  v-if="passwordType == 'password'"
+                  src="/images/eye-slash.svg"
                   loading="lazy"
                   alt=""
                   class="input-icon"
+                  @click="resetPasswordType"
+                />
+                <img
+                  v-else
+                  src="/images/eye.svg"
+                  loading="lazy"
+                  alt=""
+                  class="input-icon"
+                  @click="resetPasswordType"
                 />
               </div>
               <div class="bill-input-wrap account">
                 <div>Confirm Password</div>
                 <input
                   class="bill-input w-input"
-                  maxlength="256"
-                  name="field-3"
-                  data-name="Field 3"
-                  placeholder="Enter Password"
-                  type="password"
-                  id="field-3"
-                  required=""
-                /><img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/66580319033ec9be51772fd1_eye-slash.svg"
+                  v-model="confirmPassword"
+                  placeholder="Enter Confirm Password"
+                  :type="passwordType"
+                />
+                <img
+                  v-if="passwordType == 'password'"
+                  src="/images/eye-slash.svg"
                   loading="lazy"
                   alt=""
                   class="input-icon"
+                  @click="resetPasswordType"
+                />
+                <img
+                  v-else
+                  src="/images/eye.svg"
+                  loading="lazy"
+                  alt=""
+                  class="input-icon"
+                  @click="resetPasswordType"
                 />
               </div>
-              <div class="terms-wrap">
-                <div class="sinup-ceck active">
-                  <img
-                    src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665805ea25eaee8db62cce44_check.svg"
-                    loading="lazy"
-                    alt=""
-                    class="ceck-icon"
-                  />
-                </div>
-                <a href="#" class="terms-link"
-                  >Kindly read and accept our
-                  <span class="text-span">terms &amp; conditions</span></a
-                >
-              </div>
-              <div
-                id="w-node-_082a1007-2bd1-2683-92f3-097acda0e64b-7a51b666"
-                class="ceck-out-btn btn"
-              >
-                SUBMIT
-              </div>
-              <div class="load-btn">
+
+              <div class="load-btn" v-if="onRequest">
                 <img
-                  src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/6656d0a87fa1d0b4305d0a2b_spinner.svg"
+                  src="/images/spinner.svg"
                   loading="lazy"
                   alt=""
                   class="spinner"
                 />
                 <div>Processing...</div>
               </div>
-              <div class="terms-wrap">
-                <a href="#" class="terms-link"
-                  >Forgotten password?<span class="text-span">
-                    Click Here</span
-                  ></a
-                >
+              <div v-else @click="processUserData" class="ceck-out-btn btn">
+                SUBMIT
               </div>
-              <div class="response error">Please Fill in all the fields</div>
+
+              <div
+                class="response"
+                :class="{ error: isError }"
+                v-if="showResponse"
+              >
+                {{ response }}
+              </div>
             </div>
           </div>
         </div>
@@ -121,6 +120,7 @@ export default {
       password: "",
       confirmPassword: "",
       token: "",
+      passwordType: "password",
 
       showResponse: false,
       isError: false,
@@ -139,6 +139,10 @@ export default {
       setTimeout(() => {
         this.showResponse = false;
       }, 6000);
+    },
+
+    resetPasswordType() {
+      this.passwordType = this.passwordType == "password" ? "text" : "password";
     },
 
     checkErrorInputs(input, data) {
@@ -190,9 +194,10 @@ export default {
       };
 
       this.onRequest = true;
-      const result = await this.$store.dispatch("makePOST", payload);
+      const result = await this.$store.dispatch("MAKE_POST", payload);
+      console.log(result, this.response);
       if (result.response) {
-        this.callResponse(result.response.data.message, true);
+        this.callResponse("Your password has been updated successfully.", true);
       } else {
         this.clearInputs();
         this.callResponse(result.data.message, false);

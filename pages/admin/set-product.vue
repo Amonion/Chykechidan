@@ -4,6 +4,17 @@
       <div>Products</div>
       <div>{{ formattedDate() }}</div>
     </div>
+    <div class="tb-top-info">
+      <div class="send-email-wrap">
+        <input
+          class="rane-date search w-input"
+          v-model="productWord"
+          placeholder="Search Products"
+          type="text"
+          @keyup="searchProduct"
+        />
+      </div>
+    </div>
     <div class="das-tb-flow">
       <div class="das-tb">
         <div class="das-tb-ead">
@@ -254,6 +265,7 @@ export default {
       unitsPerPurchase: "",
       description: "",
       image: "",
+      productWord: "",
 
       sort: "",
       limit: 10,
@@ -627,6 +639,14 @@ export default {
         this.clearInputs();
         this.$store.commit("admin/SET_PRODUCTS", result.data);
       }
+    },
+
+    async searchProduct() {
+      const result = await this.$store.dispatch(
+        "MAKE_GET",
+        `/products/?name=${this.productWord}&limit=${this.limit}&page=${this.currentPage}&sort=${this.sort}`
+      );
+      this.$store.commit("admin/SET_PRODUCTS", result.data);
     },
 
     async fetchItems() {

@@ -222,7 +222,7 @@ export default {
       console.log(result, result.response);
       if (!result.response) {
         this.onRequest = false;
-        this.$store.commit("UPDATE_ME", result.data);
+        this.$store.commit("UPDATE_ME", result.data.data);
       } else {
         this.callResponse(result.response.data.message, true);
       }

@@ -200,7 +200,7 @@ export default {
       };
 
       const result = await this.$store.dispatch("admin/MAKE_POST", payload);
-      console.log(result.response, result);
+      // console.log(result.response, result);
       if (!result.response) {
         this.$store.commit("admin/SET_STOCK", result.data);
         this.showOverlayResponse(
