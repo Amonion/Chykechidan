@@ -209,7 +209,13 @@ export default {
       selectedEmail: "",
       selectedEmailName: "Select Email",
 
-      positions: ["Admin", "Secretary", "Sales Person"],
+      positions: [
+        "Admin",
+        "Secretary",
+        "Cashier",
+        "Sales Person",
+        "Web Developer",
+      ],
       selectedPosition: "Select Position",
       showPositions: false,
     };
@@ -476,12 +482,15 @@ export default {
         ),
         url: `/users/toggle-status/?&limit=${this.limit}&page=${this.currentPage}&userType=Staff`,
       };
-      const result = await this.$store.dispatch(`MAKE_POST`, payload);
-      if (!result.response) {
-        this.$store.commit(`admin/SET_STAFFS`, result.data);
-      } else {
-        console.log(result.response);
-      }
+
+      console.log(payload.form);
+
+      // const result = await this.$store.dispatch(`MAKE_POST`, payload);
+      // if (!result.response) {
+      //   this.$store.commit(`admin/SET_STAFFS`, result.data);
+      // } else {
+      //   console.log(result.response);
+      // }
     },
 
     async makeUser() {

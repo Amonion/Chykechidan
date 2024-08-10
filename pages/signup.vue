@@ -193,9 +193,15 @@ export default {
     checkErrorInputs(input, data) {
       //|| !/^\w+$/.test(data)
       if (input == "username") {
-        if (data == "" || !data || data.length < 2) {
+        if (
+          data == "" ||
+          !data ||
+          data.length < 2 ||
+          !/^[a-zA-Z0-9]+$/.test(data)
+        ) {
           this.isError = true;
-          this.response = "Username must be at least 2 characters long.";
+          this.response =
+            "Username must be one word and at least 2 characters long.";
           return true;
         } else {
           this.isError = false;

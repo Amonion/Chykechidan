@@ -57,7 +57,7 @@ export default {
     },
 
     handleResponse(result) {
-      // console.log(result, result.response);
+      console.log(result, result.response);
       this.showOverlayResponse("", false, false, false, false);
       if (!result.response) {
         // this.alertReturnedMsg(result.data.message, false);

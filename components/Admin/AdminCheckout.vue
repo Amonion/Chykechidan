@@ -196,7 +196,7 @@ export default {
     },
 
     handleResponse(result) {
-      // console.log(result, result.response);
+      console.log(result, result.response);
 
       if (!result.response) {
         this.$store.commit("admin/SET_TRANSACTIONS", result.data);

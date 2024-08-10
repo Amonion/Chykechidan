@@ -206,14 +206,17 @@ export default {
 
     async getNotifications() {
       await this.$store.dispatch(
-        "admin/getNotifications",
+        "admin/GET_NOTIFICATIONS",
         `/notifications/?limit=${this.limit}&page=${this.currentPage}&sort=${this.sort}`
       );
     },
   },
 
   mounted() {
-    // this.updateNotifications();
+    this.getNotifications();
+    setInterval(() => {
+      this.getNotifications();
+    }, 3 * 60 * 1000);
   },
 
   computed: {

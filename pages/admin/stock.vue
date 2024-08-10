@@ -181,6 +181,11 @@ export default {
       return `${month} ${day}${getDaySuffix(day)}, ${year}`;
     },
 
+    paginate(int) {
+      this.currentPage = int;
+      this.getStocks();
+    },
+
     showOverlayResponse(msg, error, success, warning, show) {
       const payload = {
         msg,

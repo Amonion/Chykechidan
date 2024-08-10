@@ -110,7 +110,7 @@ export default {
       limit: 10,
       currentPage: 1,
       description: "",
-      discount: "",
+      discount: 0,
     };
   },
   methods: {

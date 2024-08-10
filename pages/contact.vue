@@ -77,7 +77,7 @@
               </div>
             </div>
             <img
-              src="https://cdn.prod.website-files.com/6625e0ead22d28967a51b65f/665850e20a79a760ff2d0e69_contact-1.png"
+              src="/images/contact.png"
               loading="lazy"
               alt=""
               class="contact-person"

@@ -124,6 +124,9 @@ export default {
 
   mounted() {
     this.getTransactions();
+    setInterval(() => {
+      this.getTransactions();
+    }, 3 * 60 * 1000);
   },
 
   computed: {

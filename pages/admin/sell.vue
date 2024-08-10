@@ -63,7 +63,15 @@
           </div>
           <div class="das-tb-cell _20 quant">
             <div class="das-foot-pa quant" @click="removeFromCart(item)">-</div>
-            <div class="tb-quant">{{ item.quantity }}</div>
+            <div class="tb-quant">
+              <div>{{ item.quantity }}</div>
+              <input
+                class="stock-input"
+                type="text"
+                @change="setQuantity($event, item)"
+              />
+              <!-- {{ item.quantity }} -->
+            </div>
             <div class="das-foot-pa quant" @click="addToCart(item)">+</div>
           </div>
         </div>
@@ -209,6 +217,14 @@ export default {
 
     removeFromCart(data) {
       this.$store.commit("productStore/REMOVE_FROM_CART", data);
+    },
+
+    setQuantity(e, item) {
+      const payload = {
+        data: item,
+        quantity: e.target.value * 1,
+      };
+      this.$store.commit("productStore/SET_QUANTITY", payload);
     },
 
     addToCart(data) {

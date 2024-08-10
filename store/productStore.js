@@ -78,6 +78,22 @@ function resetCart(products, userState) {
   userState.productArray = items;
 }
 
+function getTotalAmount(products) {
+  let amount = 0;
+  for (let x = 0; x < products.length; x++) {
+    amount += products[x].sellingPrice * 1 * products[x].quantity * 1;
+  }
+  return amount;
+}
+
+function getTotalQuantity(products) {
+  let quantity = 0;
+  for (let x = 0; x < products.length; x++) {
+    quantity += products[x].quantity * 1;
+  }
+  return quantity;
+}
+
 function checkCartProducts(items, state) {
   let el = items;
   for (let x = 0; x < el.length; x++) {
@@ -242,6 +258,41 @@ export const mutations = {
     state.selectedObject = object;
   },
 
+  SET_QUANTITY(state, payload) {
+    const { data, quantity } = payload;
+    // console.log(data);
+
+    state.isShowingPurchaseCart = false;
+    if (quantity > 0) {
+      state.showCart = true;
+    }
+    // CHECK IF THE GIVEN PRODUCT EXIST IN THE CART
+    const existingItem = state.cartProducts.find(
+      (item) => item.id == data.id && item.type == "Product"
+    );
+    const product = state.products.find((item) => item.id == data.id);
+
+    let index = null;
+
+    // GET THE INDEX OF THE SELECTED PRODUCT IN THE PRODUCTS ARRAY
+    for (let i = 0; i < state.products.length; i++) {
+      if (state.products[i].id == data.id) {
+        index = i;
+      }
+    }
+
+    if (existingItem) {
+      existingItem.quantity = quantity;
+      existingItem.cartNumber++;
+    } else if (!existingItem) {
+      data.quantity = quantity;
+      state.cartProducts.push(data);
+      state.products[index] = data;
+    }
+    state.cartProperties.totalQuantity = getTotalQuantity(state.cartProducts);
+    state.cartProperties.totalAmount = getTotalAmount(state.cartProducts);
+  },
+
   ADD_TO_CART(state, data) {
     state.isShowingPurchaseCart = false;
     state.showCart = true;
@@ -296,6 +347,9 @@ export const mutations = {
     } else {
       state.showCart = false;
     }
+
+    state.cartProperties.totalQuantity = getTotalQuantity(state.cartProducts);
+    state.cartProperties.totalAmount = getTotalAmount(state.cartProducts);
   },
 
   ADD_TO_PURCHASE(state, data) {

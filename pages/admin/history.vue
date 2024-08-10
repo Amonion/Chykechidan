@@ -55,6 +55,7 @@
             dam: item.transactionType == 'Expenses',
           }"
           class="das-tb-body"
+          style="cursor: pointer"
         >
           <div class="das-tb-cell">
             <div>{{ (currentPage - 1) * limit + int + 1 }}</div>
@@ -82,24 +83,28 @@
               {{ item.products }}
             </div>
             <div v-else>
-              <div
-                v-for="(product, index) in JSON.parse(item.products)"
-                :key="index"
+              <NuxtLink
+                :to="`/admin/transaction-details/?id=${item.id}`"
+                style="text-decoration: none; color: #2a3247"
               >
-                <div>
-                  {{ product.quantity }}
-                  <span v-if="transaction.transactionType == 'Purchase'">{{
-                    product.productBuyingUnit
-                  }}</span>
-                  <span v-if="transaction.transactionType == 'Order'">{{
-                    product.sellingUnit
-                  }}</span>
-                  of
-                  {{ product.name }} =
-                  {{ formatNumber(product.quantity * product.sellingPrice) }}
-                  <br />
-                </div>
-              </div>
+                <div
+                  v-for="(product, index) in JSON.parse(item.products)"
+                  :key="index"
+                >
+                  <div>
+                    {{ product.quantity }}
+                    <span v-if="transaction.transactionType == 'Purchase'">{{
+                      product.productBuyingUnit
+                    }}</span>
+                    <span v-if="transaction.transactionType == 'Order'">{{
+                      product.sellingUnit
+                    }}</span>
+                    of
+                    {{ product.name }} =
+                    {{ formatNumber(product.quantity * product.sellingPrice) }}
+                    <br />
+                  </div></div
+              ></NuxtLink>
             </div>
           </div>
           <div class="das-tb-cell _20">
@@ -415,6 +420,9 @@ export default {
 
     this.sort = `-ordered_time&ordered_time[gte]=${startOfToday.getTime()}`;
     this.getTransactions();
+    setInterval(() => {
+      this.getTransactions();
+    }, 3 * 60 * 1000);
   },
 
   computed: {
