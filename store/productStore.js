@@ -86,6 +86,14 @@ function getTotalAmount(products) {
   return amount;
 }
 
+function getTotalPurchaseAmount(products) {
+  let amount = 0;
+  for (let x = 0; x < products.length; x++) {
+    amount += products[x].buyingUnitPrice * 1 * products[x].quantity * 1;
+  }
+  return amount;
+}
+
 function getTotalQuantity(products) {
   let quantity = 0;
   for (let x = 0; x < products.length; x++) {
@@ -260,7 +268,6 @@ export const mutations = {
 
   SET_QUANTITY(state, payload) {
     const { data, quantity } = payload;
-    // console.log(data);
 
     state.isShowingPurchaseCart = false;
     if (quantity > 0) {
@@ -379,6 +386,40 @@ export const mutations = {
 
     state.purchaseProperties.totalQuantity++;
     state.purchaseProperties.totalAmount += data.buyingUnitPrice * 1;
+  },
+
+  SET_PURCHASE_QUANTITY(state, payload) {
+    const { data, quantity } = payload;
+    if (quantity > 0) {
+      state.showPurchase = true;
+    }
+    const existingItem = state.cartPurchases.find(
+      (item) => item.name === data.name
+    );
+
+    let index = null;
+
+    for (let i = 0; i < state.purchaseProducts.length; i++) {
+      if (state.purchaseProducts[i].name == data.name) {
+        index = i;
+      }
+    }
+
+    if (existingItem) {
+      existingItem.quantity = quantity;
+      existingItem.cartNumber++;
+    } else {
+      data.quantity = quantity;
+      state.cartPurchases.push(data);
+      state.purchaseProducts[index] = data;
+    }
+
+    state.purchaseProperties.totalQuantity = getTotalQuantity(
+      state.cartPurchases
+    );
+    state.purchaseProperties.totalAmount = getTotalPurchaseAmount(
+      state.cartPurchases
+    );
   },
 
   REMOVE_FROM_PURCHASE(state, data) {

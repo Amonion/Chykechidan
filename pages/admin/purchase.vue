@@ -42,7 +42,15 @@
             <div class="das-foot-pa quant" @click="removeProductPurchase(item)">
               -
             </div>
-            <div class="tb-quant">{{ item.quantity }}</div>
+            <div class="tb-quant">
+              <div>{{ item.quantity }}</div>
+              <input
+                class="stock-input"
+                type="text"
+                @change="setQuantity($event, item)"
+              />
+              <!-- {{ item.quantity }} -->
+            </div>
             <div class="das-foot-pa quant" @click="addProductPurchase(item)">
               +
             </div>
@@ -175,6 +183,14 @@ export default {
         `/products/?name=${this.productWord}&limit=20&page=1`
       );
       this.$store.commit("productStore/SET_PURCHASE_PRODUCTS", result.data);
+    },
+
+    setQuantity(e, item) {
+      const payload = {
+        data: item,
+        quantity: e.target.value * 1,
+      };
+      this.$store.commit("productStore/SET_PURCHASE_QUANTITY", payload);
     },
 
     getProducts() {
