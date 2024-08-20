@@ -512,6 +512,9 @@ export default {
         url: `/users/make-user/?&limit=${this.limit}&page=${this.currentPage}`,
       };
       const result = await this.$store.dispatch(`MAKE_POST`, payload);
+
+      // console.log(result.response, result);
+
       if (!result.response) {
         this.$store.commit(`admin/SET_STAFFS`, result.data);
       } else {
